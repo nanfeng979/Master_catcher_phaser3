@@ -6,8 +6,8 @@ let cursors // 接收键盘消息对象的变量
 let limit_space = false // 限制空格连续按键
 let fish1_obj // 存放指定鱼1对象的变量
 let man_can_move_forward_to_x = true // 判断人是否可以继续向x轴方向移动
-// let fishHook_angle = 0 // 鱼钩的角度
-// let fishHook_status = "" // ["left", "stop", "right", "extend_out", "extend_back"] // 鱼钩的摇摆状态
+let fishHook_status = "left" // ["left", "stop", "right", "extend_out", "extend_back"] // 鱼钩的摇摆状态
+let fishHook_is_swinging = true // 表示鱼钩是否在摆动
 
 
 var config = {
@@ -51,17 +51,15 @@ function create ()
     // man.setCollideWorldBounds(true) // 与屏幕碰撞后停止运动
 
     fishHook = this.physics.add.image(canvasWidth / 2, 250, "fishHook")
-    // const angle = 90
-    // fishHook.rotation = angle * Math.PI / 180
-    // const distance = 100
+    fishHook.setOrigin(0, 0)
+    fishHook_init_height = fishHook.y // 定义钩子的初始高度
+
+    // const distance = xuxian.height * 0.3
     // const theta = angle * Math.PI / 180;
     // const dx = -Math.sin(theta) * distance;
     // const dy = Math.cos(theta) * distance;
-    // fishHook.x += dx;
-    // fishHook.y += dy;
-
-    fishHook_init_height = fishHook.y // 定义钩子的初始高度
-    // fishHook.setCollideWorldBounds(true); // 与屏幕碰撞后停止运动
+    // xuxian.x += dx;
+    // xuxian.y += dy;
 
     // 创建鱼1组
     fish1s = this.physics.add.group({
@@ -101,6 +99,8 @@ function update ()
         return
     }
 
+    fishHook_swing()
+
     // 当人到达边界时的事件
     if(man.x <= 67) { // 当人到达左边界时
         man_can_move_forward_to_x = false // 禁止人向x轴移动
@@ -126,6 +126,7 @@ function update ()
         }
         fishHook.y += 1 // 钩子到达原位置后有反弹的现象
         limit_space = false // 恢复按下空格后的限制
+        fishHook_is_swinging = true // 恢复鱼钩的摆动
     }
 
     if(fishHook.y >= canvasHeight - 30) { // 钩子到达底下边界时
@@ -148,6 +149,7 @@ function update ()
         man.x += 5 // 人以5速度向右移动
         fishHook.x += 5 // 钩子以5速度向右移动
     } else if(cursors.space.isDown) {
+        fishHook_is_swinging = false // 停止鱼钩的摆动
         limit_space = true // 打开限制，反之按空格之后响应其它按键操作
         fishHook.setVelocityY(300) // 持续移动的方向与速度
     }
@@ -159,9 +161,31 @@ function update ()
 
 // 自定义函数
 
+// 将弧度转换成角度
+function toAngle(n) {
+    return n * Math.PI / 180
+}
+
 // 钩子与fish1碰撞后的函数
 function fishHook_collid_fish1s(fishHook, fish1) {
     fishHook.setVelocityY(-200) // 钩子以200速度往上移动
     fish1.setVelocityY(-200) // 鱼1以200速度往上移动
     fish1_obj = fish1 // 将特定的fish1对象放到全局，供其它函数使用
+}
+
+// 鱼钩的摆动函数
+function fishHook_swing() {
+    if(!fishHook_is_swinging) { // 鱼钩被限制摆动时
+        return
+    }
+    if(fishHook_status == "left") { // 鱼钩状态是向左摆动
+        fishHook.rotation += toAngle(1) // 每帧向左偏移一度
+    } else if(fishHook_status == "right") { // 鱼钩状态是向右摆动
+        fishHook.rotation -= toAngle(1) // 每帧向右偏移一度
+    }
+    if(fishHook.rotation >= toAngle(60)) { // 偏移达到60度时，开始向左偏移
+        fishHook_status = "right" // 更改偏移方向向左
+    } else if(fishHook.rotation <= toAngle(-45)) { // 偏移达到-45度时，开始向左偏移
+        fishHook_status = "left" // 更改偏移方向向右
+    }
 }
