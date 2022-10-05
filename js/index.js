@@ -136,15 +136,16 @@ function update ()
     }
 
     // 按下键盘后响应指定键盘事件函数
-    if(cursors.left.isDown) {
-        if(!man_can_move_forward_to_x) return // 人和钩子的左右移动被限制
-        man.x -= 5 // 人以5速度向左移动
-        fishHook.x -= 5 // 钩子以5速度向左移动
-    } else if(cursors.right.isDown) {
-        if(!man_can_move_forward_to_x) return // 人和钩子的左右移动被限制
-        man.x += 5 // 人以5速度向右移动
-        fishHook.x += 5 // 钩子以5速度向右移动
-    } else if(cursors.space.isDown) {
+    // if(cursors.left.isDown) {
+    //     if(!man_can_move_forward_to_x) return // 人和钩子的左右移动被限制
+    //     man.x -= 5 // 人以5速度向左移动
+    //     fishHook.x -= 5 // 钩子以5速度向左移动
+    // } else if(cursors.right.isDown) {
+    //     if(!man_can_move_forward_to_x) return // 人和钩子的左右移动被限制
+    //     man.x += 5 // 人以5速度向右移动
+    //     fishHook.x += 5 // 钩子以5速度向右移动
+    // } else 
+    if(cursors.space.isDown) {
         fishHook_is_swinging = false // 停止鱼钩的摆动
         limit_space = true // 打开限制，反之按空格之后响应其它按键操作
         fishHook.setVelocityX(extend_forward_speed * -Math.sin(fishHook.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
