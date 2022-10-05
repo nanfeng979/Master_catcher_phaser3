@@ -6,6 +6,8 @@ let cursors // 接收键盘消息对象的变量
 let limit_space = false // 限制空格连续按键
 let fish1_obj // 存放指定鱼1对象的变量
 let man_can_move_forward_to_x = true // 判断人是否可以继续向x轴方向移动
+// let fishHook_angle = 0 // 鱼钩的角度
+// let fishHook_status = "" // ["left", "stop", "right", "extend_out", "extend_back"] // 鱼钩的摇摆状态
 
 
 var config = {
@@ -33,8 +35,9 @@ function preload ()
 {
     // preload() 预加载资源
     this.load.image("game_cover", "./images/game_cover.png")
-    this.load.image("background", "./images/level-background-0.jpg")
+    this.load.image("background", "./images/game_background.png")
     this.load.image("man", "./images/man.png", 100, 100) // 忘记这俩参数干嘛的了
+    this.load.image("human", "./images/human.png")
     this.load.image("fishHook", "./images/fishHook.png")
     this.load.image("fish1", "./images/fish1.png")
 }
@@ -43,10 +46,20 @@ function create ()
 {
     // create() 创建资源、绑定各种交互函数
     this.add.image(canvasWidth / 2, canvasHeight / 2, "background") // add.image(x,y,objName) 的x和y的obj的中心点位置
-    man = this.physics.add.image(canvasWidth / 2, 140, "man")
+    // man = this.physics.add.image(canvasWidth / 2, 140, "man")
+    man = this.physics.add.image(canvasWidth / 2, 140, "human")
     // man.setCollideWorldBounds(true) // 与屏幕碰撞后停止运动
 
     fishHook = this.physics.add.image(canvasWidth / 2, 250, "fishHook")
+    // const angle = 90
+    // fishHook.rotation = angle * Math.PI / 180
+    // const distance = 100
+    // const theta = angle * Math.PI / 180;
+    // const dx = -Math.sin(theta) * distance;
+    // const dy = Math.cos(theta) * distance;
+    // fishHook.x += dx;
+    // fishHook.y += dy;
+
     fishHook_init_height = fishHook.y // 定义钩子的初始高度
     // fishHook.setCollideWorldBounds(true); // 与屏幕碰撞后停止运动
 
@@ -63,11 +76,11 @@ function create ()
         child.setScale(0.5)
     })
     
-    let a = this.add.image(canvasWidth / 2, canvasHeight / 2, "game_cover")
-    // console.log(this)
-    setTimeout(function(){
-        a.destroy()
-    }, 3000)
+    // 添加封面
+    // let a = this.add.image(canvasWidth / 2, canvasHeight / 2, "game_cover")
+    // setTimeout(function(){
+    //     a.destroy()
+    // }, 3000)
 
 
     // 碰撞响应事件
