@@ -8,7 +8,7 @@ let fish1_obj // 存放指定鱼1对象的变量
 let man_can_move_forward_to_x = true // 判断人是否可以继续向x轴方向移动
 let fishHook_status = "left" // ["left", "stop", "right", "extend_out", "extend_back"] // 鱼钩的摇摆状态
 let fishHook_is_swinging = true // 表示鱼钩是否在摆动
-
+let extend_speed = 200
 
 var config = {
     type: Phaser.AUTO,
@@ -118,6 +118,7 @@ function update ()
 
     // 如果钩子的高度小于钩子的初始高度(钩子伸出再缩回时会触发)
     if(fishHook.y < fishHook_init_height) {
+        fishHook.setVelocityX(0) // 钩子停止移动
         fishHook.setVelocityY(0) // 钩子停止移动
         if(fish1_obj){ // 如果指定fish1存在
             fish1_obj.disableBody(true, true) // 指定fish1消失
@@ -130,7 +131,8 @@ function update ()
     }
 
     if(fishHook.y >= canvasHeight - 30) { // 钩子到达底下边界时
-        fishHook.setVelocityY(-200) // 钩子以200速度向上移动
+        fishHook.setVelocityX(-(extend_speed * -Math.sin(fishHook.rotation))) // 钩子以extend_speed速度往回移动
+        fishHook.setVelocityY(-(extend_speed * Math.cos(fishHook.rotation))) // 钩子以extend_speed速度往回移动
     }
     
 
@@ -151,7 +153,8 @@ function update ()
     } else if(cursors.space.isDown) {
         fishHook_is_swinging = false // 停止鱼钩的摆动
         limit_space = true // 打开限制，反之按空格之后响应其它按键操作
-        fishHook.setVelocityY(300) // 持续移动的方向与速度
+        fishHook.setVelocityX(extend_speed * -Math.sin(fishHook.rotation)) // 钩子以extend_speed速度往目标方向移动
+        fishHook.setVelocityY(extend_speed * Math.cos(fishHook.rotation)) // 钩子以extend_speed速度往目标方向移动
     }
     else {
 
@@ -168,8 +171,10 @@ function toAngle(n) {
 
 // 钩子与fish1碰撞后的函数
 function fishHook_collid_fish1s(fishHook, fish1) {
-    fishHook.setVelocityY(-200) // 钩子以200速度往上移动
-    fish1.setVelocityY(-200) // 鱼1以200速度往上移动
+    fishHook.setVelocityX(-(extend_speed * -Math.sin(fishHook.rotation))) // 钩子以extend_speed速度往回移动
+    fishHook.setVelocityY(-(extend_speed * Math.cos(fishHook.rotation))) // 钩子以extend_speed速度往回移动
+    fish1.setVelocityX(-(extend_speed * -Math.sin(fishHook.rotation))) // 鱼1以extend_speed速度往回移动
+    fish1.setVelocityY(-(extend_speed * Math.cos(fishHook.rotation))) // 鱼1以extend_speed速度往回移动
     fish1_obj = fish1 // 将特定的fish1对象放到全局，供其它函数使用
 }
 
