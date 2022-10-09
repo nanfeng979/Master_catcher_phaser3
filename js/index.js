@@ -41,6 +41,7 @@ function preload ()
     this.load.image("human", "./images/human.png")
     this.load.image("fishHook", "./images/fishHook.png")
     this.load.image("fish1", "./images/fish1.png")
+    this.load.image("blue", "./images/blue.png")
 }
 
 function create ()
@@ -51,7 +52,8 @@ function create ()
     man = this.physics.add.image(canvasWidth / 2, 140, "human")
     // man.setCollideWorldBounds(true) // 与屏幕碰撞后停止运动
 
-    fishHook = this.physics.add.image(canvasWidth / 2, 250, "fishHook")
+    // fishHook = this.physics.add.image(canvasWidth / 2, 250, "fishHook")
+    fishHook = this.physics.add.image(-100, 250, "fishHook")
     fishHook.setOrigin(0, 0)
     fishHook_init_height = fishHook.y // 定义钩子的初始高度
 
@@ -67,6 +69,32 @@ function create ()
         child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
         child.setScale(0.5)
     })
+
+    // 作业需要
+    // fish1s = this.physics.add.image(150, 400, "fish1").setScale(0.5)
+    // this.tweens.add({
+    //     targets: fish1s,
+    //     props: {
+    //         x: { value: 1000, duration: 4000, flipX: true },
+    //         y: { value: 600, duration: 8000,  },
+    //     },
+    //     ease: 'Sine.easeInOut',
+    //     yoyo: true,
+    //     repeat: -1
+    // })
+
+    // let blue = this.add.particles('blue');
+    // blue.createEmitter({
+    //     x: 200,
+    //     y: 120,
+    //     angle: { min: 250, max: 290 },
+    //     speed: 180,
+    //     gravityY: 100,
+    //     lifespan: 3000,
+    //     quantity: 3,
+    //     scale: { start: 0.1, end: 0.2 },
+    //     blendMode: 'ADD'
+    // });
     
     // 添加封面
     // let a = this.add.image(canvasWidth / 2, canvasHeight / 2, "game_cover")
