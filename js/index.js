@@ -196,6 +196,8 @@ function toAngle(n) {
 
 // 钩子与fish1碰撞后的函数
 function harpoon_collid_fish1s(null_, fish1) {
+    fish1.x = null_.x // 鱼叉碰到后会将鱼吸附到鱼叉头处
+    fish1.y = null_.y
     harpoon.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
     harpoon.setVelocityY(-(extend_back_speed * Math.cos(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
     fish1.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 鱼1以extend_back_speed速度往回移动
