@@ -20,7 +20,7 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: 0,
-            debug: false
+            debug: true
         }
     }, // 开启物理引擎并配置
     scene: {
@@ -117,7 +117,7 @@ function update ()
         return
     }
 
-    harpoon_swing()
+    harpoon_swing() // 鱼叉的摇摆函数
 
     // 当人到达边界时的事件
     if(man.x <= 67) { // 当人到达左边界时
