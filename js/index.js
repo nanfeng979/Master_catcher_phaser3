@@ -39,7 +39,7 @@ function preload ()
     this.load.image("background", "./images/game_background.png")
     this.load.image("fish1", "./images/fish1.png")
     this.load.image("man", "/images/no_weapon_man.png")
-    this.load.image("harpoon", "./images/harpoon1.png")
+    this.load.image("harpoon", "./images/harpoon2_2.png")
 }
 
 function create ()
@@ -48,7 +48,7 @@ function create ()
     this.add.image(canvasWidth / 2, canvasHeight / 2, "background") // add.image(x,y,objName) 的x和y的obj的中心点位置
     man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)
 
-    harpoon = this.physics.add.image(canvasWidth / 2 - 30, 80, "harpoon").setScale(0.4)
+    harpoon = this.physics.add.image(canvasWidth / 2 - 30, 70, "harpoon")
 
     harpoon.setOrigin(0, 0)
     harpoon_init_height = harpoon.y // 定义钩子的初始高度
