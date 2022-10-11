@@ -40,6 +40,7 @@ function preload ()
     this.load.image("fish1", "./images/fish1.png")
     this.load.image("man", "/images/no_weapon_man.png")
     this.load.image("harpoon", "./images/harpoon2_2.png")
+    this.load.image("null_", "./images/null.png") // 引入透明贴图
 }
 
 function create ()
@@ -52,6 +53,8 @@ function create ()
 
     harpoon.setOrigin(0, 0)
     harpoon_init_height = harpoon.y // 定义钩子的初始高度
+
+    null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
 
     // 创建鱼1组
     fish1s = this.physics.add.group({
@@ -102,7 +105,7 @@ function create ()
     // 碰撞响应事件
 
     // 添加钩子与鱼1组的碰撞响应函数 
-    this.physics.add.collider(harpoon, fish1s, harpoon_collid_fish1s, null, this)
+    this.physics.add.collider(null_, fish1s, harpoon_collid_fish1s, null, this)
 
     // 键盘响应事件
     cursors = this.input.keyboard.createCursorKeys();
@@ -116,6 +119,9 @@ function update ()
     if(is_gameOver) {
         return
     }
+
+    null_.x = harpoon.x + harpoon.width / 2 + ((extend_back_speed - 60) * -Math.sin(harpoon.rotation))
+    null_.y = harpoon.y + harpoon.height - null_.height / 2
 
     harpoon_swing() // 鱼叉的摇摆函数
 
@@ -189,7 +195,7 @@ function toAngle(n) {
 }
 
 // 钩子与fish1碰撞后的函数
-function harpoon_collid_fish1s(harpoon, fish1) {
+function harpoon_collid_fish1s(null_, fish1) {
     harpoon.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
     harpoon.setVelocityY(-(extend_back_speed * Math.cos(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
     fish1.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 鱼1以extend_back_speed速度往回移动
