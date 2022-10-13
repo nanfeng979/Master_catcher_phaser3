@@ -36,6 +36,7 @@ function preload ()
 {
     // preload() 预加载资源
     this.load.image("game_cover", "./images/game_cover.png")
+    this.load.image("game_start_loading", "./images/game_start_loading.png") // 引入游戏加载页面
     this.load.image("background", "./images/game_background.png")
     this.load.image("fish1", "./images/fish1.png")
     this.load.image("man", "/images/no_weapon_man.png")
@@ -96,6 +97,10 @@ function create ()
     // });
     
     // 添加封面
+    // let b = this.add.image(canvasWidth / 2, canvasHeight / 2, "game_start_loading")
+    // setTimeout(function(){
+    //     b.destroy()
+    // }, 6000)
     // let a = this.add.image(canvasWidth / 2, canvasHeight / 2, "game_cover")
     // setTimeout(function(){
     //     a.destroy()
@@ -109,6 +114,13 @@ function create ()
 
     // 键盘响应事件
     cursors = this.input.keyboard.createCursorKeys();
+    // 鼠标响应事件 // todo，改成上面那样
+    this.input.on('pointerdown', () => {
+        harpoon_is_swinging = false // 停止鱼钩的摆动
+        limit_space = true // 打开限制，反之按空格之后响应其它按键操作
+        harpoon.setVelocityX(extend_forward_speed * -Math.sin(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
+        harpoon.setVelocityY(extend_forward_speed * Math.cos(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
+      });
 
 }
 
