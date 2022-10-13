@@ -39,6 +39,9 @@ function preload ()
     this.load.image("game_start_loading", "./images/game_start_loading.png") // 引入游戏加载页面
     this.load.image("background", "./images/game_background.png")
     this.load.image("fish1", "./images/fish1.png")
+    this.load.image("fish2", "./images/fish2.png")
+    this.load.image("fish3", "./images/fish3.png")
+    this.load.image("fish4", "./images/fish4.png")
     this.load.image("man", "/images/no_weapon_man.png")
     this.load.image("harpoon", "./images/harpoon2_2.png")
     this.load.image("null_", "./images/null.png") // 引入透明贴图作为鱼叉头虚拟空间
@@ -65,6 +68,45 @@ function create ()
     });
     // 重新管理鱼1组的每个对象
     fish1s.children.iterate(function (child) {
+        child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+        child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+        child.setScale(0.5)
+    })
+
+    // 创建鱼2组
+    fish2s = this.physics.add.group({
+        key: 'fish2',
+        repeat: 5,
+        setXY: { x: 150, y: 450, stepX: 1280/5 }
+    });
+    // 重新管理鱼2组的每个对象
+    fish2s.children.iterate(function (child) {
+        child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+        child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+        child.setScale(0.3)
+    })
+
+    // 创建鱼3组
+    fish3s = this.physics.add.group({
+        key: 'fish3',
+        repeat: 5,
+        setXY: { x: 150, y: 450, stepX: 1280/5 }
+    });
+    // 重新管理鱼3组的每个对象
+    fish3s.children.iterate(function (child) {
+        child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+        child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+        child.setScale(0.5)
+    })
+
+    // 创建鱼4组
+    fish4s = this.physics.add.group({
+        key: 'fish4',
+        repeat: 5,
+        setXY: { x: 150, y: 450, stepX: 1280/5 }
+    });
+    // 重新管理鱼4组的每个对象
+    fish4s.children.iterate(function (child) {
         child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
         child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
         child.setScale(0.5)
@@ -110,7 +152,13 @@ function create ()
     // 碰撞响应事件
 
     // 添加钩子与鱼1组的碰撞响应函数 
-    this.physics.add.collider(null_, fish1s, harpoon_collid_fish1s, null, this)
+    this.physics.add.collider(null_, fish1s, harpoon_collid_fishs, null, this)
+    // 添加钩子与鱼1组的碰撞响应函数 
+    this.physics.add.collider(null_, fish2s, harpoon_collid_fishs, null, this)
+    // 添加钩子与鱼1组的碰撞响应函数 
+    this.physics.add.collider(null_, fish3s, harpoon_collid_fishs, null, this)
+    // 添加钩子与鱼1组的碰撞响应函数 
+    this.physics.add.collider(null_, fish4s, harpoon_collid_fishs, null, this)
 
     // 键盘响应事件
     cursors = this.input.keyboard.createCursorKeys();
@@ -207,14 +255,14 @@ function toAngle(n) {
 }
 
 // 钩子与fish1碰撞后的函数
-function harpoon_collid_fish1s(null_, fish1) {
-    fish1.x = null_.x // 鱼叉碰到后会将鱼吸附到鱼叉头处
-    fish1.y = null_.y
+function harpoon_collid_fishs(null_, fish) {
+    fish.x = null_.x // 鱼叉碰到后会将鱼吸附到鱼叉头处
+    fish.y = null_.y
     harpoon.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
     harpoon.setVelocityY(-(extend_back_speed * Math.cos(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
-    fish1.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 鱼1以extend_back_speed速度往回移动
-    fish1.setVelocityY(-(extend_back_speed * Math.cos(harpoon.rotation))) // 鱼1以extend_back_speed速度往回移动
-    fish1_obj = fish1 // 将特定的fish1对象放到全局，供其它函数使用
+    // fish1.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 鱼1以extend_back_speed速度往回移动
+    // fish1.setVelocityY(-(extend_back_speed * Math.cos(harpoon.rotation))) // 鱼1以extend_back_speed速度往回移动
+    fish1_obj = fish // 将特定的fish1对象放到全局，供其它函数使用
 }
 
 // 鱼钩的摆动函数
