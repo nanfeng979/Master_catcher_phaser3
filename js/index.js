@@ -41,7 +41,7 @@ function preload ()
     this.load.image("fish1", "./images/fish1.png")
     this.load.image("man", "/images/no_weapon_man.png")
     this.load.image("harpoon", "./images/harpoon2_2.png")
-    this.load.image("null_", "./images/null.png") // 引入透明贴图
+    this.load.image("null_", "./images/null.png") // 引入透明贴图作为鱼叉头虚拟空间
 }
 
 function create ()
@@ -132,8 +132,8 @@ function update ()
         return
     }
 
-    null_.x = harpoon.x + harpoon.width / 2 + ((extend_back_speed - 60) * -Math.sin(harpoon.rotation))
-    null_.y = harpoon.y + harpoon.height - null_.height / 2
+    null_.x = harpoon.x + harpoon.width / 2 + ((extend_back_speed - 60) * -Math.sin(harpoon.rotation)) // 实时更新鱼叉头虚拟空间的x轴
+    null_.y = harpoon.y + harpoon.height - null_.height / 2 - Math.abs(((30) * Math.sin(harpoon.rotation))) // 实时更新鱼叉头虚拟空间的y轴
 
     harpoon_swing() // 鱼叉的摇摆函数
 
@@ -229,7 +229,7 @@ function harpoon_swing() {
     }
     if(harpoon.rotation >= toAngle(60)) { // 偏移达到60度时，开始向左偏移
         harpoon_status = "right" // 更改偏移方向向左
-    } else if(harpoon.rotation <= toAngle(-45)) { // 偏移达到-45度时，开始向左偏移
+    } else if(harpoon.rotation <= toAngle(-55)) { // 偏移达到-55度时，开始向左偏移
         harpoon_status = "left" // 更改偏移方向向右
     }
 }
