@@ -11,28 +11,12 @@ let harpoon_is_swinging = true // 表示鱼钩是否在摆动
 let extend_forward_speed = 300 // 鱼钩伸出时的速度
 let extend_back_speed = 200 // 鱼钩伸回时的速度
 
-var config = {
-    type: Phaser.AUTO,
-    width: canvasWidth,
-    height: canvasHeight,
-    parent: "frame", // 将整个屏幕放在id=frame的DOM节点内
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: 0,
-            debug: true
-        }
-    }, // 开启物理引擎并配置
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
-
-var game = new Phaser.Game(config);
-
-function preload ()
+let gaming_scene = {
+    preload: gaming_scene_preload,
+    create: gaming_scene_create,
+    update: gaming_scene_update
+}
+function gaming_scene_preload ()
 {
     // preload() 预加载资源
     this.load.image("game_cover", "./images/game_cover.png")
@@ -47,7 +31,7 @@ function preload ()
     this.load.image("null_", "./images/null.png") // 引入透明贴图作为鱼叉头虚拟空间
 }
 
-function create ()
+function gaming_scene_create ()
 {
     // create() 创建资源、绑定各种交互函数
     this.add.image(canvasWidth / 2, canvasHeight / 2, "background") // add.image(x,y,objName) 的x和y的obj的中心点位置
@@ -172,7 +156,7 @@ function create ()
 
 }
 
-function update ()
+function gaming_scene_update ()
 {
     // update() 实时监测
     // 判断游戏是否结束
@@ -245,6 +229,24 @@ function update ()
 
     }
 }
+
+// 配置环境
+var config = {
+    type: Phaser.AUTO,
+    width: canvasWidth,
+    height: canvasHeight,
+    parent: "frame", // 将整个屏幕放在id=frame的DOM节点内
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: 0,
+            debug: true
+        }
+    }, // 开启物理引擎并配置
+    scene: gaming_scene
+};
+
+var game = new Phaser.Game(config);
 
 
 // 自定义函数
