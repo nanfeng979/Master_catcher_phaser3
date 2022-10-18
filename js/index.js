@@ -255,15 +255,24 @@ let game_first_open = {
 let game_chose_level = {
     preload: function () {
         this.load.image("game_chose_level", "./images/game_chose_level.png")
+        this.load.image("area", "./images/touming_xiangsu.png")
     },
     create: function () {
         this.add.image(canvasWidth / 2, canvasHeight / 2, "game_chose_level")
+        let area_scale_x = 160
+        let area_scale_y = 180
+        let area = this.add.image(630, 350, "area").setScale(area_scale_x, area_scale_y)
         // 控制游戏选择关卡点击后该点击事件不会继承到后面场景
-        let game_chose_level_input = true // 
-        this.input.on("pointerdown", () => {
-            if(game_chose_level_input) {
-                this.scene.add("gaming_scene", gaming_scene, true)
-                game_chose_level_input = false
+        let game_chose_level_input = true // 控制变量为真
+        this.input.on("pointerdown", (pointer) => {
+            if(game_chose_level_input) { // 当控制变量为真时
+                if(pointer.x >= area.x - area.width * area_scale_x / 2 && pointer.x <= area.x + area.width * area_scale_x / 2) {
+                    if(pointer.y >= area.y - area.height * area_scale_y / 2 && pointer.y <= area.y + area.height * area_scale_y / 2) {
+                        // 鼠标在热区内
+                        this.scene.add("gaming_scene", gaming_scene, true) // 切换场景
+                        game_chose_level_input = false // 控制变量为假
+                    }
+                }
             }
         })
     }
@@ -282,7 +291,7 @@ var config = {
             debug: true
         }
     }, // 开启物理引擎并配置
-    scene: game_first_open
+    scene: game_chose_level // game_first_open
 };
 
 var game = new Phaser.Game(config);
