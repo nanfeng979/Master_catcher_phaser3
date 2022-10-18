@@ -258,8 +258,13 @@ let game_chose_level = {
     },
     create: function () {
         this.add.image(canvasWidth / 2, canvasHeight / 2, "game_chose_level")
+        // 控制游戏选择关卡点击后该点击事件不会继承到后面场景
+        let game_chose_level_input = true // 
         this.input.on("pointerdown", () => {
-            this.scene.add("gaming_scene", gaming_scene, true)
+            if(game_chose_level_input) {
+                this.scene.add("gaming_scene", gaming_scene, true)
+                game_chose_level_input = false
+            }
         })
     }
 }
