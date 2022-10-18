@@ -246,8 +246,21 @@ let game_first_open = {
             game_cover.destroy()
         }, 2000)
         setTimeout(function(){
-            _this.scene.add("gaming_scene", gaming_scene, true)
+            _this.scene.add("game_chose_level", game_chose_level, true)
         }, 5000)
+    }
+}
+
+// 选择关卡页面
+let game_chose_level = {
+    preload: function () {
+        this.load.image("game_chose_level", "./images/game_chose_level.png")
+    },
+    create: function () {
+        this.add.image(canvasWidth / 2, canvasHeight / 2, "game_chose_level")
+        this.input.on("pointerdown", () => {
+            this.scene.add("gaming_scene", gaming_scene, true)
+        })
     }
 }
 
