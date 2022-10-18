@@ -16,11 +16,11 @@ let gaming_scene = {
     create: gaming_scene_create,
     update: gaming_scene_update
 }
+
 function gaming_scene_preload ()
 {
     // preload() 预加载资源
     this.load.image("game_cover", "./images/game_cover.png")
-    this.load.image("game_start_loading", "./images/game_start_loading.png") // 引入游戏加载页面
     this.load.image("background", "./images/game_background.png")
     this.load.image("fish1", "./images/fish1.png")
     this.load.image("fish2", "./images/fish2.png")
@@ -40,7 +40,8 @@ function gaming_scene_create ()
     harpoon = this.physics.add.image(canvasWidth / 2 - 30, 70, "harpoon")
 
     harpoon.setOrigin(0, 0)
-    harpoon_init_height = harpoon.y // 定义钩子的初始高度
+    harpoon_init_width = harpoon.x // 定义钩子的初始x轴位置
+    harpoon_init_height = harpoon.y // 定义钩子的初始y轴位置
 
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
 
@@ -165,7 +166,7 @@ function gaming_scene_update ()
     }
 
     null_.x = harpoon.x + harpoon.width / 2 + ((extend_back_speed - 60) * -Math.sin(harpoon.rotation)) // 实时更新鱼叉头虚拟空间的x轴
-    null_.y = harpoon.y + harpoon.height - null_.height / 2 - Math.abs(((30) * Math.sin(harpoon.rotation))) // 实时更新鱼叉头虚拟空间的y轴
+    null_.y = harpoon.y + harpoon.height - null_.height / 2 - Math.abs(((30) * Math.sin(harpoon.rotation))) * 2 // 实时更新鱼叉头虚拟空间的y轴
 
     harpoon_swing() // 鱼叉的摇摆函数
 
@@ -193,7 +194,8 @@ function gaming_scene_update ()
             fish1_obj.setVelocityY(0) // 指定fish1停止移动
             fish1_obj = null // 指定fish1消失后就变为null
         }
-        harpoon.y += 1 // 钩子到达原位置后有反弹的现象
+        harpoon.x = harpoon_init_width // 钩子x轴恢复到初始x轴
+        harpoon.y = harpoon_init_height // 钩子y轴恢复到初始y轴
         limit_space = false // 恢复按下空格后的限制
         harpoon_is_swinging = true // 恢复鱼钩的摆动
     }
@@ -230,6 +232,25 @@ function gaming_scene_update ()
     }
 }
 
+// 游戏一开始时的场景
+let game_first_open = {
+    preload : function () {
+        this.load.image("game_cover", "./images/game_cover.png") // 引入游戏封面
+        this.load.image("game_start_loading", "./images/game_start_loading.png") // 引入游戏加载页面
+    },
+    create: function () {
+        _this = this
+        this.add.image(canvasWidth / 2, canvasHeight / 2, "game_start_loading")
+        game_cover = this.add.image(canvasWidth / 2, canvasHeight / 2, "game_cover")
+        setTimeout(function() {
+            game_cover.destroy()
+        }, 2000)
+        setTimeout(function(){
+            _this.scene.add("gaming_scene", gaming_scene, true)
+        }, 5000)
+    }
+}
+
 // 配置环境
 var config = {
     type: Phaser.AUTO,
@@ -243,7 +264,7 @@ var config = {
             debug: true
         }
     }, // 开启物理引擎并配置
-    scene: gaming_scene
+    scene: game_first_open
 };
 
 var game = new Phaser.Game(config);
