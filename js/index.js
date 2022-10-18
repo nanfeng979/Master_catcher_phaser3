@@ -235,8 +235,36 @@ let game_first_open = {
             game_cover.destroy()
         }, 2000)
         setTimeout(function(){
-            _this.scene.add("game_chose_level", game_chose_level, true)
+            // _this.scene.add("game_chose_level", game_chose_level, true)
+            _this.scene.add("char_chose", char_chose, true)
         }, 5000)
+    }
+}
+
+// 选择角色页面
+let char_chose = {
+    preload: function () {
+        this.load.image("char_chose", "./images/角色选择界面.png")
+        this.load.image("area", "./images/touming_xiangsu.png")
+    },
+    create: function () {
+        this.add.image(canvasWidth / 2, canvasHeight / 2, "char_chose")
+        let area_scale_x = 150
+        let area_scale_y = 55
+        let area = this.add.image(1000, 545, "area").setScale(area_scale_x, area_scale_y)
+        // 控制角色选择确定点击后该点击事件不会继承到后面场景
+        let game_chose_level_input = true // 控制变量为真
+        this.input.on("pointerdown", (pointer) => {
+            if(game_chose_level_input) { // 当控制变量为真时
+                if(pointer.x >= area.x - area.width * area_scale_x / 2 && pointer.x <= area.x + area.width * area_scale_x / 2) {
+                    if(pointer.y >= area.y - area.height * area_scale_y / 2 && pointer.y <= area.y + area.height * area_scale_y / 2) {
+                        // 鼠标在热区内
+                        this.scene.add("game_chose_level", game_chose_level, true) // 切换场景
+                        game_chose_level_input = false // 控制变量为假
+                    }
+                }
+            }
+        })
     }
 }
 
@@ -280,7 +308,7 @@ var config = {
             debug: true
         }
     }, // 开启物理引擎并配置
-    scene: gaming_scene // game_chose_level // game_first_open
+    scene: char_chose // game_first_open // game_chose_level // gaming_scene // 
 };
 
 var game = new Phaser.Game(config);
