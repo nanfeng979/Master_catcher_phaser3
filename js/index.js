@@ -20,7 +20,6 @@ let gaming_scene = {
 function gaming_scene_preload ()
 {
     // preload() 预加载资源
-    this.load.image("game_cover", "./images/game_cover.png")
     this.load.image("background", "./images/game_background.png")
     this.load.image("fish1", "./images/fish1.png")
     this.load.image("fish2", "./images/fish2.png")
@@ -122,17 +121,6 @@ function gaming_scene_create ()
     //     scale: { start: 0.1, end: 0.2 },
     //     blendMode: 'ADD'
     // });
-    
-    // 添加封面
-    // let b = this.add.image(canvasWidth / 2, canvasHeight / 2, "game_start_loading")
-    // setTimeout(function(){
-    //     b.destroy()
-    // }, 6000)
-    // let a = this.add.image(canvasWidth / 2, canvasHeight / 2, "game_cover")
-    // setTimeout(function(){
-    //     a.destroy()
-    // }, 3000)
-
 
     // 碰撞响应事件
 
@@ -183,7 +171,6 @@ function gaming_scene_update ()
         man_can_move_forward_to_x = true // 恢复人向x轴移动
     }
 
-    
 
     // 如果钩子的高度小于钩子的初始高度(钩子伸出再缩回时会触发)
     if(harpoon.y < harpoon_init_height) {
@@ -211,16 +198,6 @@ function gaming_scene_update ()
         return
     }
 
-    // 按下键盘后响应指定键盘事件函数
-    // if(cursors.left.isDown) {
-    //     if(!man_can_move_forward_to_x) return // 人和钩子的左右移动被限制
-    //     man.x -= 5 // 人以5速度向左移动
-    //     harpoon.x -= 5 // 钩子以5速度向左移动
-    // } else if(cursors.right.isDown) {
-    //     if(!man_can_move_forward_to_x) return // 人和钩子的左右移动被限制
-    //     man.x += 5 // 人以5速度向右移动
-    //     harpoon.x += 5 // 钩子以5速度向右移动
-    // } else 
     if(cursors.space.isDown) {
         harpoon_is_swinging = false // 停止鱼钩的摆动
         limit_space = true // 打开限制，反之按空格之后响应其它按键操作
