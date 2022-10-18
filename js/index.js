@@ -31,12 +31,14 @@ function gaming_scene_preload ()
     this.load.image("harpoon", "./images/harpoon2_2.png")
     this.load.image("null_", "./images/null.png") // 引入透明贴图作为鱼叉头虚拟空间
     this.load.image("xuxian", "./images/xuxian.png") // 引入虚线
+    this.load.image("bk1", "./images/游戏场景1.png") // 引入游戏背景1
 }
 
 function gaming_scene_create ()
 {
     // create() 创建资源、绑定各种交互函数
-    this.add.image(canvasWidth / 2, canvasHeight / 2, "background") // add.image(x,y,objName) 的x和y的obj的中心点位置
+    // this.add.image(canvasWidth / 2, canvasHeight / 2, "background") // add.image(x,y,objName) 的x和y的obj的中心点位置
+    this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
     man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)
 
     harpoon = this.physics.add.image(canvasWidth / 2 - 30, 70, "harpoon")
@@ -45,7 +47,7 @@ function gaming_scene_create ()
     harpoon_init_width = harpoon.x // 定义钩子的初始x轴位置
     harpoon_init_height = harpoon.y // 定义钩子的初始y轴位置
 
-    xuxian = this.add.image(canvasWidth / 2, 200, "xuxian")
+    xuxian = this.add.image(canvasWidth / 2, -200, "xuxian")
     xuxian.setOrigin(0.5, 0)
 
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
