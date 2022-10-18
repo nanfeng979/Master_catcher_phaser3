@@ -11,6 +11,7 @@ let harpoon_is_swinging = true // 表示鱼钩是否在摆动
 let extend_forward_speed = 300 // 鱼钩伸出时的速度
 let extend_back_speed = 200 // 鱼钩伸回时的速度
 let xuxian_is_swinging = true // 表示虚线是否在摆动
+let xuxian_angle = 0 // 虚线的角度
 
 let gaming_scene = {
     preload: gaming_scene_preload,
@@ -143,6 +144,7 @@ function gaming_scene_create ()
     // 鼠标响应事件 // todo，改成上面那样
     this.input.on('pointerdown', () => {
         harpoon_is_swinging = false // 停止鱼钩的摆动
+        xuxian_is_swinging = false // 停止虚线的摆动
         limit_space = true // 打开限制，反之按空格之后响应其它按键操作
         harpoon.setVelocityX(extend_forward_speed * -Math.sin(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
         harpoon.setVelocityY(extend_forward_speed * Math.cos(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
@@ -191,6 +193,7 @@ function gaming_scene_update ()
         harpoon.y = harpoon_init_height // 钩子y轴恢复到初始y轴
         limit_space = false // 恢复按下空格后的限制
         harpoon_is_swinging = true // 恢复鱼钩的摆动
+        xuxian_is_swinging = true // 恢复虚线的摆动
     }
 
     if(harpoon.y >= canvasHeight - 30) { // 钩子到达底下边界时
@@ -206,6 +209,7 @@ function gaming_scene_update ()
 
     if(cursors.space.isDown) {
         harpoon_is_swinging = false // 停止鱼钩的摆动
+        xuxian_is_swinging = false // 停止虚线的摆动
         limit_space = true // 打开限制，反之按空格之后响应其它按键操作
         harpoon.setVelocityX(extend_forward_speed * -Math.sin(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
         harpoon.setVelocityY(extend_forward_speed * Math.cos(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
@@ -314,23 +318,11 @@ function harpoon_swing() {
         harpoon_status = "left" // 更改偏移方向向右
     }
 }
-step = 0
 
 function xuxian_swing() {
     if(!xuxian_is_swinging) { // 鱼钩被限制摆动时
         return
     }
-    // if(xuxian.rotation >= toAngle(45)) {
-    //     step = -Math.abs(step)
-    // } else if(xuxian.rotation <= toAngle(-45)) {
-    //     step = Math.abs(step)
-    // }
-    // if(xuxian.rotation <= toAngle(45) && xuxian.rotation >= toAngle(-45)) {
-    //     step = -Math.abs(step)
-    // } else {
-    //     step = Math.abs(step)
-    // }
-    // console.log(xuxian.rotation)
-    step += 0.04
-    xuxian.rotation = Math.sin(step) * 1.5
+    xuxian_angle += 1.3
+    xuxian.rotation = Math.sin(xuxian_angle * Math.PI / 180) * 1.5
 }
