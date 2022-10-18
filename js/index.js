@@ -10,6 +10,7 @@ let harpoon_status = "left" // ["left", "stop", "right", "extend_out", "extend_b
 let harpoon_is_swinging = true // 表示鱼钩是否在摆动
 let extend_forward_speed = 300 // 鱼钩伸出时的速度
 let extend_back_speed = 200 // 鱼钩伸回时的速度
+let xuxian_is_swinging = true // 表示虚线是否在摆动
 
 let gaming_scene = {
     preload: gaming_scene_preload,
@@ -28,6 +29,7 @@ function gaming_scene_preload ()
     this.load.image("man", "/images/no_weapon_man.png")
     this.load.image("harpoon", "./images/harpoon2_2.png")
     this.load.image("null_", "./images/null.png") // 引入透明贴图作为鱼叉头虚拟空间
+    this.load.image("xuxian", "./images/xuxian.png") // 引入虚线
 }
 
 function gaming_scene_create ()
@@ -41,6 +43,9 @@ function gaming_scene_create ()
     harpoon.setOrigin(0, 0)
     harpoon_init_width = harpoon.x // 定义钩子的初始x轴位置
     harpoon_init_height = harpoon.y // 定义钩子的初始y轴位置
+
+    xuxian = this.add.image(canvasWidth / 2, 200, "xuxian")
+    xuxian.setOrigin(0.5, 0)
 
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
 
@@ -157,6 +162,7 @@ function gaming_scene_update ()
     null_.y = harpoon.y + harpoon.height - null_.height / 2 - Math.abs(((30) * Math.sin(harpoon.rotation))) * 2 // 实时更新鱼叉头虚拟空间的y轴
 
     harpoon_swing() // 鱼叉的摇摆函数
+    xuxian_swing() // 虚线的摇摆函数
 
     // 当人到达边界时的事件
     if(man.x <= 67) { // 当人到达左边界时
@@ -268,7 +274,7 @@ var config = {
             debug: true
         }
     }, // 开启物理引擎并配置
-    scene: game_chose_level // game_first_open
+    scene: gaming_scene // game_chose_level // game_first_open
 };
 
 var game = new Phaser.Game(config);
@@ -307,4 +313,24 @@ function harpoon_swing() {
     } else if(harpoon.rotation <= toAngle(-55)) { // 偏移达到-55度时，开始向左偏移
         harpoon_status = "left" // 更改偏移方向向右
     }
+}
+step = 0
+
+function xuxian_swing() {
+    if(!xuxian_is_swinging) { // 鱼钩被限制摆动时
+        return
+    }
+    // if(xuxian.rotation >= toAngle(45)) {
+    //     step = -Math.abs(step)
+    // } else if(xuxian.rotation <= toAngle(-45)) {
+    //     step = Math.abs(step)
+    // }
+    // if(xuxian.rotation <= toAngle(45) && xuxian.rotation >= toAngle(-45)) {
+    //     step = -Math.abs(step)
+    // } else {
+    //     step = Math.abs(step)
+    // }
+    // console.log(xuxian.rotation)
+    step += 0.04
+    xuxian.rotation = Math.sin(step) * 1.5
 }
