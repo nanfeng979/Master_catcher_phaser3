@@ -54,7 +54,7 @@ function gaming_scene_create ()
 
     // 创建鱼1组
     fish1s = this.physics.add.group({
-        key: 'fish1',
+        key: ['fish1', "fish2", "fish3", "fish4"],
         repeat: 5,
         setXY: { x: 150, y: 450, stepX: 1280/5 }
     });
@@ -262,8 +262,22 @@ let char_chose = {
                     if(pointer.y >= area.y - area.height * area_scale_y / 2 && pointer.y <= area.y + area.height * area_scale_y / 2) {
                         // 鼠标在热区内
                         this.scene.add("game_chose_level", game_chose_level, true) // 切换场景
+                        document.querySelector("body").style.cursor = "default"
                         game_chose_level_input = false // 控制变量为假
                     }
+                }
+            }
+        })
+        this.input.on("pointermove", (pointer) => {
+            if(game_chose_level_input) { // 当控制变量为真时
+                if(pointer.x >= area.x - area.width * area_scale_x / 2 && pointer.x <= area.x + area.width * area_scale_x / 2) {
+                    if(pointer.y >= area.y - area.height * area_scale_y / 2 && pointer.y <= area.y + area.height * area_scale_y / 2) {
+                        // 鼠标在热区内
+                        document.querySelector("body").style.cursor = "pointer"
+                    }
+                }
+                else {
+                    document.querySelector("body").style.cursor = "default"
                 }
             }
         })
@@ -289,8 +303,22 @@ let game_chose_level = {
                     if(pointer.y >= area.y - area.height * area_scale_y / 2 && pointer.y <= area.y + area.height * area_scale_y / 2) {
                         // 鼠标在热区内
                         this.scene.add("gaming_scene", gaming_scene, true) // 切换场景
+                        document.querySelector("body").style.cursor = "default"
                         game_chose_level_input = false // 控制变量为假
                     }
+                }
+            }
+        })
+        this.input.on("pointermove", (pointer) => {
+            if(game_chose_level_input) { // 当控制变量为真时
+                if(pointer.x >= area.x - area.width * area_scale_x / 2 && pointer.x <= area.x + area.width * area_scale_x / 2) {
+                    if(pointer.y >= area.y - area.height * area_scale_y / 2 && pointer.y <= area.y + area.height * area_scale_y / 2) {
+                        // 鼠标在热区内
+                        document.querySelector("body").style.cursor = "pointer"
+                    }
+                }
+                else {
+                    document.querySelector("body").style.cursor = "default"
                 }
             }
         })
