@@ -43,11 +43,11 @@ function gaming_scene_create ()
 
     harpoon = this.physics.add.image(canvasWidth / 2 - 30, 70, "harpoon")
 
-    harpoon.setOrigin(0, 0)
+    harpoon.setOrigin(0.5, 0)
     harpoon_init_width = harpoon.x // 定义钩子的初始x轴位置
     harpoon_init_height = harpoon.y // 定义钩子的初始y轴位置
 
-    xuxian = this.add.image(canvasWidth / 2, -200, "xuxian")
+    xuxian = this.add.image(canvasWidth / 2 - 30, 70, "xuxian").setScale(0.5, 2)
     xuxian.setOrigin(0.5, 0)
 
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
@@ -165,7 +165,7 @@ function gaming_scene_update ()
     null_.x = harpoon.x + harpoon.width / 2 + ((extend_back_speed - 60) * -Math.sin(harpoon.rotation)) // 实时更新鱼叉头虚拟空间的x轴
     null_.y = harpoon.y + harpoon.height - null_.height / 2 - Math.abs(((30) * Math.sin(harpoon.rotation))) * 2 // 实时更新鱼叉头虚拟空间的y轴
 
-    harpoon_swing() // 鱼叉的摇摆函数
+    // harpoon_swing() // 鱼叉的摇摆函数
     xuxian_swing() // 虚线的摇摆函数
 
     // 当人到达边界时的事件
@@ -186,6 +186,7 @@ function gaming_scene_update ()
     if(harpoon.y < harpoon_init_height) {
         harpoon.setVelocityX(0) // 钩子停止移动
         harpoon.setVelocityY(0) // 钩子停止移动
+        harpoon.rotation = 0
         if(fish1_obj){ // 如果指定fish1存在
             fish1_obj.disableBody(true, true) // 指定fish1消失
             fish1_obj.setVelocityY(0) // 指定fish1停止移动
@@ -213,6 +214,7 @@ function gaming_scene_update ()
         harpoon_is_swinging = false // 停止鱼钩的摆动
         xuxian_is_swinging = false // 停止虚线的摆动
         limit_space = true // 打开限制，反之按空格之后响应其它按键操作
+        harpoon.rotation = xuxian.rotation
         harpoon.setVelocityX(extend_forward_speed * -Math.sin(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
         harpoon.setVelocityY(extend_forward_speed * Math.cos(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
     }
@@ -308,7 +310,7 @@ var config = {
             debug: true
         }
     }, // 开启物理引擎并配置
-    scene: game_first_open // char_chose // game_chose_level // gaming_scene // 
+    scene: gaming_scene // game_first_open // char_chose // game_chose_level // 
 };
 
 var game = new Phaser.Game(config);
@@ -332,23 +334,7 @@ function harpoon_collid_fishs(null_, fish) {
     fish1_obj = fish // 将特定的fish1对象放到全局，供其它函数使用
 }
 
-// 鱼钩的摆动函数
-function harpoon_swing() {
-    if(!harpoon_is_swinging) { // 鱼钩被限制摆动时
-        return
-    }
-    if(harpoon_status == "left") { // 鱼钩状态是向左摆动
-        harpoon.rotation += toAngle(1) // 每帧向左偏移一度
-    } else if(harpoon_status == "right") { // 鱼钩状态是向右摆动
-        harpoon.rotation -= toAngle(1) // 每帧向右偏移一度
-    }
-    if(harpoon.rotation >= toAngle(60)) { // 偏移达到60度时，开始向左偏移
-        harpoon_status = "right" // 更改偏移方向向左
-    } else if(harpoon.rotation <= toAngle(-55)) { // 偏移达到-55度时，开始向左偏移
-        harpoon_status = "left" // 更改偏移方向向右
-    }
-}
-
+// 虚线的摆动函数
 function xuxian_swing() {
     if(!xuxian_is_swinging) { // 鱼钩被限制摆动时
         return
