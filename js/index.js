@@ -297,25 +297,6 @@ let game_chose_level = {
     }
 }
 
-// 配置环境
-var config = {
-    type: Phaser.AUTO,
-    width: canvasWidth,
-    height: canvasHeight,
-    parent: "frame", // 将整个屏幕放在id=frame的DOM节点内
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: 0,
-            debug: true
-        }
-    }, // 开启物理引擎并配置
-    scene: gaming_scene // game_first_open // char_chose // game_chose_level // 
-};
-
-var game = new Phaser.Game(config);
-
-
 // 自定义函数
 
 // 将弧度转换成角度
@@ -342,3 +323,23 @@ function xuxian_swing() {
     xuxian_angle += 1.3
     xuxian.rotation = Math.sin(xuxian_angle * Math.PI / 180) * 1.5
 }
+
+// 配置环境
+var config = {
+    type: Phaser.AUTO,
+    width: canvasWidth,
+    height: canvasHeight,
+    parent: "frame", // 将整个屏幕放在id=frame的DOM节点内
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: 0,
+            debug: true
+        }
+    }, // 开启物理引擎并配置
+    scene: game_first_open // gaming_scene // char_chose // game_chose_level // 
+};
+
+var game = new Phaser.Game(config);
+
+
