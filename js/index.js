@@ -148,6 +148,7 @@ function gaming_scene_create ()
         harpoon_is_swinging = false // 停止鱼钩的摆动
         xuxian_is_swinging = false // 停止虚线的摆动
         limit_space = true // 打开限制，反之按空格之后响应其它按键操作
+        harpoon.rotation = xuxian.rotation
         harpoon.setVelocityX(extend_forward_speed * -Math.sin(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
         harpoon.setVelocityY(extend_forward_speed * Math.cos(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
       });
