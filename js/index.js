@@ -12,6 +12,7 @@ let extend_forward_speed = 300 // 鱼钩伸出时的速度
 let extend_back_speed = 200 // 鱼钩伸回时的速度
 let xuxian_is_swinging = true // 表示虚线是否在摆动
 let xuxian_angle = 0 // 虚线的角度
+var game_chose_level
 
 let gaming_scene = {
     preload: gaming_scene_preload,
@@ -32,6 +33,7 @@ function gaming_scene_preload ()
     this.load.image("null_", "./images/null.png") // 引入透明贴图作为鱼叉头虚拟空间
     this.load.image("xuxian", "./images/xuxian.png") // 引入虚线
     this.load.image("bk1", "./images/游戏场景1.png") // 引入游戏背景1
+    this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
 }
 
 function gaming_scene_create ()
@@ -53,56 +55,75 @@ function gaming_scene_create ()
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
 
     // 创建鱼1组
-    fish1s = this.physics.add.group({
-        key: ['fish1', "fish2", "fish3", "fish4"],
-        repeat: 5,
-        setXY: { x: 150, y: 450, stepX: 1280/5 }
-    });
+    // fish1s = this.physics.add.group({
+    //     key: 'fish1',
+    //     repeat: 5,
+    //     setXY: { x: 150, y: 450, stepX: 1280/5 }
+    // });
     // 重新管理鱼1组的每个对象
-    fish1s.children.iterate(function (child) {
-        child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-        child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-        child.setScale(0.5)
-    })
+    // fish1s.children.iterate(function (child) {
+    //     child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+    //     child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+    //     child.setScale(0.5)
+    // })
 
-    // 创建鱼2组
-    fish2s = this.physics.add.group({
-        key: 'fish2',
-        repeat: 5,
-        setXY: { x: 150, y: 450, stepX: 1280/5 }
-    });
-    // 重新管理鱼2组的每个对象
-    fish2s.children.iterate(function (child) {
-        child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-        child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-        child.setScale(0.3)
-    })
+    // // 创建鱼2组
+    // fish2s = this.physics.add.group({
+    //     key: 'fish2',
+    //     repeat: 5,
+    //     setXY: { x: 150, y: 450, stepX: 1280/5 }
+    // });
+    // // 重新管理鱼2组的每个对象
+    // fish2s.children.iterate(function (child) {
+    //     child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+    //     child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+    //     child.setScale(0.3)
+    // })
 
-    // 创建鱼3组
-    fish3s = this.physics.add.group({
-        key: 'fish3',
-        repeat: 5,
-        setXY: { x: 150, y: 450, stepX: 1280/5 }
-    });
-    // 重新管理鱼3组的每个对象
-    fish3s.children.iterate(function (child) {
-        child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-        child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-        child.setScale(0.5)
-    })
+    // // 创建鱼3组
+    // fish3s = this.physics.add.group({
+    //     key: 'fish3',
+    //     repeat: 5,
+    //     setXY: { x: 150, y: 450, stepX: 1280/5 }
+    // });
+    // // 重新管理鱼3组的每个对象
+    // fish3s.children.iterate(function (child) {
+    //     child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+    //     child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+    //     child.setScale(0.5)
+    // })
 
-    // 创建鱼4组
-    fish4s = this.physics.add.group({
-        key: 'fish4',
-        repeat: 5,
-        setXY: { x: 150, y: 450, stepX: 1280/5 }
-    });
-    // 重新管理鱼4组的每个对象
-    fish4s.children.iterate(function (child) {
-        child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-        child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-        child.setScale(0.5)
+    // // 创建鱼4组
+    // fish4s = this.physics.add.group({
+    //     key: 'fish4',
+    //     repeat: 5,
+    //     setXY: { x: 150, y: 450, stepX: 1280/5 }
+    // });
+    // // 重新管理鱼4组的每个对象
+    // fish4s.children.iterate(function (child) {
+    //     child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+    //     child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+    //     child.setScale(0.5)
+    // })
+
+    // 测试需要
+    fish2s = fish3s = fish4s = 0
+    fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
+    this1 = this
+    this.input.on("pointerdown", () => {
+        console.log(1)
     })
+    leave_test = function() {
+        scoreText = _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
+        setTimeout(function() {
+            _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave")
+        }, 3000)
+        setTimeout(function() {
+            // this1.scene.stop()
+            // this1.scene.start()
+            this1.scene.add("game_chose_level", game_chose_level, true)
+        }, 5000)
+    }
 
     // 作业需要
     // fish1s = this.physics.add.image(150, 400, "fish1").setScale(0.5)
@@ -189,9 +210,14 @@ function gaming_scene_update ()
         harpoon.setVelocityY(0) // 钩子停止移动
         harpoon.rotation = 0
         if(fish1_obj){ // 如果指定fish1存在
-            fish1_obj.disableBody(true, true) // 指定fish1消失
-            fish1_obj.setVelocityY(0) // 指定fish1停止移动
+            // fish1_obj.disableBody(true, true) // 指定fish1消失
+            // fish1_obj.setVelocityY(0) // 指定fish1停止移动
+            fish1_obj.destroy() // 指定fish1消失
             fish1_obj = null // 指定fish1消失后就变为null
+            // TODO: 目前没有分数判断，先把跳到关卡选择功能放到这里
+            _this = this
+
+            leave_test()
         }
         harpoon.x = harpoon_init_width // 钩子x轴恢复到初始x轴
         harpoon.y = harpoon_init_height // 钩子y轴恢复到初始y轴
@@ -257,36 +283,32 @@ let char_chose = {
         let area = this.add.image(1000, 545, "area").setScale(area_scale_x, area_scale_y)
         // 控制角色选择确定点击后该点击事件不会继承到后面场景
         let game_chose_level_input = true // 控制变量为真
-        this.input.on("pointerdown", (pointer) => {
-            if(game_chose_level_input) { // 当控制变量为真时
-                if(pointer.x >= area.x - area.width * area_scale_x / 2 && pointer.x <= area.x + area.width * area_scale_x / 2) {
-                    if(pointer.y >= area.y - area.height * area_scale_y / 2 && pointer.y <= area.y + area.height * area_scale_y / 2) {
-                        // 鼠标在热区内
-                        this.scene.add("game_chose_level", game_chose_level, true) // 切换场景
-                        document.querySelector("body").style.cursor = "default"
-                        game_chose_level_input = false // 控制变量为假
-                    }
-                }
+        area.setInteractive();
+        area.on("pointerdown", () => {
+            if(game_chose_level_input) {
+                // 鼠标在热区内
+                this.scene.add("game_chose_level", game_chose_level, true) // 切换场景
+                document.querySelector("body").style.cursor = "default"
+                game_chose_level_input = false // 控制变量为假
             }
         })
-        this.input.on("pointermove", (pointer) => {
-            if(game_chose_level_input) { // 当控制变量为真时
-                if(pointer.x >= area.x - area.width * area_scale_x / 2 && pointer.x <= area.x + area.width * area_scale_x / 2) {
-                    if(pointer.y >= area.y - area.height * area_scale_y / 2 && pointer.y <= area.y + area.height * area_scale_y / 2) {
-                        // 鼠标在热区内
-                        document.querySelector("body").style.cursor = "pointer"
-                    }
-                }
-                else {
-                    document.querySelector("body").style.cursor = "default"
-                }
+        area.on("pointerover", () => {
+            if(game_chose_level_input) {
+                // 鼠标在热区内
+                document.querySelector("body").style.cursor = "pointer"
+            }
+        })
+        area.on("pointerout", () => {
+            if(game_chose_level_input) {
+                // 鼠标在热区内
+                document.querySelector("body").style.cursor = "default"
             }
         })
     }
 }
 
 // 选择关卡页面
-let game_chose_level = {
+var game_chose_level = {
     preload: function () {
         this.load.image("game_chose_level", "./images/game_chose_level.png")
         this.load.image("area", "./images/touming_xiangsu.png")
@@ -298,29 +320,25 @@ let game_chose_level = {
         let area = this.add.image(630, 350, "area").setScale(area_scale_x, area_scale_y)
         // 控制游戏选择关卡点击后该点击事件不会继承到后面场景
         let game_chose_level_input = true // 控制变量为真
-        this.input.on("pointerdown", (pointer) => {
-            if(game_chose_level_input) { // 当控制变量为真时
-                if(pointer.x >= area.x - area.width * area_scale_x / 2 && pointer.x <= area.x + area.width * area_scale_x / 2) {
-                    if(pointer.y >= area.y - area.height * area_scale_y / 2 && pointer.y <= area.y + area.height * area_scale_y / 2) {
-                        // 鼠标在热区内
-                        this.scene.add("gaming_scene", gaming_scene, true) // 切换场景
-                        document.querySelector("body").style.cursor = "default"
-                        game_chose_level_input = false // 控制变量为假
-                    }
-                }
+        area.setInteractive();
+        area.on("pointerdown", () => {
+            if(game_chose_level_input) {
+                // 鼠标在热区内
+                this.scene.add("gaming_scene", gaming_scene, true) // 切换场景
+                document.querySelector("body").style.cursor = "default"
+                game_chose_level_input = false // 控制变量为假
             }
         })
-        this.input.on("pointermove", (pointer) => {
-            if(game_chose_level_input) { // 当控制变量为真时
-                if(pointer.x >= area.x - area.width * area_scale_x / 2 && pointer.x <= area.x + area.width * area_scale_x / 2) {
-                    if(pointer.y >= area.y - area.height * area_scale_y / 2 && pointer.y <= area.y + area.height * area_scale_y / 2) {
-                        // 鼠标在热区内
-                        document.querySelector("body").style.cursor = "pointer"
-                    }
-                }
-                else {
-                    document.querySelector("body").style.cursor = "default"
-                }
+        area.on("pointerover", () => {
+            if(game_chose_level_input) {
+                // 鼠标在热区内
+                document.querySelector("body").style.cursor = "pointer"
+            }
+        })
+        area.on("pointerout", () => {
+            if(game_chose_level_input) {
+                // 鼠标在热区内
+                document.querySelector("body").style.cursor = "default"
             }
         })
     }
@@ -349,8 +367,8 @@ function xuxian_swing() {
     if(!xuxian_is_swinging) { // 鱼钩被限制摆动时
         return
     }
-    xuxian_angle += 1.3
-    xuxian.rotation = Math.sin(xuxian_angle * Math.PI / 180) * 1.5
+    xuxian_angle += 1.0
+    xuxian.rotation = Math.sin(xuxian_angle * Math.PI / 180) * 1.0
 }
 
 // 配置环境
@@ -363,7 +381,7 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: 0,
-            debug: true
+            debug: false
         }
     }, // 开启物理引擎并配置
     scene: game_first_open // gaming_scene // char_chose // game_chose_level // 
