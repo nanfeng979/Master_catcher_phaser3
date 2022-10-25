@@ -26,11 +26,11 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: 0,
-            debug: false
+            debug: true
         }
     }, // 开启物理引擎并配置
-    scene: [game_first_open, char_chose, game_chose_level, gaming_scene]
-    // scene: gaming_scene
+    // scene: [game_first_open, char_chose, game_chose_level, gaming_scene]
+    scene: gaming_scene
 };
 
 var game = new Phaser.Game(config);

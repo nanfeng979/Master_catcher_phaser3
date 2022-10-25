@@ -14,6 +14,7 @@ let xuxian
 let xuxian_is_swinging = true // 表示虚线是否在摆动
 let xuxian_angle = 0 // 虚线的角度
 let leave_test
+let test = false
 
 
 export let gaming_scene = new Phaser.Class({
@@ -49,6 +50,8 @@ function gaming_scene_preload ()
 function gaming_scene_create ()
 {
     // create() 创建资源、绑定各种交互函数
+    let _this = this
+    xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
     man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)
 
@@ -63,77 +66,76 @@ function gaming_scene_create ()
 
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
 
-    // 创建鱼1组
-    // fish1s = this.physics.add.group({
-    //     key: 'fish1',
-    //     repeat: 5,
-    //     setXY: { x: 150, y: 450, stepX: 1280/5 }
-    // });
-    // 重新管理鱼1组的每个对象
-    // fish1s.children.iterate(function (child) {
-    //     child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-    //     child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-    //     child.setScale(0.5)
-    // })
+    if(!test) {
+        // 创建鱼1组
+        fish1s = this.physics.add.group({
+            key: 'fish1',
+            repeat: 5,
+            setXY: { x: 150, y: 450, stepX: 1280/5 }
+        });
+        // 重新管理鱼1组的每个对象
+        fish1s.children.iterate(function (child) {
+            child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+            child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+            child.setScale(0.5)
+        })
 
-    // // 创建鱼2组
-    // fish2s = this.physics.add.group({
-    //     key: 'fish2',
-    //     repeat: 5,
-    //     setXY: { x: 150, y: 450, stepX: 1280/5 }
-    // });
-    // // 重新管理鱼2组的每个对象
-    // fish2s.children.iterate(function (child) {
-    //     child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-    //     child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-    //     child.setScale(0.3)
-    // })
+        // 创建鱼2组
+        fish2s = this.physics.add.group({
+            key: 'fish2',
+            repeat: 5,
+            setXY: { x: 150, y: 450, stepX: 1280/5 }
+        });
+        // 重新管理鱼2组的每个对象
+        fish2s.children.iterate(function (child) {
+            child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+            child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+            child.setScale(0.3)
+        })
 
-    // // 创建鱼3组
-    // fish3s = this.physics.add.group({
-    //     key: 'fish3',
-    //     repeat: 5,
-    //     setXY: { x: 150, y: 450, stepX: 1280/5 }
-    // });
-    // // 重新管理鱼3组的每个对象
-    // fish3s.children.iterate(function (child) {
-    //     child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-    //     child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-    //     child.setScale(0.5)
-    // })
+        // 创建鱼3组
+        fish3s = this.physics.add.group({
+            key: 'fish3',
+            repeat: 5,
+            setXY: { x: 150, y: 450, stepX: 1280/5 }
+        });
+        // 重新管理鱼3组的每个对象
+        fish3s.children.iterate(function (child) {
+            child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+            child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+            child.setScale(0.5)
+        })
 
-    // // 创建鱼4组
-    // fish4s = this.physics.add.group({
-    //     key: 'fish4',
-    //     repeat: 5,
-    //     setXY: { x: 150, y: 450, stepX: 1280/5 }
-    // });
-    // // 重新管理鱼4组的每个对象
-    // fish4s.children.iterate(function (child) {
-    //     child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-    //     child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-    //     child.setScale(0.5)
-    // })
-
-    // 测试需要
-    let fish2s, fish3s, fish4s, fish1s
-    fish2s = fish3s = fish4s = 0
-    fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
-    let _this = this
-    this.input.on("pointerdown", () => {
-        console.log(1)
-    })
-    leave_test = function() {
-        _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
-        setTimeout(function() {
-            _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave")
-        }, 3000)
-        setTimeout(function() {
-            // this1.scene.stop()
-            // this1.scene.start()
-            _this.scene.start("game_chose_level")
-        }, 5000)
+        // 创建鱼4组
+        fish4s = this.physics.add.group({
+            key: 'fish4',
+            repeat: 5,
+            setXY: { x: 150, y: 450, stepX: 1280/5 }
+        });
+        // 重新管理鱼4组的每个对象
+        fish4s.children.iterate(function (child) {
+            child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
+            child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
+            child.setScale(0.5)
+        })
+    } else {
+        // 测试需要
+        var fish2s, fish3s, fish4s, fish1s
+        fish2s = fish3s = fish4s = 0
+        fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
+        leave_test = function() {
+            _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
+            setTimeout(function() {
+                _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave")
+            }, 3000)
+            setTimeout(function() {
+                _this.scene.start("game_chose_level")
+            }, 5000)
+        }
     }
+    
+
+    
 
     // 作业需要
     // fish1s = this.physics.add.image(150, 400, "fish1").setScale(0.5)
@@ -209,8 +211,9 @@ function gaming_scene_update ()
             fish1_obj.destroy() // 指定fish1消失
             fish1_obj = null // 指定fish1消失后就变为null
             // TODO: 目前没有分数判断，先把跳到关卡选择功能放到这里
-
-            leave_test()
+            if(test) {
+                leave_test()
+            }
         }
         harpoon.x = harpoon_init_width // 钩子x轴恢复到初始x轴
         harpoon.y = harpoon_init_height // 钩子y轴恢复到初始y轴
