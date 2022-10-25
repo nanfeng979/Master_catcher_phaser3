@@ -3,6 +3,8 @@ import {canvasWidth, canvasHeight, is_gameOver} from "./index.js"
 let limit_space = false // 限制空格连续按键
 let cursors // 接收键盘消息对象的变量
 let null_
+let score = 0
+let scoreObject
 let man
 let fish1_obj // 存放指定鱼1对象的变量
 let harpoon
@@ -15,6 +17,7 @@ let xuxian_is_swinging = true // 表示虚线是否在摆动
 let xuxian_angle = 0 // 虚线的角度
 let leave_test
 let test = false
+let is_pause = false
 
 
 export let gaming_scene = new Phaser.Class({
@@ -52,6 +55,7 @@ function gaming_scene_create ()
     // create() 创建资源、绑定各种交互函数
     let _this = this
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
+
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
     man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)
 
@@ -65,6 +69,7 @@ function gaming_scene_create ()
     xuxian.setOrigin(0.5, 0)
 
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
+    scoreObject = this.add.text(0, 0, "Score: " + score, { fontSize: "24px" })
 
     if(!test) {
         // 创建鱼1组
@@ -183,6 +188,7 @@ function gaming_scene_create ()
         harpoon.rotation = xuxian.rotation
         harpoon.setVelocityX(extend_forward_speed * -Math.sin(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
         harpoon.setVelocityY(extend_forward_speed * Math.cos(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
+            // this.scene.run(this)
       });
 
 }
@@ -210,6 +216,8 @@ function gaming_scene_update ()
             // fish1_obj.setVelocityY(0) // 指定fish1停止移动
             fish1_obj.destroy() // 指定fish1消失
             fish1_obj = null // 指定fish1消失后就变为null
+            score += 1 // 分数+1
+            scoreObject.setText("Score: " + score) // 输出最新的分数
             // TODO: 目前没有分数判断，先把跳到关卡选择功能放到这里
             if(test) {
                 leave_test()
@@ -238,6 +246,7 @@ function gaming_scene_update ()
         harpoon.rotation = xuxian.rotation
         harpoon.setVelocityX(extend_forward_speed * -Math.sin(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
         harpoon.setVelocityY(extend_forward_speed * Math.cos(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
+        // this.scene.pause()
     }
     else {
 
