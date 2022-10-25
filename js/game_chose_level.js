@@ -11,9 +11,14 @@ export let game_chose_level = new Phaser.Class({
     preload: function () {
         this.load.image("game_chose_level", "./images/game_chose_level.png")
         this.load.image("area", "./images/touming_xiangsu.png")
+        this.load.image("back_icon", "./images/back_icon.png") // 引入“返回”图标
     },
     create: function () {
         this.add.image(canvasWidth / 2, canvasHeight / 2, "game_chose_level")
+        this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
+            this.scene.start("char_chose")
+        })
+
         let area_scale_x = 160
         let area_scale_y = 180
         let area = this.add.image(630, 350, "area").setScale(area_scale_x, area_scale_y)

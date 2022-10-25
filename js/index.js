@@ -29,8 +29,9 @@ var config = {
             debug: true
         }
     }, // 开启物理引擎并配置
+    scene: [gaming_scene, game_first_open, char_chose, game_chose_level]
     // scene: [game_first_open, char_chose, game_chose_level, gaming_scene]
-    scene: gaming_scene
+    // scene: gaming_scene
 };
 
 var game = new Phaser.Game(config);

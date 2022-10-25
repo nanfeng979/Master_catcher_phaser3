@@ -48,6 +48,7 @@ function gaming_scene_preload ()
     this.load.image("xuxian", "./images/xuxian.png") // 引入虚线
     this.load.image("bk1", "./images/游戏场景1.png") // 引入游戏背景1
     this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
+    this.load.image("back_icon", "./images/back_icon.png") // 引入“返回”图标
 }
 
 function gaming_scene_create ()
@@ -57,6 +58,10 @@ function gaming_scene_create ()
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
 
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
+    this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
+        this.scene.start("game_chose_level")
+    })
+
     man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)
 
     harpoon = this.physics.add.image(canvasWidth / 2 - 30, 70, "harpoon")
