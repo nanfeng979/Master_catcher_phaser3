@@ -12,13 +12,20 @@ let extend_forward_speed = 300 // 鱼钩伸出时的速度
 let extend_back_speed = 200 // 鱼钩伸回时的速度
 let xuxian_is_swinging = true // 表示虚线是否在摆动
 let xuxian_angle = 0 // 虚线的角度
-var game_chose_level
+let scene_number = 0
 
-let gaming_scene = {
+let gaming_scene = new Phaser.Class({
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function gaming_scene() {
+        Phaser.Scene.call(this, {key: "gaming_scene"})
+    },
     preload: gaming_scene_preload,
     create: gaming_scene_create,
-    update: gaming_scene_update
-}
+    update: gaming_scene_update,
+})
 
 function gaming_scene_preload ()
 {
@@ -121,7 +128,7 @@ function gaming_scene_create ()
         setTimeout(function() {
             // this1.scene.stop()
             // this1.scene.start()
-            this1.scene.add("game_chose_level", game_chose_level, true)
+            this1.scene.start("game_chose_level")
         }, 5000)
     }
 
@@ -251,13 +258,23 @@ function gaming_scene_update ()
 }
 
 // 游戏一开始时的场景
-let game_first_open = {
+var game_first_open = new Phaser.Class({
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function game_first_open () {
+        Phaser.Scene.call(this, {key: "game_first_open"})
+    },
     preload : function () {
         this.load.image("game_cover", "./images/game_cover.png") // 引入游戏封面
         this.load.image("game_start_loading", "./images/game_start_loading.png") // 引入游戏加载页面
     },
     create: function () {
         _this = this
+        if(scene_number == 0) {
+            this.input.on("pointerdown", () => {console.log(123)})
+        }
         this.add.image(canvasWidth / 2, canvasHeight / 2, "game_start_loading")
         game_cover = this.add.image(canvasWidth / 2, canvasHeight / 2, "game_cover")
         setTimeout(function() {
@@ -265,18 +282,28 @@ let game_first_open = {
         }, 2000)
         setTimeout(function(){
             // _this.scene.add("game_chose_level", game_chose_level, true)
-            _this.scene.add("char_chose", char_chose, true)
+            // _this.scene.add("char_chose", char_chose, true)
+            _this.scene.start("char_chose") 
         }, 5000)
     }
-}
+})
 
 // 选择角色页面
-let char_chose = {
+let char_chose = new Phaser.Class({
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function char_chose() {
+        Phaser.Scene.call(this, {key: "char_chose"})
+    },
     preload: function () {
         this.load.image("char_chose", "./images/角色选择界面.png")
         this.load.image("area", "./images/touming_xiangsu.png")
     },
     create: function () {
+        this.input.on("pointerdown", () => {console.log(456)})
+
         this.add.image(canvasWidth / 2, canvasHeight / 2, "char_chose")
         let area_scale_x = 150
         let area_scale_y = 55
@@ -287,7 +314,7 @@ let char_chose = {
         area.on("pointerdown", () => {
             if(game_chose_level_input) {
                 // 鼠标在热区内
-                this.scene.add("game_chose_level", game_chose_level, true) // 切换场景
+                this.scene.start("game_chose_level") // 切换场景game_first_open
                 document.querySelector("body").style.cursor = "default"
                 game_chose_level_input = false // 控制变量为假
             }
@@ -305,10 +332,17 @@ let char_chose = {
             }
         })
     }
-}
+})
 
 // 选择关卡页面
-var game_chose_level = {
+let game_chose_level = new Phaser.Class({
+    Extends: Phaser.Scene,
+
+    initialize: 
+
+    function game_chose_level() {
+        Phaser.Scene.call(this, {key: "game_chose_level"})
+    },
     preload: function () {
         this.load.image("game_chose_level", "./images/game_chose_level.png")
         this.load.image("area", "./images/touming_xiangsu.png")
@@ -324,7 +358,7 @@ var game_chose_level = {
         area.on("pointerdown", () => {
             if(game_chose_level_input) {
                 // 鼠标在热区内
-                this.scene.add("gaming_scene", gaming_scene, true) // 切换场景
+                this.scene.start("gaming_scene") // 切换场景
                 document.querySelector("body").style.cursor = "default"
                 game_chose_level_input = false // 控制变量为假
             }
@@ -342,7 +376,8 @@ var game_chose_level = {
             }
         })
     }
-}
+
+})
 
 // 自定义函数
 
@@ -384,7 +419,8 @@ var config = {
             debug: false
         }
     }, // 开启物理引擎并配置
-    scene: game_first_open // gaming_scene // char_chose // game_chose_level // 
+    // scene: [gaming_scene, char_chose, game_chose_level, game_first_open]
+    scene: [game_first_open, char_chose, game_chose_level, gaming_scene]
 };
 
 var game = new Phaser.Game(config);
