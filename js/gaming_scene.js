@@ -1,29 +1,19 @@
 import {canvasWidth, canvasHeight, is_gameOver} from "./index.js"
 
 let limit_space = false // 限制空格连续按键
+let cursors // 接收键盘消息对象的变量
 let null_
 let man
-let man_can_move_forward_to_x = true // 判断人是否可以继续向x轴方向移动
 let fish1_obj // 存放指定鱼1对象的变量
 let harpoon
 let harpoon_init_width
 let harpoon_init_height
-let harpoon_is_swinging = true // 表示鱼钩是否在摆动
 let extend_forward_speed = 300 // 鱼钩伸出时的速度
 let extend_back_speed = 200 // 鱼钩伸回时的速度
-
-let cursors
 let xuxian
 let xuxian_is_swinging = true // 表示虚线是否在摆动
 let xuxian_angle = 0 // 虚线的角度
-let harpoon_status = "left" // ["left", "stop", "right", "extend_out", "extend_back"] // 鱼钩的摇摆状态
 let leave_test
-
-
-
-
-let scene_number = 0
-
 
 
 export let gaming_scene = new Phaser.Class({
@@ -59,7 +49,6 @@ function gaming_scene_preload ()
 function gaming_scene_create ()
 {
     // create() 创建资源、绑定各种交互函数
-    // this.add.image(canvasWidth / 2, canvasHeight / 2, "background") // add.image(x,y,objName) 的x和y的obj的中心点位置
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
     man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)
 
@@ -187,7 +176,6 @@ function gaming_scene_create ()
     cursors = this.input.keyboard.createCursorKeys();
     // 鼠标响应事件 // todo，改成上面那样
     this.input.on('pointerdown', () => {
-        harpoon_is_swinging = false // 停止鱼钩的摆动
         xuxian_is_swinging = false // 停止虚线的摆动
         limit_space = true // 打开限制，反之按空格之后响应其它按键操作
         harpoon.rotation = xuxian.rotation
@@ -208,22 +196,7 @@ function gaming_scene_update ()
     null_.x = harpoon.x + harpoon.width / 2 + ((extend_back_speed - 60) * -Math.sin(harpoon.rotation)) // 实时更新鱼叉头虚拟空间的x轴
     null_.y = harpoon.y + harpoon.height - null_.height / 2 - Math.abs(((30) * Math.sin(harpoon.rotation))) * 2 // 实时更新鱼叉头虚拟空间的y轴
 
-    // harpoon_swing() // 鱼叉的摇摆函数
     xuxian_swing() // 虚线的摇摆函数
-
-    // 当人到达边界时的事件
-    if(man.x <= 67) { // 当人到达左边界时
-        man_can_move_forward_to_x = false // 禁止人向x轴移动
-        man.x += 1 // 恢复行动的一种手段，同时具有撞击反弹特效
-        harpoon.x += 1
-    } else if(man.x >= 1213) { // 当人到达右边界时
-        man_can_move_forward_to_x = false // 禁止人向x轴移动
-        man.x -= 1
-        harpoon.x -= 1
-    } else {
-        man_can_move_forward_to_x = true // 恢复人向x轴移动
-    }
-
 
     // 如果钩子的高度小于钩子的初始高度(钩子伸出再缩回时会触发)
     if(harpoon.y < harpoon_init_height) {
@@ -242,7 +215,6 @@ function gaming_scene_update ()
         harpoon.x = harpoon_init_width // 钩子x轴恢复到初始x轴
         harpoon.y = harpoon_init_height // 钩子y轴恢复到初始y轴
         limit_space = false // 恢复按下空格后的限制
-        harpoon_is_swinging = true // 恢复鱼钩的摆动
         xuxian_is_swinging = true // 恢复虚线的摆动
     }
 
@@ -258,7 +230,6 @@ function gaming_scene_update ()
     }
 
     if(cursors.space.isDown) {
-        harpoon_is_swinging = false // 停止鱼钩的摆动
         xuxian_is_swinging = false // 停止虚线的摆动
         limit_space = true // 打开限制，反之按空格之后响应其它按键操作
         harpoon.rotation = xuxian.rotation
@@ -274,7 +245,6 @@ function gaming_scene_update ()
 function toAngle(n) {
     return n * Math.PI / 180
 }
-
 
 
 // 虚线的摆动函数
