@@ -204,12 +204,7 @@ function create ()
     cursors = this.input.keyboard.createCursorKeys();
     // 鼠标响应事件 // todo，改成上面那样
     this.input.on('pointerdown', () => {
-        xuxian_is_swinging = false // 停止虚线的摆动
-        limit_space = true // 打开限制，反之按空格之后响应其它按键操作
-        harpoon.rotation = xuxian.rotation
-        harpoon.setVelocityX(extend_forward_speed * -Math.sin(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
-        harpoon.setVelocityY(extend_forward_speed * Math.cos(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
-            // this.scene.run(this)
+        harpoon_fire()
       });
 
     let set_gold_text = setInterval(() => {
@@ -266,12 +261,7 @@ function update ()
     }
 
     if(cursors.space.isDown) {
-        xuxian_is_swinging = false // 停止虚线的摆动
-        limit_space = true // 打开限制，反之按空格之后响应其它按键操作
-        harpoon.rotation = xuxian.rotation
-        harpoon.setVelocityX(extend_forward_speed * -Math.sin(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
-        harpoon.setVelocityY(extend_forward_speed * Math.cos(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
-        // this.scene.pause()
+        harpoon_fire()
     }
     else {
 
@@ -283,7 +273,6 @@ function toAngle(n) {
     return n * Math.PI / 180
 }
 
-
 // 虚线的摆动函数
 function xuxian_swing() {
     if(!xuxian_is_swinging) { // 鱼钩被限制摆动时
@@ -291,6 +280,15 @@ function xuxian_swing() {
     }
     xuxian_angle += 1.0
     xuxian.rotation = Math.sin(xuxian_angle * Math.PI / 180) * 1.0
+}
+
+// 鱼叉发射函数
+function harpoon_fire() {
+    xuxian_is_swinging = false // 停止虚线的摆动
+    limit_space = true // 打开限制，反之按空格之后响应其它按键操作
+    harpoon.rotation = xuxian.rotation
+    harpoon.setVelocityX(extend_forward_speed * -Math.sin(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
+    harpoon.setVelocityY(extend_forward_speed * Math.cos(harpoon.rotation)) // 钩子以extend_forward_speed速度往目标方向移动
 }
 
 // 钩子与fish1碰撞后的函数
