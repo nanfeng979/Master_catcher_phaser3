@@ -231,7 +231,10 @@ function update ()
         harpoon.setVelocityY(0) // 钩子停止移动
         harpoon.rotation = 0
         if(fish1_obj){ // 如果指定fish1存在
+            // fish1_obj.disableBody(true, true) // 指定fish1消失
+            // fish1_obj.setVelocityY(0) // 指定fish1停止移动
             fish1_obj.destroy() // 指定fish1消失
+            fish1_obj = null // 指定fish1消失后就变为null
             let gold = Number(localStorage.getItem("gold"))
             localStorage.setItem("gold", gold + 1)
             gold_text.setText(gold + 1) // 输出最新的分数
