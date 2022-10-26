@@ -15,8 +15,9 @@ export let game_chose_level = new Phaser.Class({
     },
     create: function () {
         this.add.image(canvasWidth / 2, canvasHeight / 2, "game_chose_level")
+        // 返回键
         this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
-            this.scene.start("char_chose")
+            this.scene.start("char_chose") // 进入角色选择页面
         })
 
         let area_scale_x = 160

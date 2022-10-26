@@ -3,7 +3,7 @@ import {canvasWidth, canvasHeight, is_gameOver} from "./index.js"
 let limit_space = false // 限制空格连续按键
 let cursors // 接收键盘消息对象的变量
 let null_
-let score = 0
+export let score = 0
 let scoreObject
 let man
 let fish1_obj // 存放指定鱼1对象的变量
@@ -49,6 +49,7 @@ function gaming_scene_preload ()
     this.load.image("bk1", "./images/游戏场景1.png") // 引入游戏背景1
     this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
     this.load.image("back_icon", "./images/back_icon.png") // 引入“返回”图标
+    this.load.image("gold", "./images/gold.png") // 引入“显示金币框”
 }
 
 function gaming_scene_create ()
@@ -58,9 +59,17 @@ function gaming_scene_create ()
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
 
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
+    // 返回键
     this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
-        this.scene.start("game_chose_level")
+        this.scene.start("game_chose_level") // 进入关卡选择页面
     })
+
+    // 显示金币框
+    this.add.image(100, 30, "gold").setScale(0.5)
+    // 显示金币数量
+    score = localStorage.getItem("gold") // 获取本地“gold”的数据
+    scoreObject = this.add.text(80, 20, "" + score, { fontSize: "24px" })
+
 
     man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)
 
@@ -74,7 +83,6 @@ function gaming_scene_create ()
     xuxian.setOrigin(0.5, 0)
 
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
-    scoreObject = this.add.text(0, 0, "Score: " + score, { fontSize: "24px" })
 
     if(!test) {
         // 创建鱼1组
@@ -221,8 +229,8 @@ function gaming_scene_update ()
             // fish1_obj.setVelocityY(0) // 指定fish1停止移动
             fish1_obj.destroy() // 指定fish1消失
             fish1_obj = null // 指定fish1消失后就变为null
-            score += 1 // 分数+1
-            scoreObject.setText("Score: " + score) // 输出最新的分数
+            localStorage.setItem("gold", ++score)
+            scoreObject.setText(score) // 输出最新的分数
             // TODO: 目前没有分数判断，先把跳到关卡选择功能放到这里
             if(test) {
                 leave_test()
@@ -279,7 +287,5 @@ function harpoon_collid_fishs(null_, fish) {
     fish.y = null_.y
     harpoon.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
     harpoon.setVelocityY(-(extend_back_speed * Math.cos(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
-    // fish1.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 鱼1以extend_back_speed速度往回移动
-    // fish1.setVelocityY(-(extend_back_speed * Math.cos(harpoon.rotation))) // 鱼1以extend_back_speed速度往回移动
     fish1_obj = fish // 将特定的fish1对象放到全局，供其它函数使用
 }

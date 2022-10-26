@@ -11,9 +11,14 @@ export let char_chose = new Phaser.Class({
     preload: function () {
         this.load.image("char_chose", "./images/角色选择界面.png")
         this.load.image("area", "./images/touming_xiangsu.png")
+        this.load.image("gold", "./images/gold.png") // 引入“显示金币框”
     },
     create: function () {
         this.add.image(canvasWidth / 2, canvasHeight / 2, "char_chose")
+        this.add.image(860, 50, "gold").setScale(0.9)
+        let gold = localStorage.getItem("gold") // 获取本地“gold”值
+        this.add.text(860, 50, gold, { fontSize: "24px" })
+
         let area_scale_x = 150
         let area_scale_y = 55
         let area = this.add.image(1000, 545, "area").setScale(area_scale_x, area_scale_y)

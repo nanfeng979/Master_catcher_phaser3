@@ -15,6 +15,9 @@ import {game_chose_level} from "./game_chose_level.js"
 // 游戏进行时的场景
 import {gaming_scene} from "./gaming_scene.js"
 
+window.init_gold_data = function() {
+    localStorage.setItem("gold", "50")
+}
 
 // 配置环境
 var config = {
@@ -29,7 +32,7 @@ var config = {
             debug: true
         }
     }, // 开启物理引擎并配置
-    scene: [gaming_scene, game_first_open, char_chose, game_chose_level]
+    scene: [char_chose, gaming_scene, game_first_open, game_chose_level]
     // scene: [game_first_open, char_chose, game_chose_level, gaming_scene]
     // scene: gaming_scene
 };
