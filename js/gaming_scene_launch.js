@@ -14,6 +14,7 @@ export let gaming_scene_launch = new Phaser.Class({
     create: function() {
         // 启动键
         this.add.image(1140, 40, "start_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
+            localStorage.setItem("pause", "false")
             this.scene.resume("gaming_scene")
             this.scene.stop()
         }, this)

@@ -25,6 +25,9 @@ window.init_gold_data = function() { // 本地金币系统初始化
     localStorage.setItem("gold_timestamp", (new Date()).getTime())
 }
 
+// 设置决定游戏是否暂停的本地数据
+localStorage.setItem("pause", "false")
+
 setInterval(() => {
     let gold = localStorage.getItem("gold")
     localStorage.setItem("gold", gold - 1)

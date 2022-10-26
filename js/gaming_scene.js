@@ -17,7 +17,6 @@ let xuxian_is_swinging = true // 表示虚线是否在摆动
 let xuxian_angle = 0 // 虚线的角度
 let leave_test
 let test = false
-let is_pause = false
 
 
 export let gaming_scene = new Phaser.Class({
@@ -67,6 +66,7 @@ function create ()
     })
     // 暂停键
     this.add.image(1140, 40, "stop_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
+        localStorage.setItem("pause", "true")
         this.scene.launch("gaming_scene_launch")
         this.scene.pause()
     }, this)
@@ -204,7 +204,9 @@ function create ()
     cursors = this.input.keyboard.createCursorKeys();
     // 鼠标响应事件 // todo，改成上面那样
     this.input.on('pointerdown', () => {
-        harpoon_fire()
+        if(localStorage.getItem("pause") == "false") {
+            harpoon_fire()
+        }
       });
 
     let set_gold_text = setInterval(() => {
