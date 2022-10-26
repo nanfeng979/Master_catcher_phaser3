@@ -23,28 +23,18 @@ export let game_chose_level = new Phaser.Class({
         let area_scale_x = 160
         let area_scale_y = 180
         let area = this.add.image(630, 350, "area").setScale(area_scale_x, area_scale_y)
-        // 控制游戏选择关卡点击后该点击事件不会继承到后面场景
-        let game_chose_level_input = true // 控制变量为真
         area.setInteractive();
         area.on("pointerdown", () => {
-            if(game_chose_level_input) {
-                // 鼠标在热区内
-                this.scene.start("gaming_scene") // 切换场景
-                document.querySelector("body").style.cursor = "default"
-                game_chose_level_input = false // 控制变量为假
-            }
+            let gold = localStorage.getItem("gold")
+            localStorage.setItem("gold", gold - 20)
+            this.scene.start("gaming_scene") // 切换场景
+            document.querySelector("body").style.cursor = "default"
         })
         area.on("pointerover", () => {
-            if(game_chose_level_input) {
-                // 鼠标在热区内
-                document.querySelector("body").style.cursor = "pointer"
-            }
+            document.querySelector("body").style.cursor = "pointer"
         })
         area.on("pointerout", () => {
-            if(game_chose_level_input) {
-                // 鼠标在热区内
-                document.querySelector("body").style.cursor = "default"
-            }
+            document.querySelector("body").style.cursor = "default"
         })
     }
 

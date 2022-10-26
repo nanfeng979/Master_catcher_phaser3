@@ -21,7 +21,7 @@ import {gaming_scene} from "./gaming_scene.js"
 
 
 window.init_gold_data = function() { // 本地金币系统初始化
-    localStorage.setItem("gold", "50")
+    localStorage.setItem("gold", "200")
     localStorage.setItem("gold_timestamp", (new Date()).getTime())
 }
 
