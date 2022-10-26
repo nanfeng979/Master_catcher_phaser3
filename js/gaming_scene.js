@@ -18,6 +18,7 @@ let xuxian_angle = 0 // 虚线的角度
 let leave_test
 let test = false
 let is_pause = false
+let gold_text
 
 
 export let gaming_scene = new Phaser.Class({
@@ -29,12 +30,12 @@ export let gaming_scene = new Phaser.Class({
         Phaser.Scene.call(this, {key: "gaming_scene"})
     },
 
-    preload: gaming_scene_preload,
-    create: gaming_scene_create,
-    update: gaming_scene_update,
+    preload: preload,
+    create: create,
+    update: update,
 })
 
-function gaming_scene_preload ()
+function preload ()
 {
     // preload() 预加载资源
     this.load.image("background", "./images/game_background.png")
@@ -52,7 +53,7 @@ function gaming_scene_preload ()
     this.load.image("gold", "./images/gold.png") // 引入“显示金币框”
 }
 
-function gaming_scene_create ()
+function create ()
 {
     // create() 创建资源、绑定各种交互函数
     let _this = this
@@ -61,6 +62,7 @@ function gaming_scene_create ()
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
     // 返回键
     this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
+        clearInterval(set_gold_text)
         this.scene.start("game_chose_level") // 进入关卡选择页面
     })
 
@@ -147,6 +149,7 @@ function gaming_scene_create ()
                 _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave")
             }, 3000)
             setTimeout(function() {
+                clearInterval(set_gold_text)
                 _this.scene.start("game_chose_level")
             }, 5000)
         }
@@ -204,9 +207,13 @@ function gaming_scene_create ()
             // this.scene.run(this)
       });
 
+    let set_gold_text = setInterval(() => {
+        scoreObject.setText(localStorage.getItem("gold"))
+        console.log("gaming")
+    }, 1000)
 }
 
-function gaming_scene_update ()
+function update ()
 {
     // update() 实时监测
     // 判断游戏是否结束

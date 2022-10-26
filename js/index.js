@@ -15,9 +15,15 @@ import {game_chose_level} from "./game_chose_level.js"
 // 游戏进行时的场景
 import {gaming_scene} from "./gaming_scene.js"
 
-window.init_gold_data = function() {
+window.init_gold_data = function() { // 本地金币系统初始化
     localStorage.setItem("gold", "50")
+    localStorage.setItem("gold_timestamp", (new Date()).getTime())
 }
+
+setInterval(() => {
+    let gold = localStorage.getItem("gold")
+    localStorage.setItem("gold", --gold)
+}, 5000)
 
 // 配置环境
 var config = {
