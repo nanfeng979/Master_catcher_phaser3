@@ -14,8 +14,7 @@ import {game_chose_level} from "./game_chose_level.js"
 
 
 // 游戏进行时的暂停
-import {gaming_scene_lanch} from "./gaming_scene_lanch.js"
-console.log(gaming_scene_lanch)
+import {gaming_scene_launch} from "./gaming_scene_launch.js"
 
 // 游戏进行时的场景
 import {gaming_scene} from "./gaming_scene.js"
@@ -44,8 +43,8 @@ var config = {
             debug: true
         }
     }, // 开启物理引擎并配置
-    // scene: [gaming_scene, gaming_scene_lanch,  char_chose, game_first_open, game_chose_level]
-    scene: [game_first_open, char_chose, game_chose_level, gaming_scene, gaming_scene_lanch]
+    // scene: [gaming_scene, gaming_scene_launch,  char_chose, game_first_open, game_chose_level]
+    scene: [gaming_scene, game_first_open, char_chose, game_chose_level, gaming_scene_launch]
     // scene: gaming_scene
 };
 

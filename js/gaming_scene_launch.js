@@ -1,10 +1,10 @@
-export let gaming_scene_lanch = new Phaser.Class({
+export let gaming_scene_launch = new Phaser.Class({
     Extends: Phaser.Scene,
 
     initialize:
 
-    function gaming_scene_lanch() {
-        Phaser.Scene.call(this, {key: "gaming_scene_lanch"})
+    function gaming_scene_launch() {
+        Phaser.Scene.call(this, {key: "gaming_scene_launch"})
     },
 
     preload: function() {

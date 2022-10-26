@@ -51,7 +51,6 @@ export let char_chose = new Phaser.Class({
 
         let set_gold_text = setInterval(() => {
             gold_text.setText(localStorage.getItem("gold"))
-            console.log("char")
         }, 1000)
     },
 })

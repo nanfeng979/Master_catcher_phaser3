@@ -67,7 +67,7 @@ function create ()
     })
     // 暂停键
     this.add.image(1140, 40, "stop_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
-        this.scene.launch("gaming_scene_lanch")
+        this.scene.launch("gaming_scene_launch")
         this.scene.pause()
     }, this)
 
@@ -214,7 +214,6 @@ function create ()
 
     let set_gold_text = setInterval(() => {
         gold_text.setText(localStorage.getItem("gold"))
-        console.log("gaming")
     }, 1000)
 }
 
