@@ -25,13 +25,31 @@ window.init_gold_data = function() { // 本地金币系统初始化
     localStorage.setItem("gold_timestamp", (new Date()).getTime())
 }
 
+// 每次打开浏览器时，检查上次关闭时的时间戳与现在打开时的时间戳，减少对应的金币数量
+function leave_browser() {
+    let old_gold_timestamp = localStorage.getItem("gold_timestamp")
+    let new_gold_timestamp = (new Date()).getTime()
+    let diff_gold_timestamp = new_gold_timestamp - old_gold_timestamp
+    let diff_gold = Math.floor(diff_gold_timestamp / 1000 / 1) // 每1秒减少1个金币
+    // console.log(diff_gold)
+    let old_gold = localStorage.getItem("gold")
+    localStorage.setItem("gold", old_gold - diff_gold)
+}
+leave_browser()
+
 // 设置决定游戏是否暂停的本地数据
 localStorage.setItem("pause", "false")
 
+// 每隔一定时间减少一定的金币
 setInterval(() => {
     let gold = localStorage.getItem("gold")
     localStorage.setItem("gold", gold - 1)
 }, 3000)
+
+// 时刻更新时间戳
+setInterval(() => {
+    localStorage.setItem("gold_timestamp", (new Date()).getTime())
+})
 
 // 配置环境
 var config = {
