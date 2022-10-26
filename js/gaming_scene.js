@@ -49,6 +49,7 @@ function preload ()
     this.load.image("bk1", "./images/游戏场景1.png") // 引入游戏背景1
     this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
     this.load.image("back_icon", "./images/back_icon.png") // 引入“返回”图标
+    this.load.image("stop_icon", "./images/stop_icon.png") // 引入“暂停”图标
     this.load.image("gold", "./images/gold.png") // 引入“显示金币框”
 }
 
@@ -64,6 +65,11 @@ function create ()
         clearInterval(set_gold_text)
         this.scene.start("game_chose_level") // 进入关卡选择页面
     })
+    // 暂停键
+    this.add.image(1140, 40, "stop_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
+        this.scene.launch("gaming_scene_lanch")
+        this.scene.pause()
+    }, this)
 
     // 显示金币框
     this.add.image(100, 30, "gold").setScale(0.5)

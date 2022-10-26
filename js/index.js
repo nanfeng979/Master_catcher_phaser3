@@ -12,8 +12,14 @@ import {char_chose} from "./char_chose.js"
 // 选择关卡页面
 import {game_chose_level} from "./game_chose_level.js"
 
+
+// 游戏进行时的暂停
+import {gaming_scene_lanch} from "./gaming_scene_lanch.js"
+console.log(gaming_scene_lanch)
+
 // 游戏进行时的场景
 import {gaming_scene} from "./gaming_scene.js"
+
 
 window.init_gold_data = function() { // 本地金币系统初始化
     localStorage.setItem("gold", "50")
@@ -38,8 +44,8 @@ var config = {
             debug: true
         }
     }, // 开启物理引擎并配置
-    scene: [char_chose, gaming_scene, game_first_open, game_chose_level]
-    // scene: [game_first_open, char_chose, game_chose_level, gaming_scene]
+    // scene: [gaming_scene, gaming_scene_lanch,  char_chose, game_first_open, game_chose_level]
+    scene: [game_first_open, char_chose, game_chose_level, gaming_scene, gaming_scene_lanch]
     // scene: gaming_scene
 };
 
