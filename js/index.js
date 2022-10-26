@@ -22,8 +22,8 @@ window.init_gold_data = function() { // 本地金币系统初始化
 
 setInterval(() => {
     let gold = localStorage.getItem("gold")
-    localStorage.setItem("gold", --gold)
-}, 5000)
+    localStorage.setItem("gold", gold - 1)
+}, 3000)
 
 // 配置环境
 var config = {

@@ -3,8 +3,8 @@ import {canvasWidth, canvasHeight, is_gameOver} from "./index.js"
 let limit_space = false // 限制空格连续按键
 let cursors // 接收键盘消息对象的变量
 let null_
-export let score = 0
-let scoreObject
+let gold
+let gold_text
 let man
 let fish1_obj // 存放指定鱼1对象的变量
 let harpoon
@@ -18,7 +18,6 @@ let xuxian_angle = 0 // 虚线的角度
 let leave_test
 let test = false
 let is_pause = false
-let gold_text
 
 
 export let gaming_scene = new Phaser.Class({
@@ -69,8 +68,8 @@ function create ()
     // 显示金币框
     this.add.image(100, 30, "gold").setScale(0.5)
     // 显示金币数量
-    score = localStorage.getItem("gold") // 获取本地“gold”的数据
-    scoreObject = this.add.text(80, 20, "" + score, { fontSize: "24px" })
+    gold = localStorage.getItem("gold") // 获取本地“gold”的数据
+    gold_text = this.add.text(80, 20, gold, { fontSize: "24px" })
 
 
     man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)
@@ -208,7 +207,7 @@ function create ()
       });
 
     let set_gold_text = setInterval(() => {
-        scoreObject.setText(localStorage.getItem("gold"))
+        gold_text.setText(localStorage.getItem("gold"))
         console.log("gaming")
     }, 1000)
 }
@@ -232,12 +231,10 @@ function update ()
         harpoon.setVelocityY(0) // 钩子停止移动
         harpoon.rotation = 0
         if(fish1_obj){ // 如果指定fish1存在
-            // fish1_obj.disableBody(true, true) // 指定fish1消失
-            // fish1_obj.setVelocityY(0) // 指定fish1停止移动
             fish1_obj.destroy() // 指定fish1消失
-            fish1_obj = null // 指定fish1消失后就变为null
-            localStorage.setItem("gold", ++score)
-            scoreObject.setText(score) // 输出最新的分数
+            let gold = Number(localStorage.getItem("gold"))
+            localStorage.setItem("gold", gold + 1)
+            gold_text.setText(gold + 1) // 输出最新的分数
             // TODO: 目前没有分数判断，先把跳到关卡选择功能放到这里
             if(test) {
                 leave_test()
