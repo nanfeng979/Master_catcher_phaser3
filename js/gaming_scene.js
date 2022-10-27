@@ -75,7 +75,7 @@ function create ()
     this.add.image(100, 30, "gold").setScale(0.5)
     // 显示金币数量
     gold = localStorage.getItem("gold") // 获取本地“gold”的数据
-    gold_text = this.add.text(80, 20, gold, { fontSize: "24px" })
+    gold_text = this.add.text(70, 20, gold, { fontSize: "24px" })
 
 
     man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)

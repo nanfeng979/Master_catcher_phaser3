@@ -19,7 +19,8 @@ export let char_chose = new Phaser.Class({
         this.add.image(canvasWidth / 2, canvasHeight / 2, "char_chose")
         this.add.image(860, 50, "gold").setScale(0.9)
         let gold = localStorage.getItem("gold") // 获取本地“gold”值
-        gold_text = this.add.text(860, 50, gold, { fontSize: "24px" })
+        gold_text = this.add.text(810, 35, gold, { fontSize: "40px" })
+        // this.add.text(100, 35, "123456789\n\t\t1234567", { fontSize: "40px", color: "#000000" })
 
         let area_scale_x = 150
         let area_scale_y = 55

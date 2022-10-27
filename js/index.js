@@ -21,7 +21,7 @@ import {gaming_scene} from "./gaming_scene.js"
 
 
 window.init_gold_data = function() { // 本地金币系统初始化
-    localStorage.setItem("gold", "200")
+    localStorage.setItem("gold", "1000")
     localStorage.setItem("gold_timestamp", (new Date()).getTime())
 }
 
@@ -30,7 +30,7 @@ function leave_browser() {
     let old_gold_timestamp = localStorage.getItem("gold_timestamp")
     let new_gold_timestamp = (new Date()).getTime()
     let diff_gold_timestamp = new_gold_timestamp - old_gold_timestamp
-    let diff_gold = Math.floor(diff_gold_timestamp / 1000 / 1) // 每1秒减少1个金币
+    let diff_gold = Math.floor(diff_gold_timestamp / 1000 / 3) // 每1秒减少1个金币
     // console.log(diff_gold)
     let old_gold = localStorage.getItem("gold")
     localStorage.setItem("gold", old_gold - diff_gold)
@@ -65,7 +65,7 @@ var config = {
         }
     }, // 开启物理引擎并配置
     // scene: [gaming_scene, gaming_scene_launch,  char_chose, game_first_open, game_chose_level]
-    scene: [gaming_scene, game_first_open, char_chose, game_chose_level, gaming_scene_launch]
+    scene: [game_first_open, char_chose, gaming_scene, game_chose_level, gaming_scene_launch]
     // scene: gaming_scene
 };
 
