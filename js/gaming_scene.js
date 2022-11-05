@@ -7,16 +7,17 @@ let gold
 let gold_text
 let man
 let fish1_obj // 存放指定鱼1对象的变量
-let harpoon
-let harpoon_init_width
-let harpoon_init_height
+let harpoon // 鱼叉的全局变量
+let harpoon_init_width // 定义钩子的初始x轴位置的全局变量
+let harpoon_init_height // 定义钩子的初始y轴位置的全局变量
 let extend_forward_speed = 300 // 鱼钩伸出时的速度
 let extend_back_speed = 200 // 鱼钩伸回时的速度
-let xuxian
+let xuxian // 虚线的全局变量
 let xuxian_is_swinging = true // 表示虚线是否在摆动
-let xuxian_angle = 0 // 虚线的角度
-let leave_test
-let test = false
+let xuxian_angle = 0 // 虚线的初始角度
+
+let leave_test // 演示时用的测试函数
+let test = false // 演示时用的测试开关
 
 
 export let gaming_scene = new Phaser.Class({
@@ -49,6 +50,7 @@ function preload ()
     this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
     this.load.image("back_icon", "./images/back_icon.png") // 引入“返回”图标
     this.load.image("stop_icon", "./images/stop_icon.png") // 引入“暂停”图标
+    this.load.image("set_icon", "./images/set_icon1.png") // 引入“设置”图标
     this.load.image("gold", "./images/gold.png") // 引入“显示金币框”
 }
 
@@ -59,6 +61,25 @@ function create ()
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
 
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
+
+    // 设置键
+    let set_key = this.add.image(1040, 40, "set_icon").setScale(0.4).setInteractive()
+    // 设置键的点击事件
+    set_key.on("pointerdown", () => {
+        document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
+        localStorage.setItem("pause", "true")
+        this.scene.launch("set_launch")
+        this.scene.pause()
+    })
+    // 设置键的鼠标移入事件
+    set_key.on("pointerover", () => {
+        document.body.style.cursor = "url(./images/pointer_mouse_icon.ico), auto"
+    })
+    // 设置键的鼠标移出事件
+    set_key.on("pointerout", () => {
+        document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
+    })
+
     // 返回键
     let return_key = this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive()
     // 返回键的点击事件
