@@ -16,8 +16,18 @@ export let game_chose_level = new Phaser.Class({
     create: function () {
         this.add.image(canvasWidth / 2, canvasHeight / 2, "game_chose_level")
         // 返回键
-        this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
+        let return_key = this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive()
+        // 返回键的点击事件
+        return_key.on("pointerdown", () => {
             this.scene.start("char_chose") // 进入角色选择页面
+        })
+        // 返回键的鼠标移入事件
+        return_key.on("pointerover", () => {
+            document.body.style.cursor = "url(./images/pointer_mouse_icon.ico), auto"
+        })
+        // 返回键的鼠标移出事件
+        return_key.on("pointerout", () => {
+            document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
         })
 
         let area_scale_x = 160
@@ -28,13 +38,13 @@ export let game_chose_level = new Phaser.Class({
             let gold = localStorage.getItem("gold")
             localStorage.setItem("gold", gold - 20)
             this.scene.start("gaming_scene") // 切换场景
-            document.querySelector("body").style.cursor = "default"
+            document.querySelector("body").style.cursor = "url(./images/default_mouse_icon.ico), auto"
         })
         area.on("pointerover", () => {
-            document.querySelector("body").style.cursor = "pointer"
+            document.querySelector("body").style.cursor = "url(./images/pointer_mouse_icon.ico), auto"
         })
         area.on("pointerout", () => {
-            document.querySelector("body").style.cursor = "default"
+            document.querySelector("body").style.cursor = "url(./images/default_mouse_icon.ico), auto"
         })
     }
 

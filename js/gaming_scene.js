@@ -60,16 +60,40 @@ function create ()
 
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
     // 返回键
-    this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
+    let return_key = this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive()
+    // 返回键的点击事件
+    return_key.on("pointerdown", () => {
+        document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
         clearInterval(set_gold_text)
         this.scene.start("game_chose_level") // 进入关卡选择页面
     })
+    // 返回键的鼠标移入事件
+    return_key.on("pointerover", () => {
+        document.body.style.cursor = "url(./images/pointer_mouse_icon.ico), auto"
+    })
+    // 返回键的鼠标移出事件
+    return_key.on("pointerout", () => {
+        document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
+    })
+
+
     // 暂停键
-    this.add.image(1140, 40, "stop_icon").setScale(0.5).setInteractive().on("pointerdown", () => {
+    let pause_key = this.add.image(1140, 40, "stop_icon").setScale(0.5).setInteractive()
+    // 暂停键的点击事件
+    pause_key.on("pointerdown", () => {
+        document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
         localStorage.setItem("pause", "true")
         this.scene.launch("gaming_scene_launch")
         this.scene.pause()
     }, this)
+    // 暂停键的鼠标移入事件
+    pause_key.on("pointerover", () => {
+        document.body.style.cursor = "url(./images/pointer_mouse_icon.ico), auto"
+    })
+    // 暂停键的鼠标移出事件
+    pause_key.on("pointerout", () => {
+        document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
+    })
 
     // 显示金币框
     this.add.image(100, 30, "gold").setScale(0.5)

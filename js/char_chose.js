@@ -33,20 +33,20 @@ export let char_chose = new Phaser.Class({
                 // 鼠标在热区内
                 clearInterval(set_gold_text)
                 this.scene.start("game_chose_level") // 切换场景game_first_open
-                document.querySelector("body").style.cursor = "default"
+                document.querySelector("body").style.cursor = "url(./images/default_mouse_icon.ico), auto"
                 game_chose_level_input = false // 控制变量为假
             }
         })
         area.on("pointerover", () => {
             if(game_chose_level_input) {
                 // 鼠标在热区内
-                document.querySelector("body").style.cursor = "pointer"
+                document.querySelector("body").style.cursor = "url(./images/pointer_mouse_icon.ico), auto"
             }
         })
         area.on("pointerout", () => {
             if(game_chose_level_input) {
                 // 鼠标在热区内
-                document.querySelector("body").style.cursor = "default"
+                document.querySelector("body").style.cursor = "url(./images/default_mouse_icon.ico), auto"
             }
         })
 
