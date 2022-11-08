@@ -15,9 +15,10 @@ let extend_back_speed = 200 // 鱼钩伸回时的速度
 let xuxian // 虚线的全局变量
 let xuxian_is_swinging = true // 表示虚线是否在摆动
 let xuxian_angle = 0 // 虚线的初始角度
+let fish_timer // 用来一直改变捕上来的鱼的xy位置的定时器
 
 let leave_test // 演示时用的测试函数
-let test = false // 演示时用的测试开关
+let test = true // 演示时用的测试开关
 
 
 export let gaming_scene = new Phaser.Class({
@@ -191,8 +192,36 @@ function create ()
     } else {
         // 测试需要
         var fish2s, fish3s, fish4s, fish1s
+        var fish_arr = [] // tweens使用到的鱼的数组
         fish2s = fish3s = fish4s = 0
-        fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
+        // fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
+        // fish1s = this.physics.add.image(1000, 400, "fish1").setScale(0.5)
+        // 创建鱼1组
+        fish1s = this.physics.add.group({
+            key: 'fish1',
+            repeat: 3,
+            setXY: { x: 150, y: 350, stepY: 100 }
+        });
+        // 重新管理鱼1组的每个对象
+        fish1s.children.iterate(function (child) {
+            child.setScale(0.4)
+            child.flipX = true // 水平翻转
+            fish_arr.push(child)
+        })
+
+        globalThis.fish_tween = this.tweens.add({
+            targets: fish_arr,
+            x: 1100,
+            duration: 8000,
+            flipX: true,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: -1,
+            delay: function (target, key, value, targetIndex) {
+                return targetIndex * 500;
+            }
+        })
+
         leave_test = function() {
             _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
             setTimeout(function() {
@@ -285,10 +314,11 @@ function update ()
             let gold = Number(localStorage.getItem("gold"))
             localStorage.setItem("gold", gold + 1)
             gold_text.setText(gold + 1) // 输出最新的分数
+            fish_tween.resume()
             // TODO: 目前没有分数判断，先把跳到关卡选择功能放到这里
-            if(test) {
-                leave_test()
-            }
+            // if(test) {
+            //     leave_test()
+            // }
         }
         harpoon.x = harpoon_init_width // 钩子x轴恢复到初始x轴
         harpoon.y = harpoon_init_height // 钩子y轴恢复到初始y轴
@@ -340,6 +370,7 @@ function harpoon_fire() {
 
 // 钩子与fish1碰撞后的函数
 function harpoon_collid_fishs(null_, fish) {
+    fish_tween.pause()
     fish.x = null_.x // 鱼叉碰到后会将鱼吸附到鱼叉头处
     fish.y = null_.y
     harpoon.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
