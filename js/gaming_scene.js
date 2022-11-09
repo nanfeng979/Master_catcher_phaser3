@@ -17,6 +17,8 @@ let xuxian_is_swinging = true // 表示虚线是否在摆动
 let xuxian_angle = 0 // 虚线的初始角度
 let fish_timer // 用来一直改变捕上来的鱼的xy位置的定时器
 let can_catch_fish = true // 用来限制一次只能捕一次鱼
+let fishs_number // 确定当前鱼的数量
+let current_is_cated // 当前被捕到的鱼
 
 let leave_test // 演示时用的测试函数
 let test = true // 演示时用的测试开关
@@ -210,6 +212,8 @@ function create ()
             fish_arr.push(child)
         })
 
+        fishs_number = 4
+
         globalThis.fish_tween = this.tweens.add({
             targets: fish_arr,
             x: 1100,
@@ -319,10 +323,11 @@ function update ()
             localStorage.setItem("gold", gold + 1)
             gold_text.setText(gold + 1) // 输出最新的分数
             fish_tween.resume()
+            fishs_number--
             // TODO: 目前没有分数判断，先把跳到关卡选择功能放到这里
-            // if(test) {
-            //     leave_test()
-            // }
+            if(test && !fishs_number) {
+                leave_test()
+            }
         }
         harpoon.x = harpoon_init_width // 钩子x轴恢复到初始x轴
         harpoon.y = harpoon_init_height // 钩子y轴恢复到初始y轴
@@ -374,10 +379,11 @@ function harpoon_fire() {
 
 // 钩子与fish1碰撞后的函数
 function harpoon_collid_fishs(null_, fish) {
-    if(!can_catch_fish) {
-        return
+    if(can_catch_fish) {
+        current_is_cated = fish
+        can_catch_fish = false // 不允许再次捕鱼
     }
-    can_catch_fish = false // 不允许再次捕鱼
+    if(current_is_cated != fish) return 
     fish_tween.pause()
     fish.x = null_.x // 鱼叉碰到后会将鱼吸附到鱼叉头处
     fish.y = null_.y
