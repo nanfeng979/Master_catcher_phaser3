@@ -315,12 +315,23 @@ function update ()
         harpoon.setVelocityY(0) // 钩子停止移动
         harpoon.rotation = 0
         if(fish1_obj){ // 如果指定fish1存在
+            let gold_num // 表示当前捕到的鱼的价格
+            switch(fish1_obj.frame.texture.key) {
+                case 'fish1':
+                    gold_num = 3;break;
+                case 'fish2':
+                    gold_num = 4;break;
+                case 'fish3':
+                    gold_num = 2;break;
+                case 'fish4':
+                    gold_num = 1;break;
+            }
             // fish1_obj.disableBody(true, true) // 指定fish1消失
             // fish1_obj.setVelocityY(0) // 指定fish1停止移动
             fish1_obj.destroy() // 指定fish1消失
             fish1_obj = null // 指定fish1消失后就变为null
             let gold = Number(localStorage.getItem("gold"))
-            localStorage.setItem("gold", gold + 1)
+            localStorage.setItem("gold", gold + gold_num)
             gold_text.setText(gold + 1) // 输出最新的分数
             fish_tween.resume()
             fishs_number--
@@ -384,7 +395,7 @@ function harpoon_collid_fishs(null_, fish) {
         can_catch_fish = false // 不允许再次捕鱼
     }
     if(current_is_cated != fish) return 
-    fish_tween.pause()
+    fish_tween.pause() // 暂停tween的动作
     fish.x = null_.x // 鱼叉碰到后会将鱼吸附到鱼叉头处
     fish.y = null_.y
     harpoon.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
