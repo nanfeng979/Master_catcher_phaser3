@@ -16,6 +16,7 @@ let xuxian // 虚线的全局变量
 let xuxian_is_swinging = true // 表示虚线是否在摆动
 let xuxian_angle = 0 // 虚线的初始角度
 let fish_timer // 用来一直改变捕上来的鱼的xy位置的定时器
+let can_catch_fish = true // 用来限制一次只能捕一次鱼
 
 let leave_test // 演示时用的测试函数
 let test = true // 演示时用的测试开关
@@ -191,19 +192,19 @@ function create ()
         })
     } else {
         // 测试需要
-        var fish2s, fish3s, fish4s, fish1s
+        var fish2s, fish3s, fish4s, fish1s, fishs
         var fish_arr = [] // tweens使用到的鱼的数组
-        fish2s = fish3s = fish4s = 0
+        fish1s = fish2s = fish3s = fish4s = 0
         // fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
         // fish1s = this.physics.add.image(1000, 400, "fish1").setScale(0.5)
         // 创建鱼1组
-        fish1s = this.physics.add.group({
-            key: 'fish1',
-            repeat: 3,
+        fishs = this.physics.add.group({
+            key: ['fish1', 'fish2', 'fish3', 'fish4'],
+            repeat: 0,
             setXY: { x: 150, y: 350, stepY: 100 }
         });
         // 重新管理鱼1组的每个对象
-        fish1s.children.iterate(function (child) {
+        fishs.children.iterate(function (child) {
             child.setScale(0.4)
             child.flipX = true // 水平翻转
             fish_arr.push(child)
@@ -265,13 +266,15 @@ function create ()
 
     // 碰撞响应事件
 
+    // 添加钩子与鱼组的碰撞响应函数 
+    this.physics.add.collider(null_, fishs, harpoon_collid_fishs, null, this)
     // 添加钩子与鱼1组的碰撞响应函数 
     this.physics.add.collider(null_, fish1s, harpoon_collid_fishs, null, this)
-    // 添加钩子与鱼1组的碰撞响应函数 
+    // 添加钩子与鱼2组的碰撞响应函数 
     this.physics.add.collider(null_, fish2s, harpoon_collid_fishs, null, this)
-    // 添加钩子与鱼1组的碰撞响应函数 
+    // 添加钩子与鱼3组的碰撞响应函数 
     this.physics.add.collider(null_, fish3s, harpoon_collid_fishs, null, this)
-    // 添加钩子与鱼1组的碰撞响应函数 
+    // 添加钩子与鱼4组的碰撞响应函数 
     this.physics.add.collider(null_, fish4s, harpoon_collid_fishs, null, this)
 
     // 键盘响应事件
@@ -303,6 +306,7 @@ function update ()
 
     // 如果钩子的高度小于钩子的初始高度(钩子伸出再缩回时会触发)
     if(harpoon.y < harpoon_init_height) {
+        can_catch_fish = true // 允许再次捕鱼
         harpoon.setVelocityX(0) // 钩子停止移动
         harpoon.setVelocityY(0) // 钩子停止移动
         harpoon.rotation = 0
@@ -370,6 +374,10 @@ function harpoon_fire() {
 
 // 钩子与fish1碰撞后的函数
 function harpoon_collid_fishs(null_, fish) {
+    if(!can_catch_fish) {
+        return
+    }
+    can_catch_fish = false // 不允许再次捕鱼
     fish_tween.pause()
     fish.x = null_.x // 鱼叉碰到后会将鱼吸附到鱼叉头处
     fish.y = null_.y
