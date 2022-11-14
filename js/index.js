@@ -64,11 +64,11 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: 0,
-            debug: true
+            debug: false
         }
     }, // 开启物理引擎并配置
     // scene: [gaming_scene, gaming_scene_launch,  char_chose, game_first_open, game_chose_level]
-    scene: [gaming_scene, game_first_open, char_chose, game_chose_level, gaming_scene_launch, set_launch]
+    scene: [game_first_open, gaming_scene, char_chose, game_chose_level, gaming_scene_launch, set_launch]
     // scene: gaming_scene
 };
 
