@@ -16,7 +16,7 @@ export let game_chose_level = new Phaser.Class({
     create: function () {
         this.add.image(canvasWidth / 2, canvasHeight / 2, "game_chose_level")
         // 返回键
-        let return_key = this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive()
+        let return_key = this.add.image(1240, 40, "back_icon").setScale(0.4).setInteractive()
         // 返回键的点击事件
         return_key.on("pointerdown", () => {
             this.scene.start("char_chose") // 进入角色选择页面

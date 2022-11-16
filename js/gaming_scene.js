@@ -89,7 +89,7 @@ function create ()
     })
 
     // 返回键
-    let return_key = this.add.image(1240, 40, "back_icon").setScale(0.5).setInteractive()
+    let return_key = this.add.image(1240, 40, "back_icon").setScale(0.4).setInteractive()
     // 返回键的点击事件
     return_key.on("pointerdown", () => {
         document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
