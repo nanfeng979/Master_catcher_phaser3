@@ -13,14 +13,42 @@ export let set_launch = new Phaser.Class({
         this.load.image("set", "./images/set_scene.png")
         this.load.image("close", "./images/close_icon.png")
         this.load.image("null", "./images/touming_xiangsu.png")
+        this.load.image("blue", "/images/蓝色进度条.png")
+        this.load.image("yellow", "/images/黄色进度条.png")
+        this.load.image("white", "/images/白色滑动按钮.png")
     },
 
     create: function() {
-        this.add.image(canvasWidth / 2, canvasHeight / 2, "set");
+        // 设置框
+        this.add.image(canvasWidth / 2, canvasHeight / 2, "set").setScale(0.6);
+        var blue1 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 - 38, "blue").setScale(0.6)
+        var yellow1 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 - 38, "yellow").setScale(0.6).setInteractive()
+        var white1 = this.add.image(canvasWidth / 2 - 60, canvasHeight / 2 - 38, "white").setScale(0.6)
+        yellow1.on("pointerdown", (pointer) => {
+            if(pointer.x > white1.x){
+                white1.x += 34
+            }
+            if(pointer.x < white1.x){
+                white1.x -= 34
+            }
+        })
+
+        var blue2 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 + 17, "blue").setScale(0.6)
+        var yellow2 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 + 17, "yellow").setScale(0.6).setInteractive()
+        var white2 = this.add.image(canvasWidth / 2 - 60, canvasHeight / 2 + 17, "white").setScale(0.6)
+        yellow2.on("pointerdown", (pointer) => {
+            if(pointer.x > white2.x){
+                white2.x += 34
+            }
+            if(pointer.x < white2.x){
+                white2.x -= 34
+            }
+        })
 
         // 关闭按钮
-        let close_key = this.add.image(canvasWidth / 2 + 130, canvasHeight / 2 - 164, "close").setScale(0.65).setInteractive()
+        let close_key = this.add.image(canvasWidth / 2 + 185, canvasHeight / 2 - 144, "close").setScale(0.65).setInteractive()
         // 关闭按钮点击事件
+        close_key.setAlpha(0.01)
         close_key.on("pointerdown", () => {
             document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
             localStorage.setItem("pause", "false")
