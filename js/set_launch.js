@@ -22,28 +22,31 @@ export let set_launch = new Phaser.Class({
         // 设置框
         this.add.image(canvasWidth / 2, canvasHeight / 2, "set").setScale(0.6);
         var blue1 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 - 38, "blue").setScale(0.6)
-        var yellow1 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 - 38, "yellow").setScale(0.6).setInteractive()
+        var yellow1 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 - 38, "yellow").setScale(0.6)
+        var blue1_click = this.add.image(blue1.x, blue1.y, "null").setScale(blue1.width * 0.6 * 0.8 / 2, blue1.height * 0.6 / 2).setInteractive()
         var white1 = this.add.image(canvasWidth / 2 - 60, canvasHeight / 2 - 38, "white").setScale(0.6)
-        yellow1.on("pointerdown", (pointer) => {
+
+        blue1_click.on("pointerdown", (pointer) => {
             if(pointer.x > white1.x){
                 white1.x += 34
-            }
-            if(pointer.x < white1.x){
+            }else if(pointer.x < white1.x){
                 white1.x -= 34
             }
         })
 
         var blue2 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 + 17, "blue").setScale(0.6)
-        var yellow2 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 + 17, "yellow").setScale(0.6).setInteractive()
+        var yellow2 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 + 17, "yellow").setScale(0.6)
+        var blue2_click = this.add.image(blue2.x, blue2.y, "null").setScale(blue2.width * 0.6 * 0.8 / 2, blue2.height * 0.6 / 2).setInteractive()
         var white2 = this.add.image(canvasWidth / 2 - 60, canvasHeight / 2 + 17, "white").setScale(0.6)
-        yellow2.on("pointerdown", (pointer) => {
+
+        blue2_click.on("pointerdown", (pointer) => {
             if(pointer.x > white2.x){
                 white2.x += 34
-            }
-            if(pointer.x < white2.x){
+            }else if(pointer.x < white2.x){
                 white2.x -= 34
             }
         })
+
 
         // 关闭按钮
         let close_key = this.add.image(canvasWidth / 2 + 185, canvasHeight / 2 - 144, "close").setScale(0.65).setInteractive()
