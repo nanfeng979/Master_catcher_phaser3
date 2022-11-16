@@ -56,6 +56,7 @@ function preload ()
     this.load.image("stop_icon", "./images/stop_icon.png") // 引入“暂停”图标
     this.load.image("set_icon", "./images/set_icon1.png") // 引入“设置”图标
     this.load.image("gold", "./images/gold.png") // 引入“显示金币框”
+    this.load.audio("bg_audio", "./media/bg.mp3") // 引入背景音乐
 }
 
 function create ()
@@ -63,6 +64,9 @@ function create ()
     // create() 创建资源、绑定各种交互函数
     let _this = this
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
+
+    let bgaudio =  this.sound.add("bg_audio")
+    bgaudio.play()
 
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
 
