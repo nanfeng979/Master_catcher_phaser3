@@ -27,6 +27,7 @@ export let set_launch = new Phaser.Class({
         var blue1_click = this.add.image(blue1.x, blue1.y, "null").setScale(blue1.width * 0.6 * 0.8 / 2, blue1.height * 0.6 / 2).setInteractive()
         var white1 = this.add.image(canvasWidth / 2 - 60, canvasHeight / 2 - 38, "white").setScale(0.6)
         var jindutiao_leng1 = 0.6;
+        white1.x += 34 * 3
         yellow1.setScale(0.6 * jindutiao_leng1, 0.6)
         blue1_click.on("pointerdown", (pointer) => {
             if(pointer.x > white1.x){
@@ -44,6 +45,7 @@ export let set_launch = new Phaser.Class({
         var blue2_click = this.add.image(blue2.x, blue2.y, "null").setScale(blue2.width * 0.6 * 0.8 / 2, blue2.height * 0.6 / 2).setInteractive()
         var white2 = this.add.image(canvasWidth / 2 - 60, canvasHeight / 2 + 17, "white").setScale(0.6)
         var jindutiao_leng2 = 0.6;
+        white2.x += 34 * 3
         yellow2.setScale(0.6 * jindutiao_leng2, 0.6)
         blue2_click.on("pointerdown", (pointer) => {
             if(pointer.x > white2.x){
