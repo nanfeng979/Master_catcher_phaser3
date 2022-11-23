@@ -228,7 +228,7 @@ function create ()
         fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
         fish1s.flipX = true
         // 创建鱼2
-        fish2s = this.physics.add.image(canvasWidth / 2, 480, "fish2").setScale(0.3)
+        fish2s = this.physics.add.image(canvasWidth / 2, 350, "fish2").setScale(0.3)
         fish2s.flipX = true
         // // fish1s = this.physics.add.image(1000, 400, "fish1").setScale(0.5)
         // // 创建鱼1组
@@ -244,7 +244,7 @@ function create ()
         //     fish_arr.push(child)
         // })
 
-        // fishs_number = 4
+        fishs_number = 2
 
         // globalThis.fish_tween = this.tweens.add({
         //     targets: fish_arr,
@@ -259,16 +259,16 @@ function create ()
         //     }
         // })
 
-        // leave_test = function() {
-        //     _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
-        //     setTimeout(function() {
-        //         _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave")
-        //     }, 3000)
-        //     setTimeout(function() {
-        //         clearInterval(set_gold_text)
-        //         _this.scene.start("game_chose_level")
-        //     }, 5000)
-        // }
+        leave_test = function() {
+            _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
+            setTimeout(function() {
+                _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave")
+            }, 3000)
+            setTimeout(function() {
+                clearInterval(set_gold_text)
+                _this.scene.start("game_chose_level")
+            }, 5000)
+        }
 
 
     }
@@ -295,6 +295,10 @@ function create ()
     
     // 鼠标响应事件 // todo，改成上面那样
     this.input.on('pointerdown', (pointer) => {
+        if(limit_space)
+        {
+            return
+        }
         if(pointer.x < canvasWidth/2)
         {
             man.flipX = false;
@@ -351,7 +355,7 @@ function update ()
             let gold = Number(localStorage.getItem("gold"))
             localStorage.setItem("gold", gold + gold_num)
             gold_text.setText(gold + 1) // 输出最新的分数
-            fish_tween.resume()
+            // fish_tween.resume()
             fishs_number--
             // TODO: 目前没有分数判断，先把跳到关卡选择功能放到这里
             if(test && !fishs_number) {
@@ -371,16 +375,16 @@ function update ()
     
 
     // 鱼1的自由游泳
-    fish1s.x += fish1s_step
+    fish1s.x += fish1s_step * 0.2
     if(fish1s.x > canvasWidth || fish1s.x < 0) {
         fish1s_step = -fish1s_step
         fish1s.flipX = !fish1s.flipX
     }
 
     // 鱼2的自由游泳
-    fish2s.x += fish2s_step
-    fish2s.y += Math.sin(toAngle(fish2s_step_y)) * 5
-    fish2s_step_y += 3
+    fish2s.x += fish2s_step * 0.2
+    fish2s.y += Math.sin(toAngle(fish2s_step_y)) * 3
+    fish2s_step_y += 1
     if(fish2s.x > canvasWidth || fish2s.x < 0) {
         fish2s_step = -fish2s_step
         fish2s.flipX = !fish2s.flipX
@@ -443,7 +447,7 @@ function harpoon_collid_fishs(null_, fish) {
         can_catch_fish = false // 不允许再次捕鱼
     }
     if(current_is_cated != fish) return 
-    fish_tween.pause() // 暂停tween的动作
+    // fish_tween.pause() // 暂停tween的动作
     fish.x = null_.x // 鱼叉碰到后会将鱼吸附到鱼叉头处
     fish.y = null_.y
     harpoon.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
