@@ -21,8 +21,11 @@ let can_catch_fish = true // 用来限制一次只能捕一次鱼
 let fishs_number // 确定当前鱼的数量
 let current_is_cated // 当前被捕到的鱼
 
-let fish1s // 鱼1
+let fish1s, fish2s // 鱼1
 let fish1s_step = 10 // 鱼1的游泳步伐
+let fish2s_step = 10
+let fish2s_step_y = 0
+
 
 let leave_test // 演示时用的测试函数
 let test = true // 演示时用的测试开关
@@ -216,12 +219,17 @@ function create ()
         })
     } else {
         // // 测试需要
-        var fish2s, fish3s, fish4s,  fishs
-        // fish1s,
+        var  fish3s, fish4s,  fishs
+        // fish1s, fish2s,
         var fish_arr = [] // tweens使用到的鱼的数组
         fish1s = fish2s = fish3s = fish4s = 0
+
+        // 创建鱼1
         fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
         fish1s.flipX = true
+        // 创建鱼2
+        fish2s = this.physics.add.image(canvasWidth / 2, 480, "fish2").setScale(0.3)
+        fish2s.flipX = true
         // // fish1s = this.physics.add.image(1000, 400, "fish1").setScale(0.5)
         // // 创建鱼1组
         // fishs = this.physics.add.group({
@@ -367,6 +375,15 @@ function update ()
     if(fish1s.x > canvasWidth || fish1s.x < 0) {
         fish1s_step = -fish1s_step
         fish1s.flipX = !fish1s.flipX
+    }
+
+    // 鱼2的自由游泳
+    fish2s.x += fish2s_step
+    fish2s.y += Math.sin(toAngle(fish2s_step_y)) * 5
+    fish2s_step_y += 3
+    if(fish2s.x > canvasWidth || fish2s.x < 0) {
+        fish2s_step = -fish2s_step
+        fish2s.flipX = !fish2s.flipX
     }
 
     // 按下空格后将限制以下键盘行为
