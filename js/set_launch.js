@@ -26,7 +26,7 @@ export let set_launch = new Phaser.Class({
         var yellow1 = this.add.image(canvasWidth / 2 - 66, canvasHeight / 2 - 38, "yellow").setScale(0.6).setOrigin(0, 0.5)
         var blue1_click = this.add.image(blue1.x, blue1.y, "null").setScale(blue1.width * 0.6 * 0.8 / 2, blue1.height * 0.6 / 2).setInteractive()
         var white1 = this.add.image(canvasWidth / 2 - 60, canvasHeight / 2 - 38, "white").setScale(0.6)
-        var jindutiao_leng1 = 0.6;
+        var jindutiao_leng1 = 0.6
         white1.x += 34 * 3
         yellow1.setScale(0.6 * jindutiao_leng1, 0.6)
         blue1_click.on("pointerdown", (pointer) => {
@@ -38,6 +38,7 @@ export let set_launch = new Phaser.Class({
                 jindutiao_leng1 -= 0.2
             }
             yellow1.setScale(0.6 * jindutiao_leng1, 0.6)
+            bgaudio.volume = 3 * jindutiao_leng1
         })
 
         var blue2 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 + 17, "blue").setScale(0.6)

@@ -65,13 +65,11 @@ function create ()
     let _this = this
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
 
-    let bgaudio =  this.sound.add("bg_audio")
+    // 音频相关
+    globalThis.bgaudio =  this.sound.add("bg_audio") // 将音频设为全局变量
     bgaudio.loop = true
-    
     bgaudio.play()
-
-    // bgaudio.volume = 0.6
-    // bgaudio.play()
+    bgaudio.volume = 3 * 0.6
 
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
 
