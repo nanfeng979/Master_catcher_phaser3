@@ -57,6 +57,7 @@ function preload ()
     this.load.image("set_icon", "./images/set_icon1.png") // 引入“设置”图标
     this.load.image("gold", "./images/gold.png") // 引入“显示金币框”
     this.load.audio("bg_audio", "./media/bg.mp3") // 引入背景音乐
+    this.load.audio("dianji_audio", "./media/dianji.mp3") // 引入点击音效
 }
 
 function create ()
@@ -70,6 +71,9 @@ function create ()
     bgaudio.loop = true
     bgaudio.play()
     bgaudio.volume = 3 * 0.6
+
+    globalThis.dianjiAudio = this.sound.add("dianji_audio")
+    dianjiAudio.volume = 0.6
 
     this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
 
@@ -388,6 +392,7 @@ function xuxian_swing() {
 
 // 鱼叉发射函数
 function harpoon_fire() {
+    dianjiAudio.play()
     xuxian_is_swinging = false // 停止虚线的摆动
     limit_space = true // 打开限制，反之按空格之后响应其它按键操作
     harpoon.rotation = xuxian.rotation

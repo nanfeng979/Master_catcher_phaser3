@@ -57,6 +57,7 @@ export let set_launch = new Phaser.Class({
                 jindutiao_leng2 -= 0.2
             }
             yellow2.setScale(0.6 * jindutiao_leng2, 0.6)
+            dianjiAudio.volume = jindutiao_leng2
         })
 
 
