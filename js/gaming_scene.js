@@ -146,7 +146,7 @@ function create ()
     extend_forward_speed_text = this.add.text(40, 80, "当前鱼叉发射速度为：" + extend_forward_speed, { fontSize: "22px" })
 
 
-    man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)
+    man = this.physics.add.image(canvasWidth / 2 - 40, 120, "man").setScale(0.2)
 
     harpoon = this.physics.add.image(canvasWidth / 2 - 30, 70, "harpoon")
 
@@ -307,7 +307,15 @@ function create ()
     key2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
     
     // 鼠标响应事件 // todo，改成上面那样
-    this.input.on('pointerdown', () => {
+    this.input.on('pointerdown', (pointer) => {
+        if(pointer.x < canvasWidth/2)
+        {
+            man.flipX = false;
+        }
+        else {
+            man.flipX = true;
+        }
+
         if(localStorage.getItem("pause") == "false") {
             harpoon_fire()
         }
