@@ -21,6 +21,9 @@ let can_catch_fish = true // 用来限制一次只能捕一次鱼
 let fishs_number // 确定当前鱼的数量
 let current_is_cated // 当前被捕到的鱼
 
+let fish1s // 鱼1
+let fish1s_step = 10 // 鱼1的游泳步伐
+
 let leave_test // 演示时用的测试函数
 let test = true // 演示时用的测试开关
 
@@ -212,80 +215,56 @@ function create ()
             child.setScale(0.5)
         })
     } else {
-        // 测试需要
-        var fish2s, fish3s, fish4s, fish1s, fishs
+        // // 测试需要
+        var fish2s, fish3s, fish4s,  fishs
+        // fish1s,
         var fish_arr = [] // tweens使用到的鱼的数组
         fish1s = fish2s = fish3s = fish4s = 0
-        // fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
-        // fish1s = this.physics.add.image(1000, 400, "fish1").setScale(0.5)
-        // 创建鱼1组
-        fishs = this.physics.add.group({
-            key: ['fish1', 'fish2', 'fish3', 'fish4'],
-            repeat: 0,
-            setXY: { x: 150, y: 350, stepY: 100 }
-        });
-        // 重新管理鱼1组的每个对象
-        fishs.children.iterate(function (child) {
-            child.setScale(0.4)
-            child.flipX = true // 水平翻转
-            fish_arr.push(child)
-        })
+        fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
+        fish1s.flipX = true
+        // // fish1s = this.physics.add.image(1000, 400, "fish1").setScale(0.5)
+        // // 创建鱼1组
+        // fishs = this.physics.add.group({
+        //     key: ['fish1', 'fish2', 'fish3', 'fish4'],
+        //     repeat: 0,
+        //     setXY: { x: 150, y: 350, stepY: 100 }
+        // });
+        // // 重新管理鱼1组的每个对象
+        // fishs.children.iterate(function (child) {
+        //     child.setScale(0.4)
+        //     child.flipX = true // 水平翻转
+        //     fish_arr.push(child)
+        // })
 
-        fishs_number = 4
+        // fishs_number = 4
 
-        globalThis.fish_tween = this.tweens.add({
-            targets: fish_arr,
-            x: 1100,
-            duration: 8000,
-            flipX: true,
-            ease: 'Sine.easeInOut',
-            yoyo: true,
-            repeat: -1,
-            delay: function (target, key, value, targetIndex) {
-                return targetIndex * 500;
-            }
-        })
+        // globalThis.fish_tween = this.tweens.add({
+        //     targets: fish_arr,
+        //     x: 1100,
+        //     duration: 8000,
+        //     flipX: true,
+        //     ease: 'Sine.easeInOut',
+        //     yoyo: true,
+        //     repeat: -1,
+        //     delay: function (target, key, value, targetIndex) {
+        //         return targetIndex * 500;
+        //     }
+        // })
 
-        leave_test = function() {
-            _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
-            setTimeout(function() {
-                _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave")
-            }, 3000)
-            setTimeout(function() {
-                clearInterval(set_gold_text)
-                _this.scene.start("game_chose_level")
-            }, 5000)
-        }
+        // leave_test = function() {
+        //     _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
+        //     setTimeout(function() {
+        //         _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave")
+        //     }, 3000)
+        //     setTimeout(function() {
+        //         clearInterval(set_gold_text)
+        //         _this.scene.start("game_chose_level")
+        //     }, 5000)
+        // }
+
+
     }
     
-
-    
-
-    // 作业需要
-    // fish1s = this.physics.add.image(150, 400, "fish1").setScale(0.5)
-    // this.tweens.add({
-    //     targets: fish1s,
-    //     props: {
-    //         x: { value: 1000, duration: 4000, flipX: true },
-    //         y: { value: 600, duration: 8000,  },
-    //     },
-    //     ease: 'Sine.easeInOut',
-    //     yoyo: true,
-    //     repeat: -1
-    // })
-
-    // let blue = this.add.particles('blue');
-    // blue.createEmitter({
-    //     x: 200,
-    //     y: 120,
-    //     angle: { min: 250, max: 290 },
-    //     speed: 180,
-    //     gravityY: 100,
-    //     lifespan: 3000,
-    //     quantity: 3,
-    //     scale: { start: 0.1, end: 0.2 },
-    //     blendMode: 'ADD'
-    // });
 
     // 碰撞响应事件
 
@@ -382,6 +361,13 @@ function update ()
         harpoon.setVelocityY(-(extend_back_speed * Math.cos(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
     }
     
+
+    // 鱼1的自由游泳
+    fish1s.x += fish1s_step
+    if(fish1s.x > canvasWidth || fish1s.x < 0) {
+        fish1s_step = -fish1s_step
+        fish1s.flipX = !fish1s.flipX
+    }
 
     // 按下空格后将限制以下键盘行为
     if(limit_space) {
