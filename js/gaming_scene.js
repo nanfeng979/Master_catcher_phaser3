@@ -244,7 +244,7 @@ function create ()
         //     fish_arr.push(child)
         // })
 
-        fishs_number = 2
+        fishs_number = 1
 
         // globalThis.fish_tween = this.tweens.add({
         //     targets: fish_arr,
@@ -267,6 +267,7 @@ function create ()
             setTimeout(function() {
                 clearInterval(set_gold_text)
                 _this.scene.start("game_chose_level")
+                globalThis.bgaudio.destroy()
             }, 5000)
         }
 
