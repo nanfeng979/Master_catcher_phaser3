@@ -5,6 +5,7 @@ let cursors // 接收键盘消息对象的变量
 let null_
 let gold
 let gold_text
+let extend_forward_speed_text
 let man
 let fish1_obj // 存放指定鱼1对象的变量
 let harpoon // 鱼叉的全局变量
@@ -22,6 +23,10 @@ let current_is_cated // 当前被捕到的鱼
 
 let leave_test // 演示时用的测试函数
 let test = true // 演示时用的测试开关
+
+// 键盘监听
+let key1
+let key2
 
 
 export let gaming_scene = new Phaser.Class({
@@ -136,6 +141,9 @@ function create ()
     // 显示金币数量
     gold = localStorage.getItem("gold") // 获取本地“gold”的数据
     gold_text = this.add.text(70, 20, gold, { fontSize: "24px" })
+
+    //显示鱼叉发射速度
+    extend_forward_speed_text = this.add.text(40, 80, "当前鱼叉发射速度为：" + extend_forward_speed, { fontSize: "22px" })
 
 
     man = this.physics.add.image(canvasWidth / 2, 120, "man").setScale(0.3)
@@ -294,6 +302,10 @@ function create ()
 
     // 键盘响应事件
     cursors = this.input.keyboard.createCursorKeys();
+    //键盘操作
+    key1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
+    key2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
+    
     // 鼠标响应事件 // todo，改成上面那样
     this.input.on('pointerdown', () => {
         if(localStorage.getItem("pause") == "false") {
@@ -371,9 +383,22 @@ function update ()
     if(cursors.space.isDown) {
         harpoon_fire()
     }
-    else {
-
+    else{
+        // console.log(1)
     }
+    
+    // 按数字1时增加鱼叉发射速度
+    if(key1.isDown)
+    {
+        extend_forward_speed += 1
+    }
+    // 按数字2时减少鱼叉发射速度
+    if(key2.isDown)
+    {
+        extend_forward_speed -= 1
+    }
+    extend_forward_speed_text.setText("当前鱼叉发射速度为：" + extend_forward_speed)
+    
 }
 
 // 将弧度转换成角度
