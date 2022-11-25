@@ -46,6 +46,12 @@ export let game_chose_level = new Phaser.Class({
         area.on("pointerout", () => {
             document.querySelector("body").style.cursor = "url(./images/default_mouse_icon.ico), auto"
         })
+
+        // 按ESC退出到首页
+        let _this = this
+        this.input.keyboard.on('keydown-ESC', function (event) {
+            _this.scene.start("game_first_open")
+        });
     }
 
 })
