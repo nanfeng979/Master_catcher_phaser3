@@ -38,6 +38,7 @@ let test = true // 演示时用的测试开关
 // 键盘监听
 let key1
 let key2
+let keyEsc
 
 
 export let gaming_scene = new Phaser.Class({
@@ -301,6 +302,10 @@ function create ()
     //键盘操作
     key1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
     key2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
+    // 按ESC退出到首页
+    this.input.keyboard.on('keydown-ESC', function (event) {
+        _this.scene.start("game_first_open")
+    });
     
     // 鼠标响应事件 // todo，改成上面那样
     this.input.on('pointerdown', (pointer) => {
@@ -443,7 +448,7 @@ function update ()
     }
     else{
         // console.log(1)
-    }
+    }  
     
     // 按数字1时增加鱼叉发射速度
     if(key1.isDown)
