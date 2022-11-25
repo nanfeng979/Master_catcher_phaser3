@@ -21,11 +21,16 @@ let can_catch_fish = true // 用来限制一次只能捕一次鱼
 let fishs_number // 确定当前鱼的数量
 let current_is_cated // 当前被捕到的鱼
 
-let fish1s, fish2s // 鱼1
+// 鱼1
+let fish1s, fish2s, fish3s 
 let fish1s_step = 10 // 鱼1的游泳步伐
+// 鱼2
 let fish2s_step = 10
 let fish2s_step_y = 0
-
+// 鱼3
+let f3sa = 0, f3sb = 10, f3sangle = 0;
+let f3sx = 0, f3sy = 0, f3sOldx, f3sOldy;
+let f3sdir = true
 
 let leave_test // 演示时用的测试函数
 let test = true // 演示时用的测试开关
@@ -219,8 +224,8 @@ function create ()
         })
     } else {
         // // 测试需要
-        var  fish3s, fish4s,  fishs
-        // fish1s, fish2s,
+        var  fish4s,  fishs
+        // fish1s, fish2s, fish3s, 
         var fish_arr = [] // tweens使用到的鱼的数组
         fish1s = fish2s = fish3s = fish4s = 0
 
@@ -230,6 +235,9 @@ function create ()
         // 创建鱼2
         fish2s = this.physics.add.image(canvasWidth / 2, 350, "fish2").setScale(0.3)
         fish2s.flipX = true
+        // 创建鱼3
+        fish3s = this.physics.add.image(canvasWidth / 2, 300, "fish3").setScale(0.3)
+        fish3s.flipX = true
         // // fish1s = this.physics.add.image(1000, 400, "fish1").setScale(0.5)
         // // 创建鱼1组
         // fishs = this.physics.add.group({
@@ -390,6 +398,40 @@ function update ()
         fish2s_step = -fish2s_step
         fish2s.flipX = !fish2s.flipX
     }
+
+    // 鱼3的自由游泳
+    const acceleration = 0.15, circleNum = 3;
+    
+    // 上一次坐标
+    f3sOldx = fish3s.x
+    f3sOldy = fish3s.y
+
+    // 计算坐标
+    if(f3sangle <= circleNum  * 2 * Math.PI && f3sdir)
+    {
+        f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
+        f3sy = (f3sa + f3sb * f3sangle) * Math.sin(f3sangle);
+        f3sangle = f3sangle + acceleration;
+    } else {
+        f3sdir = false
+        f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
+        f3sy = (f3sa - f3sb * f3sangle) * Math.sin(f3sangle);
+        f3sangle = f3sangle - acceleration;
+        if(f3sangle <= 0) f3sdir = true
+    }
+
+    // f3s更新位置
+    fish3s.x = canvasWidth / 2 + f3sx
+    fish3s.y = canvasHeight / 2 + 100 + f3sy
+
+    // f3s转身
+    if(fish3s.x > f3sOldx)
+    {
+        fish3s.flipX = true
+    } else {
+        fish3s.flipX = false
+    }
+
 
     // 按下空格后将限制以下键盘行为
     if(limit_space) {
