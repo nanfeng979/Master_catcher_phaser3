@@ -131,7 +131,7 @@ function create ()
 
 
     // 暂停键
-    let pause_key = this.add.image(1140, 40, "stop_icon").setScale(0.5).setInteractive()
+    let pause_key = this.add.image(1140, 40, "stop_icon").setScale(0.4).setInteractive()
     // 暂停键的点击事件
     pause_key.on("pointerdown", () => {
         document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
