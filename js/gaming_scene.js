@@ -253,7 +253,7 @@ function create ()
         //     fish_arr.push(child)
         // })
 
-        fishs_number = 1
+        fishs_number = 3
 
         // globalThis.fish_tween = this.tweens.add({
         //     targets: fish_arr,
@@ -405,7 +405,7 @@ function update ()
     }
 
     // 鱼3的自由游泳
-    const acceleration = 0.15, circleNum = 3;
+    const acceleration = 0.06, circleNum = 3;
     
     // 上一次坐标
     f3sOldx = fish3s.x
@@ -458,7 +458,8 @@ function update ()
     // 按数字2时减少鱼叉发射速度
     if(key2.isDown)
     {
-        extend_forward_speed -= 1
+         extend_forward_speed -= 1
+        //leave_test()
     }
     extend_forward_speed_text.setText("当前鱼叉发射速度为：" + extend_forward_speed)
     
