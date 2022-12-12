@@ -1,5 +1,10 @@
 import {canvasWidth, canvasHeight} from "./index.js"
 
+
+let initCount = 280
+let count = initCount;
+let animObject
+
 export let game_first_open = new Phaser.Class({
     Extends: Phaser.Scene,
 
@@ -12,6 +17,18 @@ export let game_first_open = new Phaser.Class({
         this.load.image("game_cover", "./images/game_cover.png") // 引入游戏封面
         this.load.image("game_start_loading", "./images/game_start_loading.png") // 引入游戏加载页面
         this.load.image("start", "./images/start.png")
+
+        for(var i = initCount; i < 421; i++)
+        {
+            if(i < 10)
+            {
+                this.load.image("b" + i, "./images/anim/3/游戏logo00" + i + ".png")
+            } else if(i < 100) {
+                this.load.image("b" + i, "./images/anim/3/游戏logo0" + i + ".png")
+            } else {
+                this.load.image("b" + i, "./images/anim/3/游戏logo" + i + ".png")
+            }
+        }
     },
     create: function () {
         let _this = this
@@ -32,5 +49,17 @@ export let game_first_open = new Phaser.Class({
                 _this.scene.start("game_chose_level") 
             }, 3000)
         })
-    }
+
+        // 过场动画
+        animObject = _this.add.image(canvasWidth / 2, canvasHeight / 2, "b" + initCount)
+        var timer = setInterval(function(){
+            animObject.destroy()
+            animObject = _this.add.image(canvasWidth / 2, canvasHeight / 2, "b" + count++)
+            if(count > 420)
+            {
+                clearInterval(timer)
+            }
+        }, 42)
+    },
+
 })
