@@ -311,12 +311,16 @@ function update ()
             let gold_num // 表示当前捕到的鱼的价格
             switch(fish1_obj.frame.texture.key) {
                 case 'fish1':
+                case 'fish5':
                     gold_num = 3;break;
                 case 'fish2':
+                case 'fish6':
                     gold_num = 4;break;
                 case 'fish3':
+                case 'fish7':
                     gold_num = 2;break;
                 case 'fish4':
+                case 'fish8':
                     gold_num = 1;break;
             }
             // fish1_obj.disableBody(true, true) // 指定fish1消失
