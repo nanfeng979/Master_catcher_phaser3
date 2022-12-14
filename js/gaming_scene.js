@@ -21,8 +21,8 @@ let can_catch_fish = true // 用来限制一次只能捕一次鱼
 let fishs_number // 确定当前鱼的数量
 let current_is_cated // 当前被捕到的鱼
 
+let fish1s, fish2s, fish3s
 // 鱼1
-let fish1s, fish2s, fish3s 
 let fish1s_step = 10 // 鱼1的游泳步伐
 // 鱼2
 let fish2s_step = 10
@@ -404,38 +404,38 @@ function update ()
         fish2s.flipX = !fish2s.flipX
     }
 
-    // 鱼3的自由游泳
-    const acceleration = 0.06, circleNum = 3;
+    // // 鱼3的自由游泳
+    // const acceleration = 0.06, circleNum = 3;
     
-    // 上一次坐标
-    f3sOldx = fish3s.x
-    f3sOldy = fish3s.y
+    // // 上一次坐标
+    // f3sOldx = fish3s.x
+    // f3sOldy = fish3s.y
 
-    // 计算坐标
-    if(f3sangle <= circleNum  * 2 * Math.PI && f3sdir)
-    {
-        f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
-        f3sy = (f3sa + f3sb * f3sangle) * Math.sin(f3sangle);
-        f3sangle = f3sangle + acceleration;
-    } else {
-        f3sdir = false
-        f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
-        f3sy = (f3sa - f3sb * f3sangle) * Math.sin(f3sangle);
-        f3sangle = f3sangle - acceleration;
-        if(f3sangle <= 0) f3sdir = true
-    }
+    // // 计算坐标
+    // if(f3sangle <= circleNum  * 2 * Math.PI && f3sdir)
+    // {
+    //     f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
+    //     f3sy = (f3sa + f3sb * f3sangle) * Math.sin(f3sangle);
+    //     f3sangle = f3sangle + acceleration;
+    // } else {
+    //     f3sdir = false
+    //     f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
+    //     f3sy = (f3sa - f3sb * f3sangle) * Math.sin(f3sangle);
+    //     f3sangle = f3sangle - acceleration;
+    //     if(f3sangle <= 0) f3sdir = true
+    // }
 
-    // f3s更新位置
-    fish3s.x = canvasWidth / 2 + f3sx
-    fish3s.y = canvasHeight / 2 + 100 + f3sy
+    // // f3s更新位置
+    // fish3s.x = canvasWidth / 2 + f3sx
+    // fish3s.y = canvasHeight / 2 + 100 + f3sy
 
-    // f3s转身
-    if(fish3s.x > f3sOldx)
-    {
-        fish3s.flipX = true
-    } else {
-        fish3s.flipX = false
-    }
+    // // f3s转身
+    // if(fish3s.x > f3sOldx)
+    // {
+    //     fish3s.flipX = true
+    // } else {
+    //     fish3s.flipX = false
+    // }
 
 
     // 按下空格后将限制以下键盘行为
