@@ -43,9 +43,10 @@ let fish6s_step_y = 0
 // 鱼7
 let fish7s_step = 10
 let fish7s_step_y = 0
-// 鱼4
+// 鱼8
 let fish8s_step = 10
 let fish8s_step_y = 0
+let swim = 1
 
 
 let leave_test // 演示时用的测试函数
@@ -54,6 +55,8 @@ let test = true // 演示时用的测试开关
 // 键盘监听
 let key1
 let key2
+let key4
+let key5
 let keyEsc
 
 
@@ -259,6 +262,8 @@ function create ()
     //键盘操作
     key1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
     key2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
+    key4 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR)
+    key5 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE)
     // 按ESC退出到首页
     this.input.keyboard.on('keydown-ESC', function (event) {
         _this.scene.start("game_first_open")
@@ -347,6 +352,10 @@ function update ()
         harpoon.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
         harpoon.setVelocityY(-(extend_back_speed * Math.cos(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动
     }
+
+    if(swim == 1)
+    {
+
     
 
     // 鱼1的自由游泳
@@ -365,38 +374,38 @@ function update ()
         fish2s.flipX = !fish2s.flipX
     }
 
-    // // 鱼3的自由游泳
-    // const acceleration = 0.06, circleNum = 3;
+    // 鱼3的自由游泳
+    const acceleration = 0.06, circleNum = 3;
     
-    // // 上一次坐标
-    // f3sOldx = fish3s.x
-    // f3sOldy = fish3s.y
+    // 上一次坐标
+    f3sOldx = fish3s.x
+    f3sOldy = fish3s.y
 
-    // // 计算坐标
-    // if(f3sangle <= circleNum  * 2 * Math.PI && f3sdir)
-    // {
-    //     f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
-    //     f3sy = (f3sa + f3sb * f3sangle) * Math.sin(f3sangle);
-    //     f3sangle = f3sangle + acceleration;
-    // } else {
-    //     f3sdir = false
-    //     f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
-    //     f3sy = (f3sa - f3sb * f3sangle) * Math.sin(f3sangle);
-    //     f3sangle = f3sangle - acceleration;
-    //     if(f3sangle <= 0) f3sdir = true
-    // }
+    // 计算坐标
+    if(f3sangle <= circleNum  * 2 * Math.PI && f3sdir)
+    {
+        f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
+        f3sy = (f3sa + f3sb * f3sangle) * Math.sin(f3sangle);
+        f3sangle = f3sangle + acceleration;
+    } else {
+        f3sdir = false
+        f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
+        f3sy = (f3sa - f3sb * f3sangle) * Math.sin(f3sangle);
+        f3sangle = f3sangle - acceleration;
+        if(f3sangle <= 0) f3sdir = true
+    }
 
-    // // f3s更新位置
-    // fish3s.x = canvasWidth / 2 + f3sx
-    // fish3s.y = canvasHeight / 2 + 100 + f3sy
+    // f3s更新位置
+    fish3s.x = canvasWidth / 2 + f3sx
+    fish3s.y = canvasHeight / 2 + 100 + f3sy
 
-    // // f3s转身
-    // if(fish3s.x > f3sOldx)
-    // {
-    //     fish3s.flipX = true
-    // } else {
-    //     fish3s.flipX = false
-    // }
+    // f3s转身
+    if(fish3s.x > f3sOldx)
+    {
+        fish3s.flipX = true
+    } else {
+        fish3s.flipX = false
+    }
 
     // 鱼4的自由游泳
     fish4s.x += fish4s_step * 0.2
@@ -442,6 +451,7 @@ function update ()
         fish8s_step = -fish8s_step
         fish8s.flipX = !fish8s.flipX
     }
+    }
 
 
     // 按下空格后将限制以下键盘行为
@@ -466,6 +476,16 @@ function update ()
     {
          extend_forward_speed -= 1
         //leave_test()
+    }
+    // 按数字4时停止鱼的游泳
+    if(key4.isDown)
+    {
+        swim = 0
+    }
+    // 按数字5时继续鱼的游泳
+    if(key5.isDown)
+    {
+        swim = 1
     }
     extend_forward_speed_text.setText("当前鱼叉发射速度为：" + extend_forward_speed)
     
