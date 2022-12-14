@@ -21,7 +21,7 @@ let can_catch_fish = true // 用来限制一次只能捕一次鱼
 let fishs_number // 确定当前鱼的数量
 let current_is_cated // 当前被捕到的鱼
 
-let fish1s, fish2s, fish3s
+let fish1s, fish2s, fish3s, fish4s, fish5s, fish6s, fish7s, fish8s
 // 鱼1
 let fish1s_step = 10 // 鱼1的游泳步伐
 // 鱼2
@@ -31,6 +31,22 @@ let fish2s_step_y = 0
 let f3sa = 0, f3sb = 10, f3sangle = 0;
 let f3sx = 0, f3sy = 0, f3sOldx, f3sOldy;
 let f3sdir = true
+// 鱼4
+let fish4s_step = 10
+let fish4s_step_y = 0
+// 鱼5
+let fish5s_step = 10
+let fish5s_step_y = 0
+// 鱼6
+let fish6s_step = 10
+let fish6s_step_y = 0
+// 鱼7
+let fish7s_step = 10
+let fish7s_step_y = 0
+// 鱼4
+let fish8s_step = 10
+let fish8s_step_y = 0
+
 
 let leave_test // 演示时用的测试函数
 let test = true // 演示时用的测试开关
@@ -63,6 +79,10 @@ function preload ()
     this.load.image("fish2", "./images/fish2.png")
     this.load.image("fish3", "./images/fish3.png")
     this.load.image("fish4", "./images/fish4.png")
+    this.load.image("fish5", "./images/fish5.png")
+    this.load.image("fish6", "./images/fish6.png")
+    this.load.image("fish7", "./images/fish7.png")
+    this.load.image("fish8", "./images/fish8.png")
     this.load.image("man", "/images/no_weapon_man.png")
     this.load.image("harpoon", "./images/harpoon2_2.png")
     this.load.image("null_", "./images/null.png") // 引入透明贴图作为鱼叉头虚拟空间
@@ -157,7 +177,6 @@ function create ()
     //显示鱼叉发射速度
     extend_forward_speed_text = this.add.text(40, 80, "当前鱼叉发射速度为：" + extend_forward_speed, { fontSize: "22px" })
 
-
     man = this.physics.add.image(canvasWidth / 2 - 40, 120, "man").setScale(0.2)
 
     harpoon = this.physics.add.image(canvasWidth / 2 - 30, 70, "harpoon")
@@ -172,62 +191,10 @@ function create ()
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
 
     if(!test) {
-        // 创建鱼1组
-        fish1s = this.physics.add.group({
-            key: 'fish1',
-            repeat: 5,
-            setXY: { x: 150, y: 450, stepX: 1280/5 }
-        });
-        // 重新管理鱼1组的每个对象
-        fish1s.children.iterate(function (child) {
-            child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-            child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-            child.setScale(0.5)
-        })
 
-        // 创建鱼2组
-        fish2s = this.physics.add.group({
-            key: 'fish2',
-            repeat: 5,
-            setXY: { x: 150, y: 450, stepX: 1280/5 }
-        });
-        // 重新管理鱼2组的每个对象
-        fish2s.children.iterate(function (child) {
-            child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-            child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-            child.setScale(0.3)
-        })
-
-        // 创建鱼3组
-        fish3s = this.physics.add.group({
-            key: 'fish3',
-            repeat: 5,
-            setXY: { x: 150, y: 450, stepX: 1280/5 }
-        });
-        // 重新管理鱼3组的每个对象
-        fish3s.children.iterate(function (child) {
-            child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-            child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-            child.setScale(0.5)
-        })
-
-        // 创建鱼4组
-        fish4s = this.physics.add.group({
-            key: 'fish4',
-            repeat: 5,
-            setXY: { x: 150, y: 450, stepX: 1280/5 }
-        });
-        // 重新管理鱼4组的每个对象
-        fish4s.children.iterate(function (child) {
-            child.x += Phaser.Math.FloatBetween(-100, 1280/5 - 100 - 50) // 对象在原始的位置上随机向左右偏移 // 待优化
-            child.y += Phaser.Math.FloatBetween(-50, 720 - 450 - 50) // 对象在原始的位置上随机向上下偏移 // 待优化
-            child.setScale(0.5)
-        })
     } else {
         // // 测试需要
-        var  fish4s,  fishs
-        // fish1s, fish2s, fish3s, 
-        var fish_arr = [] // tweens使用到的鱼的数组
+        var  fishs
         fish1s = fish2s = fish3s = fish4s = 0
 
         // 创建鱼1
@@ -239,34 +206,19 @@ function create ()
         // 创建鱼3
         fish3s = this.physics.add.image(canvasWidth / 2, 300, "fish3").setScale(0.3)
         fish3s.flipX = true
-        // // fish1s = this.physics.add.image(1000, 400, "fish1").setScale(0.5)
-        // // 创建鱼1组
-        // fishs = this.physics.add.group({
-        //     key: ['fish1', 'fish2', 'fish3', 'fish4'],
-        //     repeat: 0,
-        //     setXY: { x: 150, y: 350, stepY: 100 }
-        // });
-        // // 重新管理鱼1组的每个对象
-        // fishs.children.iterate(function (child) {
-        //     child.setScale(0.4)
-        //     child.flipX = true // 水平翻转
-        //     fish_arr.push(child)
-        // })
 
-        fishs_number = 3
+        fish4s = this.physics.add.image(canvasWidth / 2 - 100, 350 - 100, "fish4").setScale(0.3)
+        fish4s.flipX = true
+        fish5s = this.physics.add.image(canvasWidth / 2 - 200, 350 - 50, "fish5").setScale(0.3)
+        fish5s.flipX = true
+        fish6s = this.physics.add.image(canvasWidth / 2 + 100, 350, "fish6").setScale(0.3)
+        fish6s.flipX = true
+        fish7s = this.physics.add.image(canvasWidth / 2 + 200, 350, "fish7").setScale(0.3)
+        fish7s.flipX = true
+        fish8s = this.physics.add.image(canvasWidth / 2 - 200, 350 - 50, "fish8").setScale(0.3)
+        fish8s.flipX = true
 
-        // globalThis.fish_tween = this.tweens.add({
-        //     targets: fish_arr,
-        //     x: 1100,
-        //     duration: 8000,
-        //     flipX: true,
-        //     ease: 'Sine.easeInOut',
-        //     yoyo: true,
-        //     repeat: -1,
-        //     delay: function (target, key, value, targetIndex) {
-        //         return targetIndex * 500;
-        //     }
-        // })
+        fishs_number = 8
 
         leave_test = function() {
             _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
@@ -279,13 +231,9 @@ function create ()
                 globalThis.bgaudio.destroy()
             }, 5000)
         }
-
-
     }
     
-
     // 碰撞响应事件
-
     // 添加钩子与鱼组的碰撞响应函数 
     this.physics.add.collider(null_, fishs, harpoon_collid_fishs, null, this)
     // 添加钩子与鱼1组的碰撞响应函数 
@@ -296,7 +244,16 @@ function create ()
     this.physics.add.collider(null_, fish3s, harpoon_collid_fishs, null, this)
     // 添加钩子与鱼4组的碰撞响应函数 
     this.physics.add.collider(null_, fish4s, harpoon_collid_fishs, null, this)
+    // 添加钩子与鱼5组的碰撞响应函数 
+    this.physics.add.collider(null_, fish5s, harpoon_collid_fishs, null, this)
+    // 添加钩子与鱼6组的碰撞响应函数 
+    this.physics.add.collider(null_, fish6s, harpoon_collid_fishs, null, this)
+    // 添加钩子与鱼7组的碰撞响应函数 
+    this.physics.add.collider(null_, fish7s, harpoon_collid_fishs, null, this)
+    // 添加钩子与鱼8组的碰撞响应函数 
+    this.physics.add.collider(null_, fish8s, harpoon_collid_fishs, null, this)
 
+    
     // 键盘响应事件
     cursors = this.input.keyboard.createCursorKeys();
     //键盘操作
@@ -436,6 +393,51 @@ function update ()
     // } else {
     //     fish3s.flipX = false
     // }
+
+    // 鱼4的自由游泳
+    fish4s.x += fish4s_step * 0.2
+    fish4s.y += Math.sin(toAngle(fish4s_step_y)) * 3
+    fish4s_step_y += 1
+    if(fish4s.x > canvasWidth || fish4s.x < 0) {
+        fish4s_step = -fish4s_step
+        fish4s.flipX = !fish4s.flipX
+    }
+
+    // 鱼5的自由游泳
+    fish5s.x += fish5s_step * 0.2
+    fish5s.y += Math.sin(toAngle(fish5s_step_y)) * 3
+    fish5s_step_y += 1
+    if(fish5s.x > canvasWidth || fish5s.x < 0) {
+        fish5s_step = -fish5s_step
+        fish5s.flipX = !fish5s.flipX
+    }
+
+    // 鱼6的自由游泳
+    fish6s.x += fish6s_step * 0.2
+    fish6s.y += Math.sin(toAngle(fish6s_step_y)) * 3
+    fish6s_step_y += 1
+    if(fish6s.x > canvasWidth || fish6s.x < 0) {
+        fish6s_step = -fish6s_step
+        fish6s.flipX = !fish6s.flipX
+    }
+
+    // 鱼7的自由游泳
+    fish7s.x += fish7s_step * 0.2
+    fish7s.y += Math.sin(toAngle(fish7s_step_y)) * 3
+    fish7s_step_y += 1
+    if(fish7s.x > canvasWidth || fish7s.x < 0) {
+        fish7s_step = -fish7s_step
+        fish7s.flipX = !fish7s.flipX
+    }
+
+    // 鱼8的自由游泳
+    fish8s.x += fish8s_step * 0.2
+    fish8s.y += Math.sin(toAngle(fish8s_step_y)) * 3
+    fish8s_step_y += 1
+    if(fish8s.x > canvasWidth || fish8s.x < 0) {
+        fish8s_step = -fish8s_step
+        fish8s.flipX = !fish8s.flipX
+    }
 
 
     // 按下空格后将限制以下键盘行为
