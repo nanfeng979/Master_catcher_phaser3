@@ -25,35 +25,35 @@ export let game_first_open = new Phaser.Class({
         this.load.image("game_start_loading", "./images/game_start_loading.png") // 引入游戏加载页面
         this.load.image("start", "./images/start.png")
 
-        for(var i = sch_initCount; i < sch_endCount + 1; i++)
-        {
-            if(i < 10)
-            {
-                this.load.image("a" + i, "./images/anim/1/学校logo_0000000" + i + ".png")
-            } else if(i < 100) {
-                this.load.image("a" + i, "./images/anim/1/学校logo_000000" + i + ".png")
-            } else {
-                this.load.image("a" + i, "./images/anim/1/学校logo_00000" + i + ".png")
-            }
-        }
+        // for(var i = sch_initCount; i < sch_endCount + 1; i++)
+        // {
+        //     if(i < 10)
+        //     {
+        //         this.load.image("a" + i, "./images/anim/1/学校logo_0000000" + i + ".png")
+        //     } else if(i < 100) {
+        //         this.load.image("a" + i, "./images/anim/1/学校logo_000000" + i + ".png")
+        //     } else {
+        //         this.load.image("a" + i, "./images/anim/1/学校logo_00000" + i + ".png")
+        //     }
+        // }
 
-        for(var i = initCount; i < endCount + 1; i++)
-        {
-            if(i < 10)
-            {
-                this.load.image("b" + i, "./images/anim/3/游戏logo00" + i + ".png")
-            } else if(i < 100) {
-                this.load.image("b" + i, "./images/anim/3/游戏logo0" + i + ".png")
-            } else {
-                this.load.image("b" + i, "./images/anim/3/游戏logo" + i + ".png")
-            }
-        }    
+        // for(var i = initCount; i < endCount + 1; i++)
+        // {
+        //     if(i < 10)
+        //     {
+        //         this.load.image("b" + i, "./images/anim/3/游戏logo00" + i + ".png")
+        //     } else if(i < 100) {
+        //         this.load.image("b" + i, "./images/anim/3/游戏logo0" + i + ".png")
+        //     } else {
+        //         this.load.image("b" + i, "./images/anim/3/游戏logo" + i + ".png")
+        //     }
+        // }    
     },
     create: function () {
         // 加载动画挡住黑屏，并且再开始执行create()时删除加载动画
-        let load = document.getElementById("load")
-        let loadParent = load.parentElement
-        loadParent.removeChild(load)
+        // let load = document.getElementById("load")
+        // let loadParent = load.parentElement
+        // loadParent.removeChild(load)
 
         _this = this
         this.add.image(canvasWidth / 2, canvasHeight / 2, "game_start_loading")
@@ -62,9 +62,9 @@ export let game_first_open = new Phaser.Class({
         let start = this.add.image(canvasWidth / 2, 670, "start").setScale(0.45).setInteractive()
         start.on("pointerdown", () => {
             // 动画加载完毕前不可以点击
-            if(count < endCount) {
-                return
-            }
+            // if(count < endCount) {
+            //     return
+            // }
             game_cover.destroy()
             start.destroy()
             setTimeout(function(){
@@ -72,7 +72,7 @@ export let game_first_open = new Phaser.Class({
             }, 3000)
         })
 
-        schoolLogoAnim()
+        // schoolLogoAnim()
         
 
         

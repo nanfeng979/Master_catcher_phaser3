@@ -23,7 +23,7 @@ let current_is_cated // 当前被捕到的鱼
 
 let fish1s, fish2s, fish3s, fish4s, fish5s, fish6s, fish7s, fish8s
 // 鱼1
-let fish1s_step = 10 // 鱼1的游泳步伐
+let fish1s_step = 30 // 鱼1的游泳步伐
 // 鱼2
 let fish2s_step = 10
 let fish2s_step_y = 0
@@ -59,6 +59,9 @@ let key4
 let key5
 let keyEsc
 
+let mummyAnimation
+let sprite
+let ceshi
 
 export let gaming_scene = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -77,6 +80,21 @@ export let gaming_scene = new Phaser.Class({
 function preload ()
 {
     // preload() 预加载资源
+    this.load.spritesheet('m', './images/anim/fishs/2/m.png', { frameWidth: 37, frameHeight: 45 });
+    this.load.spritesheet('yu', './images/anim/fishs/11/yu.png', { frameWidth: 163, frameHeight: 74 });
+    this.load.spritesheet('a1', './images/anim/fishs/a/鱼1.png', { frameWidth: 100, frameHeight: 118 });
+    this.load.spritesheet('a2', './images/anim/fishs/a/鱼2.png', { frameWidth: 141, frameHeight: 83 });
+    this.load.spritesheet('a3', './images/anim/fishs/a/鱼3.png', { frameWidth: 85, frameHeight: 67 });
+    this.load.spritesheet('a4', './images/anim/fishs/a/鱼4.png', { frameWidth: 128, frameHeight: 91 });
+    this.load.spritesheet('a5', './images/anim/fishs/a/鱼5.png', { frameWidth: 148, frameHeight: 61 });
+    this.load.spritesheet('a6', './images/anim/fishs/a/鱼6.png', { frameWidth: 97, frameHeight: 72 });
+    this.load.spritesheet('a7', './images/anim/fishs/a/鱼7.png', { frameWidth: 164, frameHeight: 159 });
+    this.load.spritesheet('a8', './images/anim/fishs/a/鱼8.png', { frameWidth: 100, frameHeight: 60 });
+    this.load.spritesheet('a9', './images/anim/fishs/a/鱼9.png', { frameWidth: 168, frameHeight: 74 });
+    this.load.spritesheet('a10', './images/anim/fishs/a/鱼10.png', { frameWidth: 64, frameHeight: 88 });
+    this.load.spritesheet('a11', './images/anim/fishs/a/鱼11.png', { frameWidth: 71, frameHeight: 92 });
+    this.load.spritesheet('a12', './images/anim/fishs/a/鱼12.png', { frameWidth: 100, frameHeight: 60 });
+
     this.load.image("background", "./images/game_background.png")
     this.load.image("fish1", "./images/fish1.png")
     this.load.image("fish2", "./images/fish2.png")
@@ -102,6 +120,7 @@ function preload ()
 
 function create ()
 {
+    ceshi = "a12"
     // create() 创建资源、绑定各种交互函数
     let _this = this
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
@@ -201,8 +220,22 @@ function create ()
         fish1s = fish2s = fish3s = fish4s = 0
 
         // 创建鱼1
-        fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
-        fish1s.flipX = true
+        // fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
+        // fish1s.flipX = true
+        // 动画控制器
+        mummyAnimation = this.anims.create({
+            key: 'swim',
+            frames: ceshi,
+            frameRate: 16,
+            repeat: -1
+        });
+        fish1s = this.physics.add.sprite(canvasWidth / 2, 300, ceshi);
+        fish1s.play({ key: 'swim'});
+        // fish1s = this.physics.add.image(canvasWidth / 2, 400, "w1").setScale(0.3)
+        // fish1s.flipX = true
+        
+        
+        console.log(fish1s)
         // 创建鱼2
         fish2s = this.physics.add.image(canvasWidth / 2, 350, "fish2").setScale(0.3)
         fish2s.flipX = true
@@ -522,7 +555,6 @@ function harpoon_collid_fishs(null_, fish) {
         can_catch_fish = false // 不允许再次捕鱼
     }
     if(current_is_cated != fish) return 
-    // fish_tween.pause() // 暂停tween的动作
     fish.x = null_.x // 鱼叉碰到后会将鱼吸附到鱼叉头处
     fish.y = null_.y
     harpoon.setVelocityX(-(extend_back_speed * -Math.sin(harpoon.rotation))) // 钩子以extend_back_speed速度往回移动

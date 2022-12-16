@@ -10,13 +10,23 @@
 </head>
 <body>
     <!-- <div id="load" style="position:absolute; width: 1280px; height: 720px; margin: 0 auto; background-image:url(./images/game_start_loading.png);"></div> -->
+    <!-- <video id="mp4" style="position: absolute;  width: 1280px; height: 720px; margin: 0 auto;" autoplay>
+        <source src="./images/anim/mp4/开场动画.mp4" type="video/mp4">
+    </video> -->
     <div id="frame" style="width: 1280px; margin: 0 auto;"></div>
+    
 </body>
 <script>
     document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto";
-    // 调整加载页面的位置对其frame
-    let load = document.getElementById("load")
-    let frame = document.getElementById("frame")
-    load.style.left = frame.offsetLeft + "px"
+    // // 调整加载页面的位置对其frame
+    // let load = document.getElementById("mp4")
+    // let frame = document.getElementById("frame")
+    // load.style.left = frame.offsetLeft + "px"
+
+    // load.addEventListener("ended",function(){
+    //     let loadParent = load.parentElement
+    //     loadParent.removeChild(load)
+    // })
+
 </script>
 </html>
