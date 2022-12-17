@@ -31,6 +31,8 @@ let fish2s_step_y = 0
 let f3sa = 0, f3sb = 10, f3sangle = 0;
 let f3sx = 0, f3sy = 0, f3sOldx, f3sOldy;
 let f3sdir = true
+let fish3s_step = 10
+let fish3s_step_y = 0
 // 鱼4
 let fish4s_step = 10
 let fish4s_step_y = 0
@@ -59,7 +61,14 @@ let key4
 let key5
 let keyEsc
 
-let mummyAnimation
+let a1Animation
+let a2Animation
+let a3Animation
+let a4Animation
+let a5Animation
+let a6Animation
+let a7Animation
+let a8Animation
 let sprite
 let ceshi
 
@@ -80,8 +89,6 @@ export let gaming_scene = new Phaser.Class({
 function preload ()
 {
     // preload() 预加载资源
-    this.load.spritesheet('m', './images/anim/fishs/2/m.png', { frameWidth: 37, frameHeight: 45 });
-    this.load.spritesheet('yu', './images/anim/fishs/11/yu.png', { frameWidth: 163, frameHeight: 74 });
     this.load.spritesheet('a1', './images/anim/fishs/a/鱼1.png', { frameWidth: 100, frameHeight: 118 });
     this.load.spritesheet('a2', './images/anim/fishs/a/鱼2.png', { frameWidth: 141, frameHeight: 83 });
     this.load.spritesheet('a3', './images/anim/fishs/a/鱼3.png', { frameWidth: 85, frameHeight: 67 });
@@ -120,7 +127,6 @@ function preload ()
 
 function create ()
 {
-    ceshi = "a12"
     // create() 创建资源、绑定各种交互函数
     let _this = this
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
@@ -223,36 +229,72 @@ function create ()
         // fish1s = this.physics.add.image(canvasWidth / 2, 400, "fish1").setScale(0.3)
         // fish1s.flipX = true
         // 动画控制器
-        mummyAnimation = this.anims.create({
-            key: 'swim',
-            frames: ceshi,
+        a1Animation = this.anims.create({
+            key: 'swim1',
+            frames: 'a1',
             frameRate: 16,
             repeat: -1
         });
-        fish1s = this.physics.add.sprite(canvasWidth / 2, 300, ceshi);
-        fish1s.play({ key: 'swim'});
-        // fish1s = this.physics.add.image(canvasWidth / 2, 400, "w1").setScale(0.3)
-        // fish1s.flipX = true
-        
-        
-        console.log(fish1s)
-        // 创建鱼2
-        fish2s = this.physics.add.image(canvasWidth / 2, 350, "fish2").setScale(0.3)
-        fish2s.flipX = true
-        // 创建鱼3
-        fish3s = this.physics.add.image(canvasWidth / 2, 300, "fish3").setScale(0.3)
-        fish3s.flipX = true
+        a2Animation = this.anims.create({
+            key: 'swim2',
+            frames: 'a9',
+            frameRate: 16,
+            repeat: -1
+        });
+        a3Animation = this.anims.create({
+            key: 'swim3',
+            frames: 'a3',
+            frameRate: 16,
+            repeat: -1
+        });
+        a4Animation = this.anims.create({
+            key: 'swim4',
+            frames: 'a11',
+            frameRate: 16,
+            repeat: -1
+        });
+        a5Animation = this.anims.create({
+            key: 'swim5',
+            frames: 'a5',
+            frameRate: 16,
+            repeat: -1
+        });
+        a6Animation = this.anims.create({
+            key: 'swim6',
+            frames: 'a6',
+            frameRate: 16,
+            repeat: -1
+        });
+        a7Animation = this.anims.create({
+            key: 'swim7',
+            frames: 'a7',
+            frameRate: 16,
+            repeat: -1
+        });
+        a8Animation = this.anims.create({
+            key: 'swim8',
+            frames: 'a12',
+            frameRate: 16,
+            repeat: -1
+        });
 
-        fish4s = this.physics.add.image(canvasWidth / 2 - 100, 350 - 100, "fish4").setScale(0.3)
-        fish4s.flipX = true
-        fish5s = this.physics.add.image(canvasWidth / 2 - 200, 350 - 50, "fish5").setScale(0.3)
-        fish5s.flipX = true
-        fish6s = this.physics.add.image(canvasWidth / 2 + 100, 350, "fish6").setScale(0.3)
-        fish6s.flipX = true
-        fish7s = this.physics.add.image(canvasWidth / 2 + 200, 350, "fish7").setScale(0.3)
-        fish7s.flipX = true
-        fish8s = this.physics.add.image(canvasWidth / 2 - 200, 350 - 50, "fish8").setScale(0.3)
-        fish8s.flipX = true
+        fish1s = this.physics.add.sprite(canvasWidth / 2 + 100, 300, 'a1');
+        fish1s.play({ key: 'swim1'});
+        fish2s = this.physics.add.sprite(100, 400, 'a9');
+        fish2s.play({ key: 'swim2'});
+        fish3s = this.physics.add.sprite(canvasWidth / 2 - 300, 300, 'a3');
+        fish3s.play({ key: 'swim3'});
+        fish4s = this.physics.add.sprite(canvasWidth / 2 + 200, 300, 'a11');
+        fish4s.play({ key: 'swim4'});
+        fish5s = this.physics.add.sprite(canvasWidth / 2 - 100, 300, 'a5');
+        fish5s.play({ key: 'swim5'});
+        fish6s = this.physics.add.sprite(canvasWidth / 2 - 200 , 300, 'a6');
+        fish6s.play({ key: 'swim6'});
+        fish7s = this.physics.add.sprite(canvasWidth / 2, 300, 'a7');
+        fish7s.play({ key: 'swim7'});
+        fish8s = this.physics.add.sprite(100, 600, 'a12');
+        fish8s.play({ key: 'swim8'});
+
 
         fishs_number = 8
 
@@ -348,17 +390,21 @@ function update ()
         if(fish1_obj){ // 如果指定fish1存在
             let gold_num // 表示当前捕到的鱼的价格
             switch(fish1_obj.frame.texture.key) {
-                case 'fish1':
-                case 'fish5':
+                case 'a1':
+                case 'a2':
+                case 'a9':
                     gold_num = 3;break;
-                case 'fish2':
-                case 'fish6':
+                case 'a3':
+                case 'a4':
+                case 'a10':
                     gold_num = 4;break;
-                case 'fish3':
-                case 'fish7':
+                case 'a5':
+                case 'a6':
+                case 'a11':
                     gold_num = 2;break;
-                case 'fish4':
-                case 'fish8':
+                case 'a7':
+                case 'a8':
+                case 'a12':
                     gold_num = 1;break;
             }
             // fish1_obj.disableBody(true, true) // 指定fish1消失
@@ -400,44 +446,49 @@ function update ()
 
     // 鱼2的自由游泳
     fish2s.x += fish2s_step * 0.2
-    fish2s.y += Math.sin(toAngle(fish2s_step_y)) * 3
-    fish2s_step_y += 1
     if(fish2s.x > canvasWidth || fish2s.x < 0) {
         fish2s_step = -fish2s_step
         fish2s.flipX = !fish2s.flipX
     }
 
-    // 鱼3的自由游泳
-    const acceleration = 0.06, circleNum = 3;
+    // // 鱼3的自由游泳
+    // const acceleration = 0.06, circleNum = 3;
     
-    // 上一次坐标
-    f3sOldx = fish3s.x
-    f3sOldy = fish3s.y
+    // // 上一次坐标
+    // f3sOldx = fish3s.x
+    // f3sOldy = fish3s.y
 
-    // 计算坐标
-    if(f3sangle <= circleNum  * 2 * Math.PI && f3sdir)
-    {
-        f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
-        f3sy = (f3sa + f3sb * f3sangle) * Math.sin(f3sangle);
-        f3sangle = f3sangle + acceleration;
-    } else {
-        f3sdir = false
-        f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
-        f3sy = (f3sa - f3sb * f3sangle) * Math.sin(f3sangle);
-        f3sangle = f3sangle - acceleration;
-        if(f3sangle <= 0) f3sdir = true
-    }
+    // // 计算坐标
+    // if(f3sangle <= circleNum  * 2 * Math.PI && f3sdir)
+    // {
+    //     f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
+    //     f3sy = (f3sa + f3sb * f3sangle) * Math.sin(f3sangle);
+    //     f3sangle = f3sangle + acceleration;
+    // } else {
+    //     f3sdir = false
+    //     f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
+    //     f3sy = (f3sa - f3sb * f3sangle) * Math.sin(f3sangle);
+    //     f3sangle = f3sangle - acceleration;
+    //     if(f3sangle <= 0) f3sdir = true
+    // }
 
-    // f3s更新位置
-    fish3s.x = canvasWidth / 2 + f3sx
-    fish3s.y = canvasHeight / 2 + 100 + f3sy
+    // // f3s更新位置
+    // fish3s.x = canvasWidth / 2 + f3sx
+    // fish3s.y = canvasHeight / 2 + 100 + f3sy
 
-    // f3s转身
-    if(fish3s.x > f3sOldx)
-    {
-        fish3s.flipX = true
-    } else {
-        fish3s.flipX = false
+    // // f3s转身
+    // if(fish3s.x > f3sOldx)
+    // {
+    //     fish3s.flipX = true
+    // } else {
+    //     fish3s.flipX = false
+    // }
+
+    // 鱼3的自由游泳
+    fish3s.x += fish3s_step * 0.2
+    if(fish3s.x > canvasWidth || fish3s.x < 0) {
+        fish3s_step = -fish3s_step
+        fish3s.flipX = !fish3s.flipX
     }
 
     // 鱼4的自由游泳
@@ -478,12 +529,12 @@ function update ()
 
     // 鱼8的自由游泳
     fish8s.x += fish8s_step * 0.2
-    fish8s.y += Math.sin(toAngle(fish8s_step_y)) * 3
-    fish8s_step_y += 1
     if(fish8s.x > canvasWidth || fish8s.x < 0) {
         fish8s_step = -fish8s_step
         fish8s.flipX = !fish8s.flipX
     }
+
+    
     }
 
 
