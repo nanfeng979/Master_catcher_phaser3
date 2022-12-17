@@ -28,9 +28,6 @@ let fish1s_step = 30 // 鱼1的游泳步伐
 let fish2s_step = 10
 let fish2s_step_y = 0
 // 鱼3
-let f3sa = 0, f3sb = 10, f3sangle = 0;
-let f3sx = 0, f3sy = 0, f3sOldx, f3sOldy;
-let f3sdir = true
 let fish3s_step = 10
 let fish3s_step_y = 0
 // 鱼4
@@ -127,6 +124,31 @@ function preload ()
 
 function create ()
 {
+    // 初始化
+    fish1s_step = 30 // 鱼1的游泳步伐
+    // 鱼2
+    fish2s_step = 10
+    fish2s_step_y = 0
+    // 鱼3
+    fish3s_step = 10
+    fish3s_step_y = 0
+    // 鱼4
+    fish4s_step = 10
+    fish4s_step_y = 0
+    // 鱼5
+    fish5s_step = 10
+    fish5s_step_y = 0
+    // 鱼6
+    fish6s_step = 10
+    fish6s_step_y = 0
+    // 鱼7
+    fish7s_step = 10
+    fish7s_step_y = 0
+    // 鱼8
+    fish8s_step = 10
+    fish8s_step_y = 0
+    swim = 1
+
     // create() 创建资源、绑定各种交互函数
     let _this = this
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
@@ -441,54 +463,36 @@ function update ()
     fish1s.x += fish1s_step * 0.2
     if(fish1s.x > canvasWidth || fish1s.x < 0) {
         fish1s_step = -fish1s_step
-        fish1s.flipX = !fish1s.flipX
+    }
+    if(fish1s_step > 0)
+    {
+        fish1s.flipX = false
+    } else {
+        fish1s.flipX = true
     }
 
     // 鱼2的自由游泳
     fish2s.x += fish2s_step * 0.2
     if(fish2s.x > canvasWidth || fish2s.x < 0) {
         fish2s_step = -fish2s_step
-        fish2s.flipX = !fish2s.flipX
     }
-
-    // // 鱼3的自由游泳
-    // const acceleration = 0.06, circleNum = 3;
-    
-    // // 上一次坐标
-    // f3sOldx = fish3s.x
-    // f3sOldy = fish3s.y
-
-    // // 计算坐标
-    // if(f3sangle <= circleNum  * 2 * Math.PI && f3sdir)
-    // {
-    //     f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
-    //     f3sy = (f3sa + f3sb * f3sangle) * Math.sin(f3sangle);
-    //     f3sangle = f3sangle + acceleration;
-    // } else {
-    //     f3sdir = false
-    //     f3sx = (f3sa + f3sb * f3sangle) * Math.cos(f3sangle);
-    //     f3sy = (f3sa - f3sb * f3sangle) * Math.sin(f3sangle);
-    //     f3sangle = f3sangle - acceleration;
-    //     if(f3sangle <= 0) f3sdir = true
-    // }
-
-    // // f3s更新位置
-    // fish3s.x = canvasWidth / 2 + f3sx
-    // fish3s.y = canvasHeight / 2 + 100 + f3sy
-
-    // // f3s转身
-    // if(fish3s.x > f3sOldx)
-    // {
-    //     fish3s.flipX = true
-    // } else {
-    //     fish3s.flipX = false
-    // }
+    if(fish2s_step > 0)
+    {
+        fish2s.flipX = false
+    } else {
+        fish2s.flipX = true
+    }
 
     // 鱼3的自由游泳
     fish3s.x += fish3s_step * 0.2
     if(fish3s.x > canvasWidth || fish3s.x < 0) {
         fish3s_step = -fish3s_step
-        fish3s.flipX = !fish3s.flipX
+    }
+    if(fish3s_step > 0)
+    {
+        fish3s.flipX = false
+    } else {
+        fish3s.flipX = true
     }
 
     // 鱼4的自由游泳
@@ -497,7 +501,12 @@ function update ()
     fish4s_step_y += 1
     if(fish4s.x > canvasWidth || fish4s.x < 0) {
         fish4s_step = -fish4s_step
-        fish4s.flipX = !fish4s.flipX
+    }
+    if(fish4s_step > 0)
+    {
+        fish4s.flipX = false
+    } else {
+        fish4s.flipX = true
     }
 
     // 鱼5的自由游泳
@@ -506,7 +515,12 @@ function update ()
     fish5s_step_y += 1
     if(fish5s.x > canvasWidth || fish5s.x < 0) {
         fish5s_step = -fish5s_step
-        fish5s.flipX = !fish5s.flipX
+    }
+    if(fish5s_step > 0)
+    {
+        fish5s.flipX = false
+    } else {
+        fish5s.flipX = true
     }
 
     // 鱼6的自由游泳
@@ -515,7 +529,12 @@ function update ()
     fish6s_step_y += 1
     if(fish6s.x > canvasWidth || fish6s.x < 0) {
         fish6s_step = -fish6s_step
-        fish6s.flipX = !fish6s.flipX
+    }
+    if(fish6s_step > 0)
+    {
+        fish6s.flipX = false
+    } else {
+        fish6s.flipX = true
     }
 
     // 鱼7的自由游泳
@@ -524,14 +543,24 @@ function update ()
     fish7s_step_y += 1
     if(fish7s.x > canvasWidth || fish7s.x < 0) {
         fish7s_step = -fish7s_step
-        fish7s.flipX = !fish7s.flipX
+    }
+    if(fish7s_step > 0)
+    {
+        fish7s.flipX = false
+    } else {
+        fish7s.flipX = true
     }
 
     // 鱼8的自由游泳
     fish8s.x += fish8s_step * 0.2
     if(fish8s.x > canvasWidth || fish8s.x < 0) {
         fish8s_step = -fish8s_step
-        fish8s.flipX = !fish8s.flipX
+    }
+    if(fish8s_step > 0)
+    {
+        fish8s.flipX = false
+    } else {
+        fish8s.flipX = true
     }
 
     
