@@ -113,7 +113,8 @@ function preload ()
     this.load.image("xuxian", "./images/xuxian.png") // 引入虚线
     this.load.image("xuxian_new", "./images/new/箭头.png") // 引入虚线
     this.load.image("bk1", "./images/游戏场景1_1.png") // 引入游戏背景1
-    this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
+    // this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
+    this.load.image("leave", "./images/new/游戏胜利.png") // 引入“离开关卡”背景
     this.load.image("back_icon", "./images/back_icon.png") // 引入“返回”图标
     this.load.image("stop_icon", "./images/stop_icon.png") // 引入“暂停”图标
     this.load.image("set_icon", "./images/set_icon1.png") // 引入“设置”图标
@@ -321,10 +322,10 @@ function create ()
         fishs_number = 8
 
         leave_test = function() {
-            _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
+            // _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
             setTimeout(function() {
-                _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave")
-            }, 3000)
+                _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave").setScale(0.8)
+            }, 100)
             setTimeout(function() {
                 clearInterval(set_gold_text)
                 _this.scene.start("game_chose_level")
@@ -587,8 +588,8 @@ function update ()
     // 按数字2时减少鱼叉发射速度
     if(key2.isDown)
     {
-         extend_forward_speed -= 1
-        //leave_test()
+        //  extend_forward_speed -= 1
+        leave_test()
     }
     // 按数字4时停止鱼的游泳
     if(key4.isDown)
