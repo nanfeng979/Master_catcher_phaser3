@@ -111,6 +111,7 @@ function preload ()
     this.load.image("harpoon", "./images/harpoon2_2.png")
     this.load.image("null_", "./images/null.png") // 引入透明贴图作为鱼叉头虚拟空间
     this.load.image("xuxian", "./images/xuxian.png") // 引入虚线
+    this.load.image("xuxian_new", "./images/new/箭头.png") // 引入虚线
     this.load.image("bk1", "./images/游戏场景1_1.png") // 引入游戏背景1
     this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
     this.load.image("back_icon", "./images/back_icon.png") // 引入“返回”图标
@@ -234,7 +235,7 @@ function create ()
     harpoon_init_width = harpoon.x // 定义钩子的初始x轴位置
     harpoon_init_height = harpoon.y // 定义钩子的初始y轴位置
 
-    xuxian = this.add.image(canvasWidth / 2 - 30, 70, "xuxian").setScale(0.5, 2)
+    xuxian = this.add.image(canvasWidth / 2 - 30, 70, "xuxian_new").setScale(0.02, 0.2)
     xuxian.setOrigin(0.5, 0)
 
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
