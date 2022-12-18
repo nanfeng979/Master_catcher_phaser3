@@ -236,7 +236,7 @@ function create ()
     harpoon_init_width = harpoon.x // 定义钩子的初始x轴位置
     harpoon_init_height = harpoon.y // 定义钩子的初始y轴位置
 
-    xuxian = this.add.image(canvasWidth / 2 - 30, 70, "xuxian_new").setScale(0.02, 0.2)
+    xuxian = this.add.image(canvasWidth / 2 - 30, 70, "xuxian_new").setScale(0.01, 0.158)
     xuxian.setOrigin(0.5, 0)
 
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
