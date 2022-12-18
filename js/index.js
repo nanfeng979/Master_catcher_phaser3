@@ -19,6 +19,9 @@ import {gaming_scene_launch} from "./gaming_scene_launch.js"
 // “设置”页面
 import {set_launch} from "./set_launch.js"
 
+// “商店”页面
+import {shop_lanch} from "./shop_lanch.js"
+
 // 游戏进行时的场景
 import {gaming_scene} from "./gaming_scene.js"
 
@@ -69,7 +72,7 @@ var config = {
         }
     }, // 开启物理引擎并配置
     // scene: [gaming_scene, gaming_scene_launch,  char_chose, game_first_open, game_chose_level]
-    scene: [game_chose_level, gaming_scene, game_first_open, char_chose, gaming_scene_launch, set_launch]
+    scene: [gaming_scene, game_chose_level, game_first_open, char_chose, gaming_scene_launch, set_launch, shop_lanch]
     // scene: gaming_scene
 };
 

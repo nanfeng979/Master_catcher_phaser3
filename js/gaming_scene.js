@@ -205,21 +205,12 @@ function create ()
     pause_key.on("pointerdown", () => {
         document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
         localStorage.setItem("pause", "true")
-        this.scene.launch("gaming_scene_launch")
+        this.scene.launch("shop_lanch")
         this.scene.pause()
     }, this)
     // 暂停键的鼠标移入事件
     pause_key.on("pointerover", () => {
         document.body.style.cursor = "url(./images/pointer_mouse_icon.ico), auto"
-        // this.sound = null
-        // for(int i = this.sound.sounds)
-        for(var i = 0; i < this.sound.sounds.length; i++)
-        {
-            if(this.sound.sounds[i].key == "bg_audio") {
-                this.sound.sounds[i] = 0
-            }
-        }
-        console.log(this.sound.sounds)
     })
     // 暂停键的鼠标移出事件
     pause_key.on("pointerout", () => {
