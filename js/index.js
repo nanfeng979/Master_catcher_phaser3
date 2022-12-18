@@ -60,6 +60,7 @@ var config = {
     width: canvasWidth,
     height: canvasHeight,
     parent: "frame", // 将整个屏幕放在id=frame的DOM节点内
+    transparent: true,
     physics: {
         default: 'arcade',
         arcade: {
@@ -68,7 +69,7 @@ var config = {
         }
     }, // 开启物理引擎并配置
     // scene: [gaming_scene, gaming_scene_launch,  char_chose, game_first_open, game_chose_level]
-    scene: [gaming_scene, game_first_open, char_chose, game_chose_level, gaming_scene_launch, set_launch]
+    scene: [game_chose_level, gaming_scene, game_first_open, char_chose, gaming_scene_launch, set_launch]
     // scene: gaming_scene
 };
 

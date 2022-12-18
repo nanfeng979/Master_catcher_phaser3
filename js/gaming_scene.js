@@ -99,7 +99,6 @@ function preload ()
     this.load.spritesheet('a11', './images/anim/fishs/a/鱼11.png', { frameWidth: 71, frameHeight: 92 });
     this.load.spritesheet('a12', './images/anim/fishs/a/鱼12.png', { frameWidth: 100, frameHeight: 60 });
 
-    this.load.image("background", "./images/game_background.png")
     this.load.image("fish1", "./images/fish1.png")
     this.load.image("fish2", "./images/fish2.png")
     this.load.image("fish3", "./images/fish3.png")
@@ -112,7 +111,7 @@ function preload ()
     this.load.image("harpoon", "./images/harpoon2_2.png")
     this.load.image("null_", "./images/null.png") // 引入透明贴图作为鱼叉头虚拟空间
     this.load.image("xuxian", "./images/xuxian.png") // 引入虚线
-    this.load.image("bk1", "./images/游戏场景1.png") // 引入游戏背景1
+    this.load.image("bk1", "./images/游戏场景1_1.png") // 引入游戏背景1
     this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
     this.load.image("back_icon", "./images/back_icon.png") // 引入“返回”图标
     this.load.image("stop_icon", "./images/stop_icon.png") // 引入“暂停”图标
@@ -162,7 +161,7 @@ function create ()
     globalThis.dianjiAudio = this.sound.add("dianji_audio")
     dianjiAudio.volume = 0.6
 
-    this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
+    // this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
 
     // 设置键
     let set_key = this.add.image(1040, 40, "set_icon").setScale(0.4).setInteractive()
@@ -212,6 +211,15 @@ function create ()
     // 暂停键的鼠标移入事件
     pause_key.on("pointerover", () => {
         document.body.style.cursor = "url(./images/pointer_mouse_icon.ico), auto"
+        // this.sound = null
+        // for(int i = this.sound.sounds)
+        for(var i = 0; i < this.sound.sounds.length; i++)
+        {
+            if(this.sound.sounds[i].key == "bg_audio") {
+                this.sound.sounds[i] = 0
+            }
+        }
+        console.log(this.sound.sounds)
     })
     // 暂停键的鼠标移出事件
     pause_key.on("pointerout", () => {
@@ -225,7 +233,7 @@ function create ()
     gold_text = this.add.text(70, 20, gold, { fontSize: "24px" })
 
     //显示鱼叉发射速度
-    extend_forward_speed_text = this.add.text(40, 80, "当前鱼叉发射速度为：" + extend_forward_speed, { fontSize: "22px" })
+    // extend_forward_speed_text = this.add.text(40, 80, "当前鱼叉发射速度为：" + extend_forward_speed, { fontSize: "22px" })
 
     man = this.physics.add.image(canvasWidth / 2 - 40, 120, "man").setScale(0.2)
 
@@ -600,7 +608,7 @@ function update ()
     {
         swim = 1
     }
-    extend_forward_speed_text.setText("当前鱼叉发射速度为：" + extend_forward_speed)
+    // extend_forward_speed_text.setText("当前鱼叉发射速度为：" + extend_forward_speed)
     
 }
 
