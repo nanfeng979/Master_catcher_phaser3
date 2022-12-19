@@ -21,7 +21,8 @@ export let game_first_open = new Phaser.Class({
         Phaser.Scene.call(this, {key: "game_first_open"})
     },
     preload : function () {
-        this.load.image("game_cover", "./images/game_cover.png") // 引入游戏封面
+        this.load.image("game_cover_old", "./images/game_cover.png") // 引入游戏封面
+        this.load.image("game_cover", "./images/new/新的游戏封面 .png") // 引入游戏封面
         this.load.image("game_start_loading", "./images/game_start_loading.png") // 引入游戏加载页面
         this.load.image("start", "./images/start.png")
 
