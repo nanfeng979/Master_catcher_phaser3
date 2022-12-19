@@ -125,9 +125,12 @@ function preload ()
     this.load.image("bk1", "./images/游戏场景1_1.png") // 引入游戏背景1
     // this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
     this.load.image("leave", "./images/new/游戏胜利.png") // 引入“离开关卡”背景
-    this.load.image("back_icon", "./images/back_icon.png") // 引入“返回”图标
-    this.load.image("stop_icon", "./images/stop_icon.png") // 引入“暂停”图标
-    this.load.image("set_icon", "./images/set_icon1.png") // 引入“设置”图标
+    this.load.image("back_icon_old", "./images/back_icon.png") // 引入“返回”图标
+    this.load.image("back_icon", "./images/new/2.png") // 引入“返回”图标
+    this.load.image("stop_icon_old", "./images/stop_icon.png") // 引入“暂停”图标
+    this.load.image("stop_icon", "./images/new/3.png") // 引入“暂停”图标
+    this.load.image("set_icon_old", "./images/set_icon1.png") // 引入“设置”图标
+    this.load.image("set_icon", "./images/new/1.png") // 引入“设置”图标
     this.load.image("gold", "./images/gold.png") // 引入“显示金币框”
     this.load.audio("bg_audio", "./media/bg.mp3") // 引入背景音乐
     this.load.audio("dianji_audio", "./media/dianji.mp3") // 引入点击音效
@@ -179,7 +182,7 @@ function create ()
     // this.add.image(canvasWidth / 2, canvasHeight / 2, "bk1") // add.image(x,y,objName) 的x和y的obj的中心点位置
 
     // 设置键
-    let set_key = this.add.image(1040, 40, "set_icon").setScale(0.4).setInteractive()
+    let set_key = this.add.image(1040, 40, "set_icon").setScale(0.35).setInteractive()
     // 设置键的点击事件
     set_key.on("pointerdown", () => {
         document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
@@ -197,7 +200,7 @@ function create ()
     })
 
     // 返回键
-    let return_key = this.add.image(1240, 40, "back_icon").setScale(0.4).setInteractive()
+    let return_key = this.add.image(1240, 40, "back_icon").setScale(0.35).setInteractive()
     // 返回键的点击事件
     return_key.on("pointerdown", () => {
         document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
@@ -216,7 +219,7 @@ function create ()
 
 
     // 暂停键
-    let pause_key = this.add.image(1140, 40, "stop_icon").setScale(0.4).setInteractive()
+    let pause_key = this.add.image(1140, 40, "stop_icon").setScale(0.35).setInteractive()
     // 暂停键的点击事件
     pause_key.on("pointerdown", () => {
         document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
