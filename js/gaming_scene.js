@@ -422,14 +422,13 @@ function update ()
     xuxian_swing() // 虚线的摇摆函数
 
     // 人物随着虚线的方向摆动
-    var i = xuxian.rotation / 60;
     man.destroy()
     if(xuxian.rotation > 0) {
-        man = this.physics.add.image(canvasWidth / 2 - 40, 120, "man" + parseInt(60 - Math.abs(i) * 60 * 60)).setScale(0.2)
+        man = this.physics.add.image(canvasWidth / 2 - 40, 120, "man" + parseInt(60 - xuxian.rotation * 60)).setScale(0.2)
         man.flipX = false;
     }
     else {
-        man = this.physics.add.image(canvasWidth / 2 - 40 + 314*0.2*0.5*0.5, 120, "man" + parseInt(60 - Math.abs(i) * 60 * 60)).setScale(0.2)
+        man = this.physics.add.image(canvasWidth / 2 - 40 + 314*0.2*0.5*0.5, 120, "man" + parseInt(60 - Math.abs(xuxian.rotation)  * 60)).setScale(0.2)
         man.flipX = true;
     }
     
