@@ -160,6 +160,9 @@ function create ()
     fish8s_step_y = 0
     swim = 1
 
+    limit_space = false
+    can_catch_fish = true
+
     // create() 创建资源、绑定各种交互函数
     let _this = this
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
@@ -199,6 +202,7 @@ function create ()
     return_key.on("pointerdown", () => {
         document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
         clearInterval(set_gold_text)
+        bgaudio.destroy() // 关闭音乐
         this.scene.start("game_chose_level") // 进入关卡选择页面
     })
     // 返回键的鼠标移入事件
@@ -333,6 +337,7 @@ function create ()
 
         leave_test = function() {
             // _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
+            bgaudio.destroy() // 关闭音乐
             setTimeout(function() {
                 _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave").setScale(0.8)
             }, 100)
