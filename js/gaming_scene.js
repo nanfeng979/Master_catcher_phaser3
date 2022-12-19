@@ -99,6 +99,16 @@ function preload ()
     this.load.spritesheet('a11', './images/anim/fishs/a/鱼11.png', { frameWidth: 71, frameHeight: 92 });
     this.load.spritesheet('a12', './images/anim/fishs/a/鱼12.png', { frameWidth: 100, frameHeight: 60 });
 
+    for(var i = 0; i < 61; i++) {
+        if(i < 10) {
+            this.load.image("man" + i, "./images/anim/fishs/c/人物动态_0000" + i + ".png")
+        } else if(i < 100) {
+            this.load.image("man" + i, "./images/anim/fishs/c/人物动态_000" + i + ".png")
+        } else if(i < 1000) {
+            this.load.image("man" + i, "./images/anim/fishs/c/人物动态_00" + i + ".png")
+        }
+    }
+
     this.load.image("fish1", "./images/fish1.png")
     this.load.image("fish2", "./images/fish2.png")
     this.load.image("fish3", "./images/fish3.png")
@@ -228,7 +238,7 @@ function create ()
     //显示鱼叉发射速度
     // extend_forward_speed_text = this.add.text(40, 80, "当前鱼叉发射速度为：" + extend_forward_speed, { fontSize: "22px" })
 
-    man = this.physics.add.image(canvasWidth / 2 - 40, 120, "man").setScale(0.2)
+    man = this.physics.add.image(canvasWidth / 2 - 40, 120, "man1").setScale(0.2)
 
     harpoon = this.physics.add.image(canvasWidth / 2 - 30, 70, "harpoon")
 
@@ -373,12 +383,11 @@ function create ()
         {
             return
         }
-        if(pointer.x < canvasWidth/2)
-        {
-            man.flipX = false;
+        if(xuxian.rotation < 0) {
+            man.flipX = true;
         }
         else {
-            man.flipX = true;
+            man.flipX = false;
         }
 
         if(localStorage.getItem("pause") == "false") {
@@ -403,6 +412,18 @@ function update ()
     null_.y = harpoon.y + harpoon.height - null_.height / 2 - Math.abs(((30) * Math.sin(harpoon.rotation))) * 2 // 实时更新鱼叉头虚拟空间的y轴
 
     xuxian_swing() // 虚线的摇摆函数
+
+    // 人物随着虚线的方向摆动
+    var i = xuxian.rotation / 60;
+    man.destroy()
+    man = this.physics.add.image(canvasWidth / 2 - 40, 120, "man" + parseInt(60 - Math.abs(i) * 60 * 60)).setScale(0.2)
+    if(xuxian.rotation > 0) {
+        man.flipX = false;
+    }
+    else {
+        man.flipX = true;
+    }
+    
 
     // 如果钩子的高度小于钩子的初始高度(钩子伸出再缩回时会触发)
     if(harpoon.y < harpoon_init_height) {
@@ -620,7 +641,7 @@ function xuxian_swing() {
 }
 
 // 鱼叉发射函数
-function harpoon_fire() {
+function harpoon_fire(a) {
     dianjiAudio.play()
     xuxian_is_swinging = false // 停止虚线的摆动
     limit_space = true // 打开限制，反之按空格之后响应其它按键操作
