@@ -322,17 +322,17 @@ function create ()
         fish1s.play({ key: 'swim1'});
         fish2s = this.physics.add.sprite(100, 400, 'a9');
         fish2s.play({ key: 'swim2'});
-        fish3s = this.physics.add.sprite(canvasWidth / 2 - 300, 500, 'a3');
+        fish3s = this.physics.add.sprite(canvasWidth / 2 - 300, 500, 'a3').setScale(0.7);
         fish3s.play({ key: 'swim3'});
-        fish4s = this.physics.add.sprite(canvasWidth / 2 + 200, 500, 'a11');
+        fish4s = this.physics.add.sprite(canvasWidth / 2 + 200, 600, 'a11').setScale(0.6);
         fish4s.play({ key: 'swim4'});
-        fish5s = this.physics.add.sprite(canvasWidth / 2 - 100, 500, 'a5');
+        fish5s = this.physics.add.sprite(canvasWidth / 2 - 100, 500, 'a5').setScale(0.7);
         fish5s.play({ key: 'swim5'});
         fish6s = this.physics.add.sprite(canvasWidth / 2 - 200 , 500, 'a6');
         fish6s.play({ key: 'swim6'});
         fish7s = this.physics.add.sprite(canvasWidth / 2, 500, 'a7');
         fish7s.play({ key: 'swim7'});
-        fish8s = this.physics.add.sprite(100, 600, 'a12');
+        fish8s = this.physics.add.sprite(100, 700, 'a12');
         fish8s.play({ key: 'swim8'});
 
 
@@ -514,7 +514,7 @@ function update ()
     }
 
     // 鱼3的自由游泳
-    fish3s.x += fish3s_step * 0.2
+    fish3s.x += fish3s_step * 0.3
     if(fish3s.x > canvasWidth || fish3s.x < 0) {
         fish3s_step = -fish3s_step
     }
@@ -526,8 +526,8 @@ function update ()
     }
 
     // 鱼4的自由游泳
-    fish4s.x += fish4s_step * 0.2
-    fish4s.y += Math.sin(toAngle(fish4s_step_y)) * 3
+    fish4s.x += fish4s_step * 0.1
+    fish4s.y += Math.sin(toAngle(fish4s_step_y)) * 1
     fish4s_step_y += 1
     if(fish4s.x > canvasWidth || fish4s.x < 0) {
         fish4s_step = -fish4s_step
@@ -540,9 +540,9 @@ function update ()
     }
 
     // 鱼5的自由游泳
-    fish5s.x += fish5s_step * 0.2
-    fish5s.y += Math.sin(toAngle(fish5s_step_y)) * 3
-    fish5s_step_y += 1
+    fish5s.x += fish5s_step * 0.4
+    fish5s.y += Math.sin(toAngle(fish5s_step_y)) * 1.5
+    fish5s_step_y += 1 * 2.5
     if(fish5s.x > canvasWidth || fish5s.x < 0) {
         fish5s_step = -fish5s_step
     }
@@ -554,8 +554,8 @@ function update ()
     }
 
     // 鱼6的自由游泳
-    fish6s.x += fish6s_step * 0.2
-    fish6s.y += Math.sin(toAngle(fish6s_step_y)) * 3
+    fish6s.x += fish6s_step * 0.4
+    fish6s.y += Math.sin(toAngle(fish6s_step_y)) * 2
     fish6s_step_y += 1
     if(fish6s.x > canvasWidth || fish6s.x < 0) {
         fish6s_step = -fish6s_step
@@ -568,9 +568,9 @@ function update ()
     }
 
     // 鱼7的自由游泳
-    fish7s.x += fish7s_step * 0.2
-    fish7s.y += Math.sin(toAngle(fish7s_step_y)) * 3
-    fish7s_step_y += 1
+    fish7s.x += fish7s_step * 0.1
+    fish7s.y += Math.sin(toAngle(fish7s_step_y)) * 0.5
+    fish7s_step_y += 0.5
     if(fish7s.x > canvasWidth || fish7s.x < 0) {
         fish7s_step = -fish7s_step
     }
@@ -582,7 +582,7 @@ function update ()
     }
 
     // 鱼8的自由游泳
-    fish8s.x += fish8s_step * 0.2
+    fish8s.x += fish8s_step * 0.1
     if(fish8s.x > canvasWidth || fish8s.x < 0) {
         fish8s_step = -fish8s_step
     }
