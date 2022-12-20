@@ -22,6 +22,7 @@ let fishs_number // 确定当前鱼的数量
 let current_is_cated // 当前被捕到的鱼
 
 let fish1s, fish2s, fish3s, fish4s, fish5s, fish6s, fish7s, fish8s
+let fishf1s, fishf2s, fishf3s, fishf4s, fishf5s, fishf6s, fishf7s, fishf8s
 // 鱼1
 let fish1s_step = 30 // 鱼1的游泳步伐
 // 鱼2
@@ -45,6 +46,32 @@ let fish7s_step_y = 0
 // 鱼8
 let fish8s_step = 10
 let fish8s_step_y = 0
+
+// 鱼f1
+let fishf1s_step = 10
+let fishf1s_step_y = 0
+// 鱼f2
+let fishf2s_step = 10
+let fishf2s_step_y = 0
+// 鱼f3
+let fishf3s_step = 10
+let fishf3s_step_y = 0
+// 鱼f4
+let fishf4s_step = 10
+let fishf4s_step_y = 0
+// 鱼f5
+let fishf5s_step = 10
+let fishf5s_step_y = 0
+// 鱼f6
+let fishf6s_step = 10
+let fishf6s_step_y = 0
+// 鱼f7
+let fishf7s_step = 10
+let fishf7s_step_y = 0
+// 鱼f8
+let fishf8s_step = 10
+let fishf8s_step_y = 0
+
 let swim = 1
 
 
@@ -66,6 +93,14 @@ let a5Animation
 let a6Animation
 let a7Animation
 let a8Animation
+let f1Animation
+let f2Animation
+let f3Animation
+let f4Animation
+let f5Animation
+let f6Animation
+let f7Animation
+let f8Animation
 let sprite
 let ceshi
 
@@ -98,6 +133,17 @@ function preload ()
     this.load.spritesheet('a10', './images/anim/fishs/a/鱼10.png', { frameWidth: 64, frameHeight: 88 });
     this.load.spritesheet('a11', './images/anim/fishs/a/鱼11.png', { frameWidth: 71, frameHeight: 92 });
     this.load.spritesheet('a12', './images/anim/fishs/a/鱼12.png', { frameWidth: 100, frameHeight: 60 });
+
+
+    this.load.spritesheet('f1', './images/anim/fishs/b/鱼21.png', { frameWidth: 125, frameHeight: 135 });
+    this.load.spritesheet('f2', './images/anim/fishs/b/鱼22.png', { frameWidth: 109, frameHeight: 67 });
+    this.load.spritesheet('f3', './images/anim/fishs/b/鱼23.png', { frameWidth: 49, frameHeight: 68 });
+    this.load.spritesheet('f4', './images/anim/fishs/b/鱼24.png', { frameWidth: 73, frameHeight: 36 });
+    this.load.spritesheet('f5', './images/anim/fishs/b/鱼25.png', { frameWidth: 106, frameHeight: 62 });
+    this.load.spritesheet('f6', './images/anim/fishs/b/鱼26.png', { frameWidth: 197, frameHeight: 117 });
+    this.load.spritesheet('f7', './images/anim/fishs/b/鱼27.png', { frameWidth: 100, frameHeight: 50 });
+    this.load.spritesheet('f8', './images/anim/fishs/b/鱼28.png', { frameWidth: 168, frameHeight: 85 });
+
 
     for(var i = 0; i < 61; i++) {
         if(i < 10) {
@@ -161,6 +207,32 @@ function create ()
     // 鱼8
     fish8s_step = 10
     fish8s_step_y = 0
+
+    // 鱼f1
+    fishf1s_step = 10
+    fishf1s_step_y = 0
+    // 鱼f2
+    fishf2s_step = 10
+    fishf2s_step_y = 0
+    // 鱼f3
+    fishf3s_step = 10
+    fishf3s_step_y = 0
+    // 鱼f4
+    fishf4s_step = 10
+    fishf4s_step_y = 0
+    // 鱼f5
+    fishf5s_step = 10
+    fishf5s_step_y = 0
+    // 鱼f6
+    fishf6s_step = 10
+    fishf6s_step_y = 0
+    // 鱼f7
+    fishf7s_step = 10
+    fishf7s_step_y = 0
+    // 鱼f8
+    fishf8s_step = 10
+    fishf8s_step_y = 0
+
     swim = 1
 
     limit_space = false
@@ -205,7 +277,7 @@ function create ()
     return_key.on("pointerdown", () => {
         document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
         clearInterval(set_gold_text)
-        bgaudio.destroy() // 关闭音乐
+        globalThis.bgaudio.stop()  // 关闭音乐
         this.scene.start("game_chose_level") // 进入关卡选择页面
     })
     // 返回键的鼠标移入事件
@@ -253,8 +325,9 @@ function create ()
     harpoon_init_width = harpoon.x // 定义钩子的初始x轴位置
     harpoon_init_height = harpoon.y // 定义钩子的初始y轴位置
 
-    xuxian = this.add.image(canvasWidth / 2 - 30, 200, "xuxian_new").setScale(0.01, 0.158)
+    xuxian = this.add.image(canvasWidth / 2 - 30, 200, "xuxian_new").setScale(0.08).setAlpha(0.8)
     xuxian.setOrigin(0.5, 0)
+    // .setScale(0.01, 0.158)
 
     null_ = this.physics.add.image(harpoon.x + harpoon.width / 2, harpoon.y + harpoon.height - 25, "null_") // 加载透明贴图来辅助鱼叉精准捕中鱼
 
@@ -317,6 +390,55 @@ function create ()
             frameRate: 16,
             repeat: -1
         });
+        f1Animation = this.anims.create({
+            key: 'swimf1',
+            frames: 'f1',
+            frameRate: 16,
+            repeat: -1
+        });
+        f2Animation = this.anims.create({
+            key: 'swimf2',
+            frames: 'f2',
+            frameRate: 16,
+            repeat: -1
+        });
+        f3Animation = this.anims.create({
+            key: 'swimf3',
+            frames: 'f3',
+            frameRate: 16,
+            repeat: -1
+        });
+        f4Animation = this.anims.create({
+            key: 'swimf4',
+            frames: 'f4',
+            frameRate: 16,
+            repeat: -1
+        });
+        f5Animation = this.anims.create({
+            key: 'swimf5',
+            frames: 'f5',
+            frameRate: 16,
+            repeat: -1
+        });
+        f6Animation = this.anims.create({
+            key: 'swimf6',
+            frames: 'f6',
+            frameRate: 16,
+            repeat: -1
+        });
+        f7Animation = this.anims.create({
+            key: 'swimf7',
+            frames: 'f7',
+            frameRate: 16,
+            repeat: -1
+        });
+        f8Animation = this.anims.create({
+            key: 'swimf8',
+            frames: 'f8',
+            frameRate: 16,
+            repeat: -1
+        });
+        
 
         fish1s = this.physics.add.sprite(canvasWidth / 2 + 100, 500, 'a1');
         fish1s.play({ key: 'swim1'});
@@ -335,19 +457,35 @@ function create ()
         fish8s = this.physics.add.sprite(100, 700, 'a12');
         fish8s.play({ key: 'swim8'});
 
+        fishf1s = this.physics.add.sprite(canvasWidth / 2, 400, 'f1');
+        fishf1s.play({ key: 'swimf1'});
+        fishf2s = this.physics.add.sprite(canvasWidth / 2, 500, 'f2');
+        fishf2s.play({ key: 'swimf2'});
+        fishf3s = this.physics.add.sprite(canvasWidth / 2, 700, 'f3');
+        fishf3s.play({ key: 'swimf3'});
+        fishf4s = this.physics.add.sprite(canvasWidth / 2 + 100, 700, 'f4');
+        fishf4s.play({ key: 'swimf4'});
+        fishf5s = this.physics.add.sprite(canvasWidth / 2 - 100, 400, 'f5');
+        fishf5s.play({ key: 'swimf5'});
+        fishf6s = this.physics.add.sprite(canvasWidth / 2 - 300, 200, 'f6').setScale(0.8);
+        fishf6s.play({ key: 'swimf6'});
+        fishf7s = this.physics.add.sprite(canvasWidth / 2, 300, 'f7');
+        fishf7s.play({ key: 'swimf7'});
+        fishf8s = this.physics.add.sprite(canvasWidth / 2, 680, 'f8');
+        fishf8s.play({ key: 'swimf8'});
 
-        fishs_number = 8
+
+        fishs_number = 16
 
         leave_test = function() {
             // _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
-            bgaudio.destroy() // 关闭音乐
+            globalThis.bgaudio.stop() // 关闭音乐
             setTimeout(function() {
                 _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave").setScale(0.8)
-            }, 100)
+            }, 1000)
             setTimeout(function() {
                 clearInterval(set_gold_text)
                 _this.scene.start("game_chose_level")
-                globalThis.bgaudio.destroy()
             }, 5000)
         }
     }
@@ -371,6 +509,15 @@ function create ()
     this.physics.add.collider(null_, fish7s, harpoon_collid_fishs, null, this)
     // 添加钩子与鱼8组的碰撞响应函数 
     this.physics.add.collider(null_, fish8s, harpoon_collid_fishs, null, this)
+
+    this.physics.add.collider(null_, fishf1s, harpoon_collid_fishs, null, this)
+    this.physics.add.collider(null_, fishf2s, harpoon_collid_fishs, null, this)
+    this.physics.add.collider(null_, fishf3s, harpoon_collid_fishs, null, this)
+    this.physics.add.collider(null_, fishf4s, harpoon_collid_fishs, null, this)
+    this.physics.add.collider(null_, fishf5s, harpoon_collid_fishs, null, this)
+    this.physics.add.collider(null_, fishf6s, harpoon_collid_fishs, null, this)
+    this.physics.add.collider(null_, fishf7s, harpoon_collid_fishs, null, this)
+    this.physics.add.collider(null_, fishf8s, harpoon_collid_fishs, null, this)
 
     
     // 键盘响应事件
@@ -445,18 +592,26 @@ function update ()
                 case 'a1':
                 case 'a2':
                 case 'a9':
+                case 'f1':
+                case 'f2':
                     gold_num = 3;break;
                 case 'a3':
                 case 'a4':
                 case 'a10':
+                case 'f3':
+                case 'f4':
                     gold_num = 4;break;
                 case 'a5':
                 case 'a6':
                 case 'a11':
+                case 'f5':
+                case 'f6':
                     gold_num = 2;break;
                 case 'a7':
                 case 'a8':
                 case 'a12':
+                case 'f7':
+                case 'f8':
                     gold_num = 1;break;
             }
             // fish1_obj.disableBody(true, true) // 指定fish1消失
@@ -591,6 +746,108 @@ function update ()
         fish8s.flipX = false
     } else {
         fish8s.flipX = true
+    }
+
+    
+
+    // 鱼f1的自由游泳
+    fishf1s.x += fishf1s_step * 0.3
+    fishf1s.y += Math.sin(toAngle(fishf1s_step_y)) * 2.5
+    fishf1s_step_y += 3.5
+    if(fishf1s.x > canvasWidth || fishf1s.x < 0) {
+        fishf1s_step = -fishf1s_step
+    }
+    if(fishf1s_step > 0)
+    {
+        fishf1s.flipX = false
+    } else {
+        fishf1s.flipX = true
+    }
+
+    // 鱼f2的自由游泳
+    fishf2s.x += fishf2s_step * 0.1 * -1
+    if(fishf2s.x > canvasWidth || fishf2s.x < 0) {
+        fishf2s_step = -fishf2s_step
+    }
+    if(fishf2s_step > 0)
+    {
+        fishf2s.flipX = true
+    } else {
+        fishf2s.flipX = false
+    }
+
+    // 鱼f3的自由游泳
+    fishf3s.x += fishf3s_step * 0.1
+    if(fishf3s.x > canvasWidth || fishf3s.x < 0) {
+        fishf3s_step = -fishf3s_step
+    }
+    if(fishf3s_step > 0)
+    {
+        fishf3s.flipX = true
+    } else {
+        fishf3s.flipX = false
+    }
+
+    // 鱼f4的自由游泳
+    fishf4s.x += fishf4s_step * 0.1 * 0
+    if(fishf4s.x > canvasWidth || fishf4s.x < 0) {
+        fishf4s_step = -fishf4s_step
+    }
+    if(fishf4s_step > 0)
+    {
+        fishf4s.flipX = false
+    } else {
+        fishf4s.flipX = true
+    }
+
+    // 鱼f5的自由游泳
+    fishf5s.x += fishf5s_step * 0.18 * -1
+    fishf5s.y += Math.sin(toAngle(fishf5s_step_y)) * 1
+    fishf5s_step_y += 5
+    if(fishf5s.x > canvasWidth || fishf5s.x < 0) {
+        fishf5s_step = -fishf5s_step
+    }
+    if(fishf5s_step > 0)
+    {
+        fishf5s.flipX = true
+    } else {
+        fishf5s.flipX = false
+    }
+    
+    // 鱼f6的自由游泳
+    fishf6s.x += fishf6s_step * 0.1 * 0
+    if(fishf6s.x > canvasWidth || fishf6s.x < 0) {
+        fishf6s_step = -fishf6s_step
+    }
+    if(fishf6s_step > 0)
+    {
+        fishf6s.flipX = false
+    } else {
+        fishf6s.flipX = true
+    }
+
+    // 鱼f7的自由游泳
+    fishf7s.x += fishf7s_step * 0.2
+    if(fishf7s.x > canvasWidth || fishf7s.x < 0) {
+        fishf7s_step = -fishf7s_step
+    }
+    if(fishf7s_step > 0)
+    {
+        fishf7s.flipX = false
+    } else {
+        fishf7s.flipX = true
+    }
+
+    // 鱼f8的自由游泳
+    fishf8s.x += fishf8s_step * 0.2 * -1
+    if(fishf8s.x > canvasWidth || fishf8s.x < 0) {
+        fishf8s_step = -fishf8s_step
+    }
+    if(fishf8s_step > 0)
+    {
+        fishf8s.flipX = true
+    } else {
+        fishf8s.flipX = false
     }
 
     
