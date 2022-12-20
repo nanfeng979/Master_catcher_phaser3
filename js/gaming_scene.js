@@ -125,8 +125,8 @@ function preload ()
     this.load.image("bk1", "./images/游戏场景1_1.png") // 引入游戏背景1
     // this.load.image("leave", "./images/游戏场景2-1.png") // 引入“离开关卡”背景
     this.load.image("leave", "./images/new/游戏胜利.png") // 引入“离开关卡”背景
-    this.load.image("back_icon_old", "./images/back_icon.png") // 引入“返回”图标
-    this.load.image("back_icon", "./images/new/2.png") // 引入“返回”图标
+    // this.load.image("back_icon_old", "./images/back_icon.png") // 引入“返回”图标
+    this.load.image("back_icon_", "./images/new/2.png") // 引入“返回”图标
     this.load.image("stop_icon_old", "./images/stop_icon.png") // 引入“暂停”图标
     this.load.image("stop_icon", "./images/new/3.png") // 引入“暂停”图标
     this.load.image("set_icon_old", "./images/set_icon1.png") // 引入“设置”图标
@@ -200,7 +200,7 @@ function create ()
     })
 
     // 返回键
-    let return_key = this.add.image(1240, 40, "back_icon").setScale(0.35).setInteractive()
+    let return_key = this.add.image(1240, 40, "back_icon_").setScale(0.35).setInteractive()
     // 返回键的点击事件
     return_key.on("pointerdown", () => {
         document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
