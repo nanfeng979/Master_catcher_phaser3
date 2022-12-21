@@ -185,6 +185,7 @@ function preload ()
 function create ()
 {
     // 初始化
+    init_gold_data()
     video.play();
     globalThis.extend_forward_speed = 300// 鱼钩伸出时的速度
     // extend_forward_speed = 300
