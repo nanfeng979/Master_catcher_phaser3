@@ -9,14 +9,14 @@
 <script src="./js/index.js" type="module"></script>
 </head>
 <body>
-    <!-- <video id="mp4" style="position: absolute;  width: 1280px; height: 720px; margin: 0 auto;" autoplay>
+    <video id="mp4" style="position: absolute;  width: 1280px; height: 720px; margin: 0 auto;">
         <source src="./images/anim/mp4/开场动画.mp4" type="video/mp4">
     </video>
-    -->
+   
     <div id="frame" style="width: 1280px; margin: 0 auto;">
         <!-- <div id="load1" style="z-index:-10; position:absolute; width: 1280px; height: 720px; margin: 0 auto; background-image:url(./images/game_start_loading.png);"></div> -->
-         <video id="down" style="z-index:-10; position: absolute;  width: 1280px; height: 720px; margin: 0 auto;" autoplay loop>
-            <source src="./images/new/游戏场景3.mp4" type="video/mp4">
+         <video id="down" style="z-index:-10; position: absolute;  width: 1280px; height: 720px; margin: 0 auto;" loop>
+            <source src="./images/new/gamebg3.mp4" type="video/mp4">
         </video>
     </div>
     
@@ -26,16 +26,17 @@
     let frame = document.getElementById("frame")
 
     // 调整加载页面的位置对其frame
-    // let mp4 = document.getElementById("mp4")
-    // mp4.style.left = frame.offsetLeft + "px"
-    // mp4.addEventListener("ended",function(){
-    //     let loadParent = mp4.parentElement
-    //     loadParent.removeChild(mp4)
-    // })
+    let mp4 = document.getElementById("mp4")
+    mp4.style.left = frame.offsetLeft + "px"
+    mp4.addEventListener("ended",function(){
+        let loadParent = mp4.parentElement
+        loadParent.removeChild(mp4)
+    })
 
     // let load = document.getElementById("load1")
     // load.style.left = frame.offsetLeft + "px"
 
+    var video = document.getElementById("down");
 
 </script>
 </html>

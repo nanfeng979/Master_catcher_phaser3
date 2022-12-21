@@ -55,7 +55,7 @@ export let game_first_open = new Phaser.Class({
         // let load = document.getElementById("load")
         // let loadParent = load.parentElement
         // loadParent.removeChild(load)
-
+        mp4.play()
         _this = this
         this.add.image(canvasWidth / 2, canvasHeight / 2, "game_start_loading")
         let game_cover = this.add.image(canvasWidth / 2, canvasHeight / 2, "game_cover")
