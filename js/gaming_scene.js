@@ -11,7 +11,7 @@ let fish1_obj // 存放指定鱼1对象的变量
 let harpoon // 鱼叉的全局变量
 let harpoon_init_width // 定义钩子的初始x轴位置的全局变量
 let harpoon_init_height // 定义钩子的初始y轴位置的全局变量
-let extend_forward_speed = 300 // 鱼钩伸出时的速度
+
 let extend_back_speed = 200 // 鱼钩伸回时的速度
 let xuxian // 虚线的全局变量
 let xuxian_is_swinging = true // 表示虚线是否在摆动
@@ -185,6 +185,9 @@ function preload ()
 function create ()
 {
     // 初始化
+    globalThis.extend_forward_speed = 300// 鱼钩伸出时的速度
+    // extend_forward_speed = 300
+
     fish1s_step = 30 // 鱼1的游泳步伐
     // 鱼2
     fish2s_step = 10
@@ -467,7 +470,7 @@ function create ()
         fishf4s.play({ key: 'swimf4'});
         fishf5s = this.physics.add.sprite(canvasWidth / 2 - 100, 400, 'f5');
         fishf5s.play({ key: 'swimf5'});
-        fishf6s = this.physics.add.sprite(canvasWidth / 2 - 300, 200, 'f6').setScale(0.8);
+        fishf6s = this.physics.add.sprite(canvasWidth / 2 - 300, 230, 'f6').setScale(0.8);
         fishf6s.play({ key: 'swimf6'});
         fishf7s = this.physics.add.sprite(canvasWidth / 2, 300, 'f7');
         fishf7s.play({ key: 'swimf7'});
@@ -529,6 +532,7 @@ function create ()
     key5 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE)
     // 按ESC退出到首页
     this.input.keyboard.on('keydown-ESC', function (event) {
+        bgaudio.stop()
         _this.scene.start("game_first_open")
     });
     

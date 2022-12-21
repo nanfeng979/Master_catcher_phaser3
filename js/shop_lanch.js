@@ -25,7 +25,7 @@ export let shop_lanch = new Phaser.Class({
 
     create: function() {
         // 商店框
-        this.add.image(canvasWidth / 2, canvasHeight / 2, "shop").setScale(0.6);
+        this.add.image(canvasWidth / 2 - 76, canvasHeight / 2, "shop").setScale(0.6);
 
         // 放大
         // let qclose1 = this.add.image(canvasWidth / 2 - 100, canvasHeight / 2 + 10, "null_lv").setScale(60, 90);
@@ -35,38 +35,41 @@ export let shop_lanch = new Phaser.Class({
         // q2 = this.add.image(canvasWidth / 2, canvasHeight / 2, "q2").setScale(0.6);
         // q3 = this.add.image(canvasWidth / 2, canvasHeight / 2, "q3").setScale(0.6);
         
-        let qclose1 = this.add.image(canvasWidth / 2 - 100, canvasHeight / 2 + 10, "null").setScale(60, 90).setInteractive();
-        // qclose1.on("pointerdown", () => {
-        // }, this)
+        let qclose1 = this.add.image(canvasWidth / 2 - 100 - 76, canvasHeight / 2 + 10, "null").setScale(60, 90).setInteractive();
+        qclose1.on("pointerdown", () => {
+            extend_forward_speed *= 1.2
+        }, this)
         qclose1.on("pointerover", () => {
-            q1 = this.add.image(canvasWidth / 2 - 100, canvasHeight / 2 + 10, "q1").setScale(0.25);
+            q1 = this.add.image(canvasWidth / 2 - 100 - 76, canvasHeight / 2 + 10, "q1").setScale(0.25);
         })
         qclose1.on("pointerout", () => {
             q1.destroy()
         })
 
-        let qclose2 = this.add.image(canvasWidth / 2 + 48, canvasHeight / 2 + 10, "null").setScale(60, 90).setInteractive();
-        // qclose1.on("pointerdown", () => {
-        // }, this)
+        let qclose2 = this.add.image(canvasWidth / 2 + 48 - 76, canvasHeight / 2 + 10, "null").setScale(60, 90).setInteractive();
+        qclose2.on("pointerdown", () => {
+            extend_forward_speed *= 1.3
+        }, this)
         qclose2.on("pointerover", () => {
-            q2 = this.add.image(canvasWidth / 2 + 48, canvasHeight / 2 + 10, "q2").setScale(0.25);
+            q2 = this.add.image(canvasWidth / 2 + 48 - 76, canvasHeight / 2 + 10, "q2").setScale(0.25);
         })
         qclose2.on("pointerout", () => {
             q2.destroy()
         })
 
-        let qclose3 = this.add.image(canvasWidth / 2 + 190, canvasHeight / 2 + 10, "null").setScale(60, 90).setInteractive();
-        // qclose1.on("pointerdown", () => {
-        // }, this)
+        let qclose3 = this.add.image(canvasWidth / 2 + 190 - 76, canvasHeight / 2 + 10, "null").setScale(60, 90).setInteractive();
+        qclose3.on("pointerdown", () => {
+            extend_forward_speed *= 1.4
+        }, this)
         qclose3.on("pointerover", () => {
-            q3 = this.add.image(canvasWidth / 2 + 190, canvasHeight / 2 + 10, "q3").setScale(0.25);
+            q3 = this.add.image(canvasWidth / 2 + 190 - 76, canvasHeight / 2 + 10, "q3").setScale(0.25);
         })
         qclose3.on("pointerout", () => {
             q3.destroy()
         })
 
         // 关闭按钮
-        let close_key = this.add.image(canvasWidth / 2 + 250, canvasHeight / 2 - 144, "close").setScale(0.65).setInteractive()
+        let close_key = this.add.image(canvasWidth / 2 + 250 - 76, canvasHeight / 2 - 144, "close").setScale(0.65).setInteractive()
         // 关闭按钮点击事件
         close_key.setAlpha(0.01)
         close_key.on("pointerdown", () => {
