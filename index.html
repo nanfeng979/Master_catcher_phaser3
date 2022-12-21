@@ -38,5 +38,13 @@
 
     var video = document.getElementById("down");
 
+    var once = true
+    if(once) {
+        window.addEventListener('click', function() {
+            mp4.play()
+            down.play()
+        })
+    }
+
 </script>
 </html>
