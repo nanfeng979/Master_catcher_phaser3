@@ -186,6 +186,11 @@ function create ()
 {
     // 初始化
     init_gold_data()
+    if(mp4) {
+        let loadParent = mp4.parentElement
+        loadParent.removeChild(mp4)
+    }
+    
     video.play();
     globalThis.extend_forward_speed = 300// 鱼钩伸出时的速度
     // extend_forward_speed = 300

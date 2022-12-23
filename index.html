@@ -16,7 +16,7 @@
     <div id="frame" style="width: 1280px; margin: 0 auto;">
         <!-- <div id="load1" style="z-index:-10; position:absolute; width: 1280px; height: 720px; margin: 0 auto; background-image:url(./images/game_start_loading.png);"></div> -->
          <video id="down" style="z-index:-10; position: absolute;  width: 1280px; height: 720px; margin: 0 auto;" loop>
-            <source src="./images/new/gamebg3.mp4" type="video/mp4">
+            <source src="./images/new/游戏场景4.mp4" type="video/mp4">
         </video>
     </div>
     
@@ -31,6 +31,7 @@
     mp4.addEventListener("ended",function(){
         let loadParent = mp4.parentElement
         loadParent.removeChild(mp4)
+        mp4 = null
     })
 
     // let load = document.getElementById("load1")
