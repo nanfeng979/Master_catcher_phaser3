@@ -38,7 +38,16 @@ export let set_launch = new Phaser.Class({
                 jindutiao_leng1 -= 0.2
             }
             yellow1.setScale(0.6 * jindutiao_leng1, 0.6)
-            bgaudio.volume = 3 * jindutiao_leng1
+            // bgaudio.volume = 3 * jindutiao_leng1
+            var volume = 1 * jindutiao_leng1
+            if(volume < 0) {
+                volume = 0
+            }
+            if(volume > 1) {
+                volume = 1
+            }
+            mp3.volume = volume
+            console.log(volume)
         })
 
         var blue2 = this.add.image(canvasWidth / 2 + 28, canvasHeight / 2 + 17, "blue").setScale(0.6)

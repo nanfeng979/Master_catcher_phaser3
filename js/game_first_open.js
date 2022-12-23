@@ -57,7 +57,6 @@ export let game_first_open = new Phaser.Class({
         // loadParent.removeChild(load)
 
         
-        
         var mp4Timer = setInterval(function() {
             mp4.play()
             console.log(1)
@@ -78,9 +77,11 @@ export let game_first_open = new Phaser.Class({
             // if(count < endCount) {
             //     return
             // }
+            canMp3 = true;
             game_cover.destroy()
             start.destroy()
             setTimeout(function(){
+                mp3.volume = 0.6
                 _this.scene.start("game_chose_level") 
             }, 3000)
         })

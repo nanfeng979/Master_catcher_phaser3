@@ -253,10 +253,10 @@ function create ()
     xuxian_is_swinging = true // 避免在切换场景之前点击鼠标导致虚线被定住
 
     // 音频相关
-    globalThis.bgaudio =  this.sound.add("bg_audio") // 将音频设为全局变量
-    bgaudio.loop = true
-    bgaudio.play()
-    bgaudio.volume = 3 * 0.6
+    //globalThis.bgaudio =  this.sound.add("bg_audio") // 将音频设为全局变量
+    //bgaudio.loop = true
+    //bgaudio.play()
+    //bgaudio.volume = 3 * 0.6 * 0
 
     globalThis.dianjiAudio = this.sound.add("dianji_audio")
     dianjiAudio.volume = 0.6
@@ -287,7 +287,7 @@ function create ()
     return_key.on("pointerdown", () => {
         document.body.style.cursor = "url(./images/default_mouse_icon.ico), auto"
         clearInterval(set_gold_text)
-        globalThis.bgaudio.stop()  // 关闭音乐
+        //globalThis.bgaudio.stop()  // 关闭音乐
         this.scene.start("game_chose_level") // 进入关卡选择页面
     })
     // 返回键的鼠标移入事件
@@ -489,7 +489,7 @@ function create ()
 
         leave_test = function() {
             // _this.add.text(400, 200, '小鱼已收集完毕，\n3秒后离开关卡', { fontSize: '80px', fill: '#000' });
-            globalThis.bgaudio.stop() // 关闭音乐
+            //globalThis.bgaudio.stop() // 关闭音乐
             setTimeout(function() {
                 _this.add.image(canvasWidth / 2, canvasHeight / 2 ,"leave").setScale(0.8)
             }, 1000)
@@ -539,7 +539,7 @@ function create ()
     key5 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE)
     // 按ESC退出到首页
     this.input.keyboard.on('keydown-ESC', function (event) {
-        bgaudio.stop()
+        //bgaudio.stop()
         _this.scene.start("game_first_open")
     });
     

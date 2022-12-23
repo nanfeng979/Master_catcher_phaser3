@@ -19,6 +19,10 @@
             <source src="./images/new/游戏场景4.mp4" type="video/mp4">
         </video>
     </div>
+
+    <audio id="mp3" loop>
+        <source src="./media/bg.mp3" type="audio/mpeg">
+    </audio>
     
 </body>
 <script>
@@ -33,6 +37,9 @@
         loadParent.removeChild(mp4)
         mp4 = null
     })
+    globalThis.mp3 = document.getElementById("mp3")
+    
+    
 
     // let load = document.getElementById("load1")
     // load.style.left = frame.offsetLeft + "px"
@@ -40,12 +47,20 @@
     var video = document.getElementById("down");
 
     var once = true
-    if(once) {
-        window.addEventListener('click', function() {
+    globalThis.canMp3 = false
+    window.addEventListener('click', function() {
+        if(once) {
             mp4.play()
             down.play()
-        })
-    }
+            once = false
+        }
+        if(canMp3) {
+            mp3.play()
+        }
+        
+        
+    })
+    
 
 </script>
 </html>

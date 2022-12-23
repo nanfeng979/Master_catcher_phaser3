@@ -72,7 +72,7 @@ var config = {
         }
     }, // 开启物理引擎并配置
     // scene: [gaming_scene, gaming_scene_launch,  char_chose, game_first_open, game_chose_level]
-    scene: [game_first_open, gaming_scene, game_chose_level, char_chose, gaming_scene_launch, set_launch, shop_lanch]
+    scene: [game_first_open,gaming_scene,  game_chose_level, char_chose, gaming_scene_launch, set_launch, shop_lanch]
     // scene: gaming_scene
 };
 
